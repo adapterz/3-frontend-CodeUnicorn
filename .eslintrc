@@ -1,0 +1,32 @@
+{
+  "root": true,
+  "plugins": ["prettier", "@typescript-eslint"],
+  "extends": [
+    "prettier",
+    "airbnb",
+    "airbnb/hooks",
+    "prettier/react",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "import/no-unresolved": "off",
+    "end_of_line": "auto",
+    "import/extensions": [
+      "off",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never",
+        "json": "never"
+      }
+    ],
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "no-restricted-exports": ["error", { "restrictedNamedExports": ["default"] }],
+    "no-var": "error"
+  }
+}
