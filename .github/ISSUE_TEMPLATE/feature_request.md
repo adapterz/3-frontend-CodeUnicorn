@@ -2,11 +2,11 @@
 name: Feature request
 about: feature
 title: ''
-labels: ''
+labels: "frontend \U0001F9D1\U0001F3FB‍\U0001F4BB"
 assignees: YH3041
 
 ---
 
-### 설명
+### 🚀 설명
 
-### 작업내용 체크리스트
+### 📣 체크리스트
