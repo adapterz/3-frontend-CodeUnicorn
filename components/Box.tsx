@@ -1,6 +1,4 @@
-// @ts-ignore
-// eslint-disable-next-line import/no-unresolved
-import { BoxProps } from "../interface/Box.ts";
+import { BoxProps } from "../interface/box";
 
 function Box({ name }: BoxProps) {
   return <div>{name}</div>;

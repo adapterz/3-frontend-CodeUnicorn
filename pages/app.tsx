@@ -1,7 +1,5 @@
-// @ts-ignore
-import Box from "../components/Box.tsx";
-// @ts-ignore
-import { GlobalStyle } from "../styles/global-style.ts";
+import Box from "../components/Box";
+import { GlobalStyle } from "../styles/global-style";
 
 function App() {
   return (
