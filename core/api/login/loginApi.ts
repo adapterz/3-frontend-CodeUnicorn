@@ -1,5 +1,7 @@
-import axios from "axios";
 import { Cookies } from "react-cookie";
+import API_URL from "../../../util/apiUrls";
+import Methods from "../../../util/methods";
+import comonApi from "../api";
 
 const dumyUser = {
   email: "test@gmail.com",
@@ -7,17 +9,17 @@ const dumyUser = {
 };
 
 // 로그인 API 구현
-export default async function loginApi(tokenData) {
-  const { token, state } = tokenData();
+export default async function loginApi(token: string) {
   const cookies = new Cookies();
 
-  const response = await axios.post("http://localhost:3000/users/login", {
+  const response = await comonApi(Methods.POST, API_URL.LOGIN, {
     headers: {
       "Content-Type": "application/json",
-      data: { token: token, state: state },
+      data: { token: token },
     },
   });
-  response.state === 200
+
+  response.status === 200
     ? // 세션 ID 저장
       cookies.set(dumyUser.email, dumyUser.sessionId, {
         path: "/",
