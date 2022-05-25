@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   reactStrictMode: true,
 };
@@ -7,6 +8,8 @@ module.exports = {
   nextConfig,
   env: {
     NAVER_CLIENT_ID: process.env.NAVER_CLIENT_ID,
-    LOCAL_URL: process.env.LOCAL_URL,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    BASE_URL: process.env.BASE_URL,
+    LOGIN_API_URL: process.env.LOGIN_API_URL,
   },
 };

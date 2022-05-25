@@ -1,5 +1,5 @@
-export default async function googleOauth() {
-  await gapi.signin2.render("my-signin2", {
+export default function googleOauth() {
+  gapi.signin2.render("googleLogin", {
     scope: "profile email",
     width: 230,
     height: 50,

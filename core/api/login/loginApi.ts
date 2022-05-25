@@ -1,7 +1,6 @@
 import { Cookies } from "react-cookie";
-import API_URL from "../../../util/apiUrls";
-import Methods from "../../../util/methods";
-import comonApi from "../api";
+import Methods from "@/util/methods";
+import comonApi from "@/core/api/api";
 
 const dumyUser = {
   email: "test@gmail.com",
@@ -11,8 +10,7 @@ const dumyUser = {
 // 로그인 API 구현
 export default async function loginApi(token: string) {
   const cookies = new Cookies();
-
-  const response = await comonApi(Methods.POST, API_URL.LOGIN, {
+  const response = await comonApi(Methods.POST, process.env.LOGIN_API_URL, {
     headers: {
       "Content-Type": "application/json",
       data: { token: token },
