@@ -19,7 +19,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/login/Login.tsx"
+    "components/login/Login.tsx",
+    "core/api/login/naverOauth.js"
   ],
   "exclude": ["node_modules"]
 }

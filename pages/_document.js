@@ -1,4 +1,5 @@
 import Document from "next/document";
+import Head from "next/head";
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -25,6 +26,11 @@ export default class MyDocument extends Document {
               type="text/javascript"
               src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
               charSet="utf-8"
+            ></script>
+            <script
+              src="https://apis.google.com/js/platform.js?onload=renderButton"
+              async
+              defer
             ></script>
           </>
         ),
