@@ -12,10 +12,6 @@
     [
       "module-resolver",
       {
-        "root": ["."],
-        "alias": {
-          "@": "./src"
-        },
         "extensions": [".js", ".jsx", ".tsx"]
       }
     ]
