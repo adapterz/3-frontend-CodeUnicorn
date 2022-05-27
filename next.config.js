@@ -2,6 +2,14 @@
 
 const nextConfig = {
   reactStrictMode: true,
+  baseUrl: ".",
+  paths: {
+    "@/components/*": ["components/*"],
+    "@/core/*": ["core/*"],
+    "@/pages/*": ["pages/*"],
+    "@/util/*": ["util/*"],
+    "@/interface/*": ["interface/*"],
+  },
 };
 
 module.exports = {

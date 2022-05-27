@@ -16,6 +16,7 @@ export default async function loginApi(user: IUser) {
 
   if (response.status !== 200) throw new Error(response.statusText);
 
+  // TODO 추후에 header.setCookie로 수정 예정
   cookies.set(user.email, user.name, {
     path: "/",
     secure: true,
