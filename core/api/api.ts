@@ -4,7 +4,7 @@ import axios from "axios";
 export default async function comonApi(
   methods: string,
   url: string,
-  headers: object,
+  headers?: object,
 ) {
   switch (methods) {
     case "GET":
