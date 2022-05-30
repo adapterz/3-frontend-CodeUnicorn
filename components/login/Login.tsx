@@ -1,8 +1,9 @@
 import loginApi from "@/core/api/login/loginApi";
 import { signIn, useSession } from "next-auth/react";
-import { Cookies } from "react-cookie";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import styled from "styled-components";
+import { Toast } from "../Toast";
 
 const Container = styled.div`
   display: flex;
@@ -29,7 +30,7 @@ const Logo = styled.img`
 `;
 
 const Title = styled.span`
-  color: white;
+  color: ${(props) => props.color};
   padding-top: 4px;
   font-size: 20px;
   font-weight: 600;
@@ -52,20 +53,25 @@ const GoogleLogo = styled(Logo)`
 export default function Login() {
   const router = useRouter();
   const { data, status } = useSession();
-  const cookies = new Cookies();
+  const [errorMessage, setErrorMessage] = useState("");
   if (status === "authenticated") {
-    // TODO 저장되는 쿠키 key값 변경 예정
-    cookies.get("user") !== undefined ? router.push("/") : loginApi(data.user);
+    (async () => {
+      const response = await loginApi(data.user);
+      response.status === 200
+        ? router.push("/")
+        : setErrorMessage(response.statusText);
+    })();
   }
   return (
     <Container>
+      <Toast action={errorMessage === "" ? 0 : 1} title={errorMessage}></Toast>
       <NaverBtn onClick={() => signIn("naver")}>
         <Logo src="/images/naver.png" />
-        <Title>네이버 로그인</Title>
+        <Title color={"white"}>네이버 로그인</Title>
       </NaverBtn>
       <GoogleBtn onClick={() => signIn("google")}>
         <GoogleLogo src="/images/google.png" />
-        <Title style={{ color: "#4d4949" }}>Google 로그인</Title>
+        <Title color={"#4d4949"}>Google 로그인</Title>
       </GoogleBtn>
     </Container>
   );
