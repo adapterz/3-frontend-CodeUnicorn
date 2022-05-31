@@ -9,4 +9,11 @@ export const GlobalStyle = createGlobalStyle`
         border: none;
         cursor: pointer;
     }
+    a {
+        text-decoration: none;
+    }
+    .active {
+    color: white;
+    background-color: #193a90;
+  }
 `;

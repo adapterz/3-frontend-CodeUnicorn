@@ -10,7 +10,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: 70vh;
 `;
 
 const LoginLayout = styled.div`
@@ -24,9 +24,8 @@ const LoginLayout = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
+  width: 280px;
+  height: 240px;
 `;
 
 const Title = styled.span`
@@ -41,13 +40,20 @@ const NaverBtn = styled(LoginLayout)`
   margin-bottom: 10px;
 `;
 
+const NaverLogo = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+`;
+
 const GoogleBtn = styled(LoginLayout)`
   background-color: #d1cece;
 `;
 
-const GoogleLogo = styled(Logo)`
+const GoogleLogo = styled.img`
   width: 40px;
   height: 40px;
+  margin-right: 10px;
 `;
 
 export default function Login() {
@@ -65,8 +71,9 @@ export default function Login() {
   return (
     <Container>
       <Toast action={errorMessage === "" ? 0 : 1} title={errorMessage}></Toast>
+      <Logo src="/images/logo.svg"></Logo>
       <NaverBtn onClick={() => signIn("naver")}>
-        <Logo src="/images/naver.png" />
+        <NaverLogo src="/images/naver.png" />
         <Title color={"white"}>네이버 로그인</Title>
       </NaverBtn>
       <GoogleBtn onClick={() => signIn("google")}>
