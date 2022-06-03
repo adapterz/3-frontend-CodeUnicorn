@@ -21,5 +21,6 @@ module.exports = {
     GOOGLE_SECRET: process.env.GOOGLE_SECRET,
     BASE_URL: process.env.BASE_URL,
     LOGIN_API_URL: process.env.LOGIN_API_URL,
+    COURES_BY_CATAGORY_API_URL: process.env.COURES_BY_CATAGORY_API_URL,
   },
 };

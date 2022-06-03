@@ -7,8 +7,8 @@ interface IMessage {
 
 const MessageBox = styled.div<IMessage>`
   position: absolute;
-  left: 50%;
-  bottom: 20%;
+  margin: 0px auto;
+  bottom: 12rem;
   text-align: center;
   height: 50px;
   background-color: #818080;
@@ -17,6 +17,7 @@ const MessageBox = styled.div<IMessage>`
   justify-content: center;
   align-items: center;
   opacity: ${(props) => props.action};
+  transition: 1.5s opacity ease-in;
 `;
 
 const Title = styled.span`
@@ -25,16 +26,16 @@ const Title = styled.span`
   padding: 0px 20px;
 `;
 
-export function Toast({ title, action }) {
+export function Toast({ message, action }) {
   const [opacity, setOpacity] = useState(action);
   useEffect(() => {
     setTimeout(() => {
       setOpacity(0);
-    }, 2000);
+    }, 3000);
   }, []);
   return (
     <MessageBox action={opacity}>
-      <Title>{title}</Title>
+      <Title>{message}</Title>
     </MessageBox>
   );
 }
