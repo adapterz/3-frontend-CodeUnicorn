@@ -12,8 +12,4 @@ export const GlobalStyle = createGlobalStyle`
     a {
         text-decoration: none;
     }
-    .active {
-    color: white;
-    background-color: #193a90;
-  }
 `;

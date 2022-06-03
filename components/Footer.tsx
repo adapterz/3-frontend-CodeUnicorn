@@ -1,13 +1,4 @@
-import {
-  faBook,
-  faCamera,
-  faCameraRetro,
-  faF,
-  faImage,
-  faPlay,
-  faT,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaInstagram, FaFacebookF, FaYoutube, FaTwitter } from "react-icons/Fa";
 import styled from "styled-components";
 
 const Container = styled.footer`
@@ -34,8 +25,8 @@ const SnsList = styled.div`
 
   .icon {
     color: white;
-    font-size: 16px;
-    padding: 6px 10px;
+    font-size: 1.125rem;
+    padding: 8px 10px;
     border-radius: 50%;
     background-color: #c4c4c4;
     margin: 0px 8px;
@@ -59,10 +50,10 @@ function Footer() {
         <span>환불 정책</span> <span>고객센터</span>
       </Notice>
       <SnsList>
-        <FontAwesomeIcon className="icon" icon={faF} />
-        <FontAwesomeIcon className="icon" icon={faCameraRetro} />
-        <FontAwesomeIcon className="icon" icon={faT} />
-        <FontAwesomeIcon className="icon" icon={faPlay} />
+        <FaFacebookF className="icon" />
+        <FaInstagram className="icon" />
+        <FaTwitter className="icon" />
+        <FaYoutube className="icon" />
       </SnsList>
       <SiteInfo>
         대표 : 코드유니콘

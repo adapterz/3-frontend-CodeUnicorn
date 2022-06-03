@@ -54,14 +54,9 @@ const Rating = styled.p`
   padding: 0px 4px; ;
 `;
 
-function Course({
-  title,
-  catagory,
-  image,
-  totalUsers,
-  rating,
-  ratingsRate,
-}: ICourse) {
+function Course({ coures }) {
+  const { title, catagory, image, totalUsers, rating, ratingsRate }: ICourse =
+    coures;
   return (
     // TODO 추후에 링크 추가
     <Link href="#">

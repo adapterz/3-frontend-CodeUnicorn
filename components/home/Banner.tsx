@@ -42,7 +42,8 @@ const Description = styled.p`
   line-height: 140%;
 `;
 
-function Banner({ name, description, image }: IBannder) {
+function Banner({ banner }) {
+  const { name, description, image }: IBannder = banner;
   return (
     // TODO 추후에 링크 추가
     <Link href="#">

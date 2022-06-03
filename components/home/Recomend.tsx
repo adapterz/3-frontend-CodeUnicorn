@@ -115,15 +115,16 @@ const Description = styled.p`
   font-size: 20px;
 `;
 
-function Recomend({
-  catagory,
-  title,
-  instructor,
-  description,
-  image,
-  rating,
-  ratingsRate,
-}: IRecomend) {
+function Recomend({ recomendCourse }) {
+  const {
+    catagory,
+    title,
+    instructor,
+    description,
+    image,
+    rating,
+    ratingsRate,
+  }: IRecomend = recomendCourse;
   return (
     <Container>
       <FontAwesomeIcon icon={faCircleChevronLeft} className="left__arrow" />

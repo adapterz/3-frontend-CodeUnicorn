@@ -3,6 +3,7 @@ import { SessionProvider } from "next-auth/react";
 import { GlobalStyle } from "../styles/global-style";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import Footer from "@/components/Footer";
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS
 
 export default function MyApp({ Component, pageProps }) {
@@ -11,6 +12,7 @@ export default function MyApp({ Component, pageProps }) {
       <GlobalStyle />
       <Header />
       <Component {...pageProps} />
+      <Footer />
     </SessionProvider>
   );
 }

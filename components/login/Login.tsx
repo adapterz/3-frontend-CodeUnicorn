@@ -70,7 +70,10 @@ export default function Login() {
   }
   return (
     <Container>
-      <Toast action={errorMessage === "" ? 0 : 1} title={errorMessage}></Toast>
+      <Toast
+        action={errorMessage === "" ? 0 : 1}
+        message={errorMessage}
+      ></Toast>
       <Logo src="/images/logo.svg"></Logo>
       <NaverBtn onClick={() => signIn("naver")}>
         <NaverLogo src="/images/naver.png" />
