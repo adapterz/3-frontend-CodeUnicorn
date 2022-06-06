@@ -5,8 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
+  width: 300px;
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
 
   .star {
     font-size: 18px;
@@ -16,7 +18,7 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-  width: 300px;
+  max-width: 280px;
   height: 200px;
   border-radius: 20px;
   border: 1px solid gray;
@@ -37,6 +39,7 @@ const Title = styled.h2`
   font-weight: 600;
   width: 300px;
   padding: 0px 4px;
+  line-height: 1.4;
 `;
 
 const TotalUser = styled.p`

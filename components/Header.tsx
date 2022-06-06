@@ -44,8 +44,7 @@ function Header() {
         </a>
       </Link>
       <Nav>
-        {/* TODO 추후에 링크 추가 */}
-        <Link href="#">
+        <Link href="/courses">
           <a>
             <Menu>강의</Menu>
           </a>

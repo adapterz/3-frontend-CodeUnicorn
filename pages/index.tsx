@@ -1,7 +1,7 @@
-import Footer from "@/components/Footer";
 import Banner from "@/components/home/Banner";
 import Contents from "@/components/home/Contents";
 import Recomend from "@/components/home/Recomend";
+import { useState } from "react";
 
 // 더미 데이터
 const frontData = [
@@ -159,6 +159,10 @@ const banner = {
 };
 
 export default function Home() {
+  const [category, setCategory] = useState("전체");
+  function onSelect(category: string) {
+    setCategory(category);
+  }
   return (
     <>
       <Banner banner={banner} />
@@ -166,6 +170,8 @@ export default function Home() {
         frontData={frontData}
         backData={backData}
         mobileData={mobileData}
+        category={category}
+        onSelect={onSelect}
       />
       <Recomend recomendCourse={recomendCourse} />
     </>
