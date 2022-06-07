@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { ICategoryItem } from "@/interface/category";
+import Slider from "../Slider";
 
 const Container = styled.main`
   margin: 0px auto;
@@ -33,29 +34,8 @@ const Section = styled.section`
     right: 1.125rem;
   }
 
-  .left__arrow {
-    font-size: 50px;
-    color: #4e4e4e;
-    opacity: 0.5;
-    left: -25px;
-    top: 125px;
-    position: absolute;
-    cursor: pointer;
-    &:hover {
-      opacity: 0.8;
-    }
-  }
   .right__arrow {
-    font-size: 50px;
-    color: #4e4e4e;
-    opacity: 0.5;
-    right: -5px;
-    top: 125px;
-    position: absolute;
-    cursor: pointer;
-    &:hover {
-      opacity: 0.8;
-    }
+    right: -5px !important;
   }
 `;
 
@@ -83,16 +63,7 @@ function Contents({ frontData, backData, mobileData, category, onSelect }) {
       </Section>
       <Section>
         <h1>백엔드 강의</h1>
-        <CourseList>
-          <FontAwesomeIcon icon={faCircleChevronLeft} className="left__arrow" />
-          {backData.map((coures: ICategoryItem) => (
-            <Course key={coures.id} coures={coures} />
-          ))}
-          <FontAwesomeIcon
-            icon={faCircleChevronRight}
-            className="right__arrow"
-          />
-        </CourseList>
+        <Slider courses={backData} width="1200px" />
       </Section>
       <Section>
         <h1>맞춤 강의</h1>

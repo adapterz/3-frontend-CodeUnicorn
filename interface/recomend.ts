@@ -1,5 +1,5 @@
 export interface IRecomend {
-  catagory: string;
+  category: string;
   title: string;
   instructor: string;
   description: string;

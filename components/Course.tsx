@@ -24,7 +24,7 @@ const Image = styled.img`
   border: 1px solid gray;
 `;
 
-const Catagory = styled.span`
+const Category = styled.span`
   font-size: 18px;
   margin-top: 20px;
   font-weight: 400;
@@ -58,15 +58,15 @@ const Rating = styled.p`
 `;
 
 function Course({ coures }) {
-  const { title, catagory, image, totalUsers, rating, ratingsRate }: ICourse =
+  const { title, category, image, totalUsers, rating, ratingsRate }: ICourse =
     coures;
   return (
     // TODO 추후에 링크 추가
-    <Link href="#">
+    <Link href="/courses/2">
       <a>
         <Container>
           <Image src={image} />
-          <Catagory>{catagory}</Catagory>
+          <Category>{category}</Category>
           <Title>{title}</Title>
           <TotalUser>{totalUsers}명이 같이 듣고 있습니다.</TotalUser>
           <Rating>
