@@ -8,6 +8,7 @@ import {
   faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 const Container = styled.div`
   background-color: #193a91;
@@ -15,6 +16,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow: hidden;
 
   h1 {
     color: whitesmoke;
@@ -42,6 +44,7 @@ const Container = styled.div`
     top: 45%;
     position: absolute;
     cursor: pointer;
+    z-index: 2;
     &:hover {
       opacity: 0.9;
     }
@@ -50,21 +53,30 @@ const Container = styled.div`
     font-size: 50px;
     color: whitesmoke;
     opacity: 0.7;
-    right: 1%;
+    right: 2%;
     top: 45%;
     position: absolute;
     cursor: pointer;
+    z-index: 2;
     &:hover {
       opacity: 0.9;
     }
   }
 `;
 
+const SliderContainer = styled.div`
+  width: 1500px;
+  margin: 0 auto;
+  display: flex;
+`;
+
 const CourseBox = styled.div`
+  width: 1500px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   margin-bottom: 40px;
+  position: relative;
 `;
 
 const ImageBox = styled.div`
@@ -116,42 +128,64 @@ const Description = styled.p`
 `;
 
 function Recomend({ recomendCourse }) {
-  const {
-    catagory,
-    title,
-    instructor,
-    description,
-    image,
-    rating,
-    ratingsRate,
-  }: IRecomend = recomendCourse;
+  const TOTAL_SLIDES = 2;
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slideRef = useRef(null);
+
+  const nextSlide = () => {
+    currentSlide >= TOTAL_SLIDES
+      ? setCurrentSlide(0)
+      : setCurrentSlide(currentSlide + 1);
+  };
+  const backSlide = () => {
+    currentSlide === 0
+      ? setCurrentSlide(TOTAL_SLIDES)
+      : setCurrentSlide(currentSlide - 1);
+  };
+
+  useEffect(() => {
+    slideRef.current.style.transition = "all 0.5s ease-in-out";
+    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
+  }, [currentSlide]);
   return (
     <Container>
-      <FontAwesomeIcon icon={faCircleChevronLeft} className="left__arrow" />
+      <FontAwesomeIcon
+        icon={faCircleChevronLeft}
+        onClick={backSlide}
+        className="left__arrow"
+      />
       <h1>Code Unicorn 추천 교육</h1>
-      <Link href="#">
-        <a>
-          <CourseBox>
-            <ImageBox>
-              <Image src={image} />
-            </ImageBox>
-            <InfoBox>
-              <Catagory>{catagory}</Catagory>
-              <Title>{title}</Title>
-              <Instructor>
-                <FontAwesomeIcon className="userIcon" icon={faUserTie} />{" "}
-                {instructor}
-              </Instructor>
-              <Rating>
-                <FontAwesomeIcon className="star" icon={faStar} />
-                {rating} ({ratingsRate})
-              </Rating>
-              <Description>{description}</Description>
-            </InfoBox>
-          </CourseBox>
-        </a>
-      </Link>
-      <FontAwesomeIcon icon={faCircleChevronRight} className="right__arrow" />
+      <SliderContainer ref={slideRef}>
+        {recomendCourse.map((course: IRecomend) => (
+          <Link href="/courses/2">
+            <a>
+              <CourseBox>
+                <ImageBox>
+                  <Image src={course.image} />
+                </ImageBox>
+                <InfoBox>
+                  <Catagory>{course.category}</Catagory>
+                  <Title>{course.title}</Title>
+                  <Instructor>
+                    <FontAwesomeIcon className="userIcon" icon={faUserTie} />
+                    {course.instructor}
+                  </Instructor>
+                  <Rating>
+                    <FontAwesomeIcon className="star" icon={faStar} />
+                    {course.rating} ({course.ratingsRate})
+                  </Rating>
+                  <Description>{course.description}</Description>
+                </InfoBox>
+              </CourseBox>
+            </a>
+          </Link>
+        ))}
+      </SliderContainer>
+      <FontAwesomeIcon
+        icon={faCircleChevronRight}
+        onClick={nextSlide}
+        className="right__arrow"
+      />
     </Container>
   );
 }
