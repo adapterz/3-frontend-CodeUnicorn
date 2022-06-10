@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { useState } from "react";
 import styled from "styled-components";
+import { HiUserCircle } from "react-icons/hi";
 
 const Container = styled.nav`
   display: flex;
@@ -35,7 +37,16 @@ const LoginBtn = styled.button`
   cursor: pointer;
 `;
 
+const IsLoginedNav = styled.nav`
+  svg {
+    font-size: 2.4rem;
+    color: #4819ad;
+    cursor: pointer;
+  }
+`;
+
 function Header() {
+  const [isLogined, setLogined] = useState(true);
   return (
     <Container>
       <Link href="/">
@@ -43,18 +54,29 @@ function Header() {
           <Logo src="/images/logo.svg"></Logo>
         </a>
       </Link>
-      <Nav>
-        <Link href="/courses">
-          <a>
-            <Menu>강의</Menu>
-          </a>
-        </Link>
-        <Link href="/login">
-          <a>
-            <LoginBtn>로그인</LoginBtn>
-          </a>
-        </Link>
-      </Nav>
+      {isLogined === false ? (
+        <Nav>
+          <Link href="/courses">
+            <a>
+              <Menu>강의</Menu>
+            </a>
+          </Link>
+          <Link href="/login">
+            <a>
+              <LoginBtn>로그인</LoginBtn>
+            </a>
+          </Link>
+        </Nav>
+      ) : (
+        <IsLoginedNav>
+          {/* TODO 유저의 아이디를 얻는 방법? */}
+          <Link href="/users/2">
+            <a>
+              <HiUserCircle />
+            </a>
+          </Link>
+        </IsLoginedNav>
+      )}
     </Container>
   );
 }

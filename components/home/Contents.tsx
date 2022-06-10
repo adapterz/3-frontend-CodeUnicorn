@@ -1,11 +1,6 @@
 import styled from "styled-components";
 import Course from "@/components/Course";
 import Catagories from "../Catagories";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleChevronLeft,
-  faCircleChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { ICategoryItem } from "@/interface/category";
 import Slider from "../Slider";

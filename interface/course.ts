@@ -9,6 +9,7 @@ export interface ICourse {
   totalUsers: number;
   rating: number;
   ratingsRate: number;
+  instructor?: IInstructor;
 }
 
 export interface ICourseProps {

@@ -58,11 +58,18 @@ const Rating = styled.p`
 `;
 
 function Course({ coures }) {
-  const { title, category, image, totalUsers, rating, ratingsRate }: ICourse =
-    coures;
+  const {
+    id,
+    title,
+    category,
+    image,
+    totalUsers,
+    rating,
+    ratingsRate,
+  }: ICourse = coures;
   return (
     // TODO 추후에 링크 추가
-    <Link href="/courses/2">
+    <Link href={`/courses/${id}`}>
       <a>
         <Container>
           <Image src={image} />

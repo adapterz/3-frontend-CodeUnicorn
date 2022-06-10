@@ -22,7 +22,7 @@ const Container = styled.div<IContainer>`
     color: #4e4e4e;
     opacity: 0.5;
     left: -25px;
-    top: 120px;
+    top: 125px;
     position: absolute;
     cursor: pointer;
     z-index: 2;
@@ -35,7 +35,7 @@ const Container = styled.div<IContainer>`
     color: #4e4e4e;
     opacity: 0.5;
     right: -57px;
-    top: 120px;
+    top: 125px;
     position: absolute;
     cursor: pointer;
     z-index: 2;

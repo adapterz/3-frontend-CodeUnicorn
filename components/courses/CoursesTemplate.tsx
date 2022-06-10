@@ -4,6 +4,7 @@ import Course from "../Course";
 import PageBtns from "../PageBtns";
 import CoursesInfo from "./CoursesInfo";
 import { ICategoryItem } from "@/interface/category";
+import Link from "next/link";
 
 const Container = styled.div`
   width: 100%;
