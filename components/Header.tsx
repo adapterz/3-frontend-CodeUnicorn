@@ -2,6 +2,9 @@ import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 import { HiUserCircle } from "react-icons/hi";
+import { useSelector } from "react-redux";
+import { IAuth } from "slices/auth";
+import { ReducerType } from "slices";
 
 const Container = styled.nav`
   display: flex;
@@ -46,7 +49,9 @@ const IsLoginedNav = styled.nav`
 `;
 
 function Header() {
-  const [isLogined, setLogined] = useState(true);
+  const {
+    auth: { isLogined },
+  } = useSelector<ReducerType, IAuth>((state) => state);
   return (
     <Container>
       <Link href="/">
@@ -69,7 +74,6 @@ function Header() {
         </Nav>
       ) : (
         <IsLoginedNav>
-          {/* TODO 유저의 아이디를 얻는 방법? */}
           <Link href="/users/2">
             <a>
               <HiUserCircle />

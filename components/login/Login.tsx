@@ -4,13 +4,15 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import { Toast } from "../Toast";
+import { useDispatch } from "react-redux";
+import { IAuth, loginUser } from "slices/auth";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  height: 72vh;
 `;
 
 const LoginLayout = styled.div`
@@ -60,12 +62,23 @@ export default function Login() {
   const router = useRouter();
   const { data, status } = useSession();
   const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
+
   if (status === "authenticated") {
     (async () => {
       const response = await loginApi(data.user);
-      response.status === 200
-        ? router.push("/")
-        : setErrorMessage(response.statusText);
+      if (response.status === 200) {
+        dispatch(
+          loginUser({
+            isLogined: true,
+            userId: response.data.id,
+            image: response.data.image,
+          } as IAuth),
+        );
+        // router.push("/");
+      } else {
+        setErrorMessage(response.statusText);
+      }
     })();
   }
   return (

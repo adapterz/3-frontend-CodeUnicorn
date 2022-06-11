@@ -6,8 +6,8 @@ interface IMessage {
 }
 
 const MessageBox = styled.div<IMessage>`
-  position: absolute;
-  margin: 0px auto;
+  position: fixed;
+  left: 45%;
   bottom: 12rem;
   text-align: center;
   height: 50px;

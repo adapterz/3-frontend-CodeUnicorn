@@ -1,9 +1,11 @@
 import Player from "@/components/player/Player";
 import { Toast } from "@/components/Toast";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { ReducerType } from "slices";
+import { IAuth } from "slices/auth";
 
 const Container = styled.div`
   position: absolute;
@@ -244,31 +246,41 @@ const lectures = [
   },
 ];
 
+const initalLecture = {
+  id: 1,
+  name: "컴퓨터란?",
+  desc: "",
+  videoUrl:
+    "https://www.youtube.com/embed/05uFo_-SGXU?list=PLZKTXPmaJk8J_fHAzPLH8CJ_HO_M33e7-",
+  playTime: "03:24",
+};
+
 function lecture() {
-  const { query } = useRouter();
-  const [lecture, setLecture] = useState({
-    id: 1,
-    name: "컴퓨터란?",
-    desc: "",
-    videoUrl:
-      "https://www.youtube.com/embed/05uFo_-SGXU?list=PLZKTXPmaJk8J_fHAzPLH8CJ_HO_M33e7-",
-    playTime: "03:24",
-  });
+  const router = useRouter();
+  const {
+    auth: { isLogined },
+  } = useSelector<ReducerType, IAuth>((state) => state);
+  const [errorMessage, setErrorMessage] =
+    useState<string>("로그인 상태가 아닙니다.");
+  const [lecture, setLecture] = useState<{}>(initalLecture);
   useEffect(() => {
-    try {
-      lectures.filter((lecture) =>
-        lecture.id === Number(query.lecture)
-          ? setLecture({ ...lecture })
-          : // TODO API 요청 실패시 Toast에 setError
-            null,
-      );
-    } catch (e) {
-      <Toast message={e} action={1} />;
-    }
-  }, [query.lecture]);
+    isLogined === true
+      ? lectures.filter((lecture) =>
+          lecture.id === Number(router.query.lecture)
+            ? setLecture({ ...lecture })
+            : // TODO API 요청 실패시 Toast에 setError
+              null,
+        )
+      : router.push("/");
+  }, [router.query.lecture]);
   return (
+    // TODO 토스트 메시지 글로벌 상태 관리로 변경 후 권한이 없는 페이지에 들어갔을 떄 새로운 페이지 띄워주고 Home, Login 화면으로 이동할 수 있도록 만들기
     <Container>
-      <Player course={course} section={dumySection} lecture={lecture} />
+      {isLogined === true ? (
+        <Player course={course} section={dumySection} lecture={lecture} />
+      ) : (
+        errorMessage !== "" && <Toast message={errorMessage} action={1} />
+      )}
     </Container>
   );
 }

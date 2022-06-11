@@ -8,7 +8,7 @@ const Container = styled.footer`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 260px;
+  height: 270px;
   background-color: #f4f4f4;
 `;
 
