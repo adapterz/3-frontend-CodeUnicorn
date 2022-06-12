@@ -1,4 +1,4 @@
-import { FaInstagram, FaFacebookF, FaYoutube, FaTwitter } from "react-icons/Fa";
+import { FaInstagram, FaFacebookF, FaYoutube, FaTwitter } from "react-icons/fa";
 import styled from "styled-components";
 
 const Container = styled.footer`

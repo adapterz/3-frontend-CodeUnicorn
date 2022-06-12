@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { useState } from "react";
 import styled from "styled-components";
 import { HiUserCircle } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { IAuth } from "slices/auth";
-import { ReducerType } from "slices";
+import { AuthReducerType } from "slices";
 
 const Container = styled.nav`
   display: flex;
@@ -51,7 +50,7 @@ const IsLoginedNav = styled.nav`
 function Header() {
   const {
     auth: { isLogined },
-  } = useSelector<ReducerType, IAuth>((state) => state);
+  } = useSelector<AuthReducerType, IAuth>((state) => state);
   return (
     <Container>
       <Link href="/">
@@ -59,7 +58,15 @@ function Header() {
           <Logo src="/images/logo.svg"></Logo>
         </a>
       </Link>
-      {isLogined === false ? (
+      {isLogined === true ? (
+        <IsLoginedNav>
+          <Link href="/users/2">
+            <a>
+              <HiUserCircle />
+            </a>
+          </Link>
+        </IsLoginedNav>
+      ) : (
         <Nav>
           <Link href="/courses">
             <a>
@@ -72,14 +79,6 @@ function Header() {
             </a>
           </Link>
         </Nav>
-      ) : (
-        <IsLoginedNav>
-          <Link href="/users/2">
-            <a>
-              <HiUserCircle />
-            </a>
-          </Link>
-        </IsLoginedNav>
       )}
     </Container>
   );

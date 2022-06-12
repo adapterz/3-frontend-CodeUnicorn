@@ -13,4 +13,7 @@ export default nextAuth({
       clientSecret: process.env.NAVER_SECRET,
     }),
   ],
+  session: {
+    maxAge: 24 * 60 * 60,
+  },
 });

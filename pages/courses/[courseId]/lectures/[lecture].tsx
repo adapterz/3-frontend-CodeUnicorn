@@ -1,11 +1,12 @@
 import Player from "@/components/player/Player";
-import { Toast } from "@/components/Toast";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-import { ReducerType } from "slices";
+import { useSelector, useDispatch } from "react-redux";
+import { AuthReducerType, ToastReducerType } from "slices";
 import { IAuth } from "slices/auth";
+import { setMessage, ToastType } from "slices/toast";
+import Auth from "@/components/Auth";
 
 const Container = styled.div`
   position: absolute;
@@ -257,29 +258,33 @@ const initalLecture = {
 
 function lecture() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const {
     auth: { isLogined },
-  } = useSelector<ReducerType, IAuth>((state) => state);
-  const [errorMessage, setErrorMessage] =
-    useState<string>("로그인 상태가 아닙니다.");
+  } = useSelector<AuthReducerType, IAuth>((state) => state);
   const [lecture, setLecture] = useState<{}>(initalLecture);
   useEffect(() => {
     isLogined === true
       ? lectures.filter((lecture) =>
           lecture.id === Number(router.query.lecture)
             ? setLecture({ ...lecture })
-            : // TODO API 요청 실패시 Toast에 setError
-              null,
+            : // TODO API 요청 실패시 Toast에 response.setError 설정
+              dispatch(
+                setMessage({
+                  message: "API 요청 실패",
+                } as ToastType),
+              ),
         )
-      : router.push("/");
+      : dispatch(
+          setMessage({ message: "로그인 후 접근할 수 있습니다." } as ToastType),
+        );
   }, [router.query.lecture]);
   return (
-    // TODO 토스트 메시지 글로벌 상태 관리로 변경 후 권한이 없는 페이지에 들어갔을 떄 새로운 페이지 띄워주고 Home, Login 화면으로 이동할 수 있도록 만들기
     <Container>
       {isLogined === true ? (
         <Player course={course} section={dumySection} lecture={lecture} />
       ) : (
-        errorMessage !== "" && <Toast message={errorMessage} action={1} />
+        <Auth />
       )}
     </Container>
   );

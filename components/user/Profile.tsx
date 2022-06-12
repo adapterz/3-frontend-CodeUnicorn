@@ -144,7 +144,7 @@ const Profile = () => {
             maxLength={8}
           />
         </NameBox>
-        <SaveBtn>저장</SaveBtn>
+        <SaveBtn type="submit">저장</SaveBtn>
       </InfoBox>
       <Title>회원탈퇴</Title>
       <AgreeInfoBox>
