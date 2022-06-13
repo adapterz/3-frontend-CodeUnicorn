@@ -3,6 +3,7 @@ import Curriculum from "@/components/course/Curriculum";
 import Introduction from "@/components/course/Introduction";
 import Recomend from "@/components/course/Recomend";
 import { ICourse } from "@/interface/course";
+import { NextSeo } from "next-seo";
 
 // 더미데이터
 const dumyCourseDetail: ICourse = {
@@ -214,6 +215,10 @@ const frontData = [
 function course() {
   return (
     <>
+      <NextSeo
+        title="전체 강의"
+        description="프론트엔드, 백엔드, 게임 개발 등 다양한 카테고리의 전체 강의"
+      ></NextSeo>
       <CourseInfo course={dumyCourseDetail} instructor={dumyInstructor} />
       <Introduction course={dumyCourseDetail} instructor={dumyInstructor} />
       <Curriculum section={dumySection} />

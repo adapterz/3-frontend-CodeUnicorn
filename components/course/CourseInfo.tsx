@@ -139,7 +139,6 @@ const Title = styled.h1`
 
 function CourseInfo({ course, instructor }: ICourseProps) {
   const { query } = useRouter();
-  console.log(query);
   return (
     <Container>
       <TopBox>
@@ -154,7 +153,11 @@ function CourseInfo({ course, instructor }: ICourseProps) {
         <RightBox>
           <BtnBox>
             <LikeBtn>관심 교육 등록</LikeBtn>
-            <LearnBtn>바로 학습하기</LearnBtn>
+            <Link href={`/courses/${query.courseId}/lectures/1`}>
+              <a>
+                <LearnBtn>바로 학습하기</LearnBtn>
+              </a>
+            </Link>
           </BtnBox>
           <InfoBox>
             <h3>교육정보</h3>

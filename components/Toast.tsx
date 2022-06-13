@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
@@ -29,7 +28,7 @@ const MessageBox = styled.div<IMessage>`
   align-items: center;
   opacity: ${(props) => props.action};
   transition: 1.2s opacity ease-in;
-  z-index: 3;
+  z-index: 9999;
 `;
 
 const Title = styled.span`

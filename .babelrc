@@ -1,5 +1,9 @@
 {
   "presets": ["next/babel"],
+  "env": {
+    // production에서 console.log 보이지 않도록 설정
+    "production": { "plugins": ["batransform-remove-console"] }
+  },
   "plugins": [
     [
       "styled-components",

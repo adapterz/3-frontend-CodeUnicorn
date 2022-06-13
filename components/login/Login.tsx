@@ -61,8 +61,6 @@ export default function Login() {
   const router = useRouter();
   const { data, status } = useSession();
   const dispatch = useDispatch();
-  console.log(data);
-  console.log(status);
 
   if (status === "authenticated") {
     (async () => {

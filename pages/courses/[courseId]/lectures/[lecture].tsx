@@ -268,7 +268,7 @@ function lecture() {
       ? lectures.filter((lecture) =>
           lecture.id === Number(router.query.lecture)
             ? setLecture({ ...lecture })
-            : // TODO API 요청 실패시 Toast에 response.setError 설정
+            : // TODO API로 변경 후 요청 실패시 Toast에 response.setError 설정
               dispatch(
                 setMessage({
                   message: "API 요청 실패",
