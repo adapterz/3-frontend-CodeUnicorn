@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/Ri";
+import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 import { IPageBtn } from "@/interface/pageBtn";
 
 const Container = styled.div`

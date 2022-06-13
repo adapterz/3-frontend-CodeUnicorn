@@ -3,6 +3,7 @@ import { AiFillStar } from "react-icons/ai";
 import { MdPerson, MdPlayArrow, MdOutlineAccessTime } from "react-icons/md";
 import { ICourseProps } from "@/interface/course";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Container = styled.div`
   width: 850px;
@@ -137,10 +138,11 @@ const Title = styled.h1`
 `;
 
 function CourseInfo({ course, instructor }: ICourseProps) {
+  const { query } = useRouter();
   return (
     <Container>
       <TopBox>
-        <Link href="">
+        <Link href={`/courses/${query.courseId}/lectures/1`}>
           <a>
             <ImageBox>
               <MdPlayArrow />
@@ -151,7 +153,11 @@ function CourseInfo({ course, instructor }: ICourseProps) {
         <RightBox>
           <BtnBox>
             <LikeBtn>관심 교육 등록</LikeBtn>
-            <LearnBtn>바로 학습하기</LearnBtn>
+            <Link href={`/courses/${query.courseId}/lectures/1`}>
+              <a>
+                <LearnBtn>바로 학습하기</LearnBtn>
+              </a>
+            </Link>
           </BtnBox>
           <InfoBox>
             <h3>교육정보</h3>

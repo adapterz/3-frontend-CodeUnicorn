@@ -1,16 +1,17 @@
 import loginApi from "@/core/api/login/loginApi";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import styled from "styled-components";
-import { Toast } from "../Toast";
+import { useDispatch } from "react-redux";
+import { IAuth, loginUser } from "slices/auth";
+import { setMessage, ToastType } from "slices/toast";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  height: 72vh;
 `;
 
 const LoginLayout = styled.div`
@@ -59,21 +60,27 @@ const GoogleLogo = styled.img`
 export default function Login() {
   const router = useRouter();
   const { data, status } = useSession();
-  const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
+
   if (status === "authenticated") {
     (async () => {
       const response = await loginApi(data.user);
-      response.status === 200
-        ? router.push("/")
-        : setErrorMessage(response.statusText);
+      if (response.status === 200) {
+        dispatch(
+          loginUser({
+            isLogined: true,
+            userId: response.data.id,
+            image: response.data.image,
+          } as IAuth),
+        );
+        router.push("/");
+      } else {
+        dispatch(setMessage({ message: response.statusText } as ToastType));
+      }
     })();
   }
   return (
     <Container>
-      <Toast
-        action={errorMessage === "" ? 0 : 1}
-        message={errorMessage}
-      ></Toast>
       <Logo src="/images/logo.svg"></Logo>
       <NaverBtn onClick={() => signIn("naver")}>
         <NaverLogo src="/images/naver.png" />

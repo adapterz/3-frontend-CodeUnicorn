@@ -1,5 +1,9 @@
 import Link from "next/link";
 import styled from "styled-components";
+import { HiUserCircle } from "react-icons/hi";
+import { useSelector } from "react-redux";
+import { IAuth } from "slices/auth";
+import { AuthReducerType } from "slices";
 
 const Container = styled.nav`
   display: flex;
@@ -35,7 +39,18 @@ const LoginBtn = styled.button`
   cursor: pointer;
 `;
 
+const IsLoginedNav = styled.nav`
+  svg {
+    font-size: 2.4rem;
+    color: #4819ad;
+    cursor: pointer;
+  }
+`;
+
 function Header() {
+  const {
+    auth: { isLogined },
+  } = useSelector<AuthReducerType, IAuth>((state) => state);
   return (
     <Container>
       <Link href="/">
@@ -43,18 +58,28 @@ function Header() {
           <Logo src="/images/logo.svg"></Logo>
         </a>
       </Link>
-      <Nav>
-        <Link href="/courses">
-          <a>
-            <Menu>강의</Menu>
-          </a>
-        </Link>
-        <Link href="/login">
-          <a>
-            <LoginBtn>로그인</LoginBtn>
-          </a>
-        </Link>
-      </Nav>
+      {isLogined === true ? (
+        <IsLoginedNav>
+          <Link href="/users/2">
+            <a>
+              <HiUserCircle />
+            </a>
+          </Link>
+        </IsLoginedNav>
+      ) : (
+        <Nav>
+          <Link href="/courses">
+            <a>
+              <Menu>강의</Menu>
+            </a>
+          </Link>
+          <Link href="/login">
+            <a>
+              <LoginBtn>로그인</LoginBtn>
+            </a>
+          </Link>
+        </Nav>
+      )}
     </Container>
   );
 }

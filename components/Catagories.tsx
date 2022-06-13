@@ -1,4 +1,3 @@
-import { useCallback, useState } from "react";
 import styled, { css } from "styled-components";
 import { ICategory } from "@/interface/category";
 
