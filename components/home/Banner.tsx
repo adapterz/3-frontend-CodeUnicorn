@@ -3,21 +3,19 @@ import { IBannder } from "@/interface/banner";
 import Link from "next/link";
 
 const Container = styled.div`
-  height: 40vh;
+  height: 400px;
   border-bottom: 1px solid gray;
   position: relative;
   background-color: #2b3d55;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 40vh;
+  display: flex;
 `;
 
 const BannerInfoBox = styled.div`
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
 `;
 
 const BackImage = styled.img`

@@ -1,13 +1,14 @@
-import { FaInstagram, FaFacebookF, FaYoutube, FaTwitter } from "react-icons/Fa";
+import { FaInstagram, FaFacebookF, FaYoutube, FaTwitter } from "react-icons/fa";
 import styled from "styled-components";
 
 const Container = styled.footer`
+  width: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 300px;
+  height: 270px;
   background-color: #f4f4f4;
 `;
 
@@ -17,6 +18,7 @@ const Notice = styled.div`
     opacity: 0.6;
     margin: 0px 20px;
   }
+  margin-top: 10px;
   margin-bottom: 30px;
 `;
 
