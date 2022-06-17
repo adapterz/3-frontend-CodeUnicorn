@@ -2,8 +2,8 @@ import styled from "styled-components";
 import Course from "@/components/Course";
 import Catagories from "../Catagories";
 import Link from "next/link";
-import { ICategoryItem } from "@/interface/category";
 import Slider from "../Slider";
+import { CourseTypes } from "@/interface/course";
 
 const Container = styled.main`
   margin: 0px auto;
@@ -40,7 +40,19 @@ const CourseList = styled.div`
   justify-content: space-between;
 `;
 
-function Contents({ frontData, backData, mobileData, category, onSelect }) {
+type ContentsProps = {
+  courses: CourseTypes[];
+  category: string;
+  categoryCourses: CourseTypes[];
+  onSelect: (category: string) => void;
+};
+
+function Contents({
+  courses,
+  category,
+  categoryCourses,
+  onSelect,
+}: ContentsProps) {
   return (
     <Container>
       <Section>
@@ -51,21 +63,24 @@ function Contents({ frontData, backData, mobileData, category, onSelect }) {
           </a>
         </Link>
         <CourseList>
-          {frontData.map((coures: ICategoryItem) => (
-            <Course key={coures.id} coures={coures} />
-          ))}
+          {courses
+            .filter((course: CourseTypes) => course.category === "프론트엔드")
+            .slice(0, 4)
+            .map((course: CourseTypes) => (
+              <Course key={course.id} course={course} />
+            ))}
         </CourseList>
       </Section>
       <Section>
         <h1>백엔드 강의</h1>
-        <Slider courses={backData} width="1200px" />
+        <Slider courses={courses} width="1200px" />
       </Section>
       <Section>
         <h1>맞춤 강의</h1>
         <Catagories category={category} onSelect={onSelect} />
         <CourseList>
-          {mobileData.map((coures: ICategoryItem) => (
-            <Course key={coures.id} coures={coures} />
+          {categoryCourses.map((coures: CourseTypes) => (
+            <Course key={coures.id} course={coures} />
           ))}
         </CourseList>
       </Section>

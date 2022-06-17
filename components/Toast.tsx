@@ -18,7 +18,7 @@ const Container = styled.div`
 
 const MessageBox = styled.div<IMessage>`
   position: fixed;
-  bottom: 12rem;
+  bottom: 11rem;
   text-align: center;
   height: 50px;
   background-color: #818080;
@@ -41,15 +41,19 @@ const Toast: React.FC = () => {
   const [show, setShow] = useState(false);
   const { toast } = useSelector<ToastReducerType, ToastType>((state) => state);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (toast.message !== "") {
       setShow(true);
       setTimeout(() => {
         setShow(false);
-        dispatch(setMessage({ message: "" } as ToastType));
       }, 3000);
+      return () => {
+        dispatch(setMessage({ message: "" } as ToastType));
+      };
     }
   }, [toast.message]);
+
   return (
     <Container>
       <MessageBox action={show === true ? 1 : 0}>

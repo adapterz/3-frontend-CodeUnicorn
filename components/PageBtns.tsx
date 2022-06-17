@@ -31,21 +31,28 @@ const Page = styled.span<IPageBtn>`
     `}
 `;
 
-function PageBtns({ page, onSelect, onIncresive, onDecresive }) {
+function PageBtns({
+  currentPage,
+  maxPage,
+  onSelect,
+  onIncresive,
+  onDecresive,
+}) {
   return (
     <Container>
       <RiArrowLeftSLine onClick={onDecresive} />
-      <Page active={1 === page} onClick={() => onSelect(1)}>
-        1
-      </Page>
-      <Page active={2 === page} onClick={() => onSelect(2)}>
-        2
-      </Page>
+      {maxPage.map((page) => (
+        <Page
+          key={page}
+          active={page === currentPage}
+          onClick={() => onSelect(page)}
+        >
+          {page}
+        </Page>
+      ))}
       <RiArrowRightSLine onClick={onIncresive} />
     </Container>
   );
 }
 
 export default PageBtns;
-
-// TODO 마지막 점검 후 PR 하면될듯!!!!!!!

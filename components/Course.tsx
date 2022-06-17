@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ICourse } from "@/interface/course";
+import { CourseProps, CourseTypes } from "@/interface/course";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -22,6 +22,9 @@ const Image = styled.img`
   height: 200px;
   border-radius: 20px;
   border: 1px solid gray;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const Category = styled.span`
@@ -37,7 +40,7 @@ const Title = styled.h2`
   font-size: 20px;
   color: black;
   font-weight: 600;
-  width: 300px;
+  width: 280px;
   padding: 0px 4px;
   line-height: 1.4;
 `;
@@ -57,32 +60,35 @@ const Rating = styled.p`
   padding: 0px 4px; ;
 `;
 
-function Course({ coures }) {
+function Course({ course }: CourseProps) {
   const {
     id,
-    title,
+    name,
     category,
-    image,
-    totalUsers,
-    rating,
-    ratingsRate,
-  }: ICourse = coures;
+    imagePath,
+    userCount,
+    averageRatings,
+    ratingsCount,
+  }: CourseTypes = course;
   return (
-    // TODO 추후에 링크 추가
-    <Link href={`/courses/${id}`}>
-      <a>
-        <Container>
-          <Image src={image} />
-          <Category>{category}</Category>
-          <Title>{title}</Title>
-          <TotalUser>{totalUsers}명이 같이 듣고 있습니다.</TotalUser>
-          <Rating>
-            <FontAwesomeIcon className="star" icon={faStar} />
-            {rating} ({ratingsRate})
-          </Rating>
-        </Container>
-      </a>
-    </Link>
+    <Container>
+      <Link key={course.id} href={`/courses/${id}`}>
+        <a>
+          <Image src={imagePath} />
+        </a>
+      </Link>
+      <Category>{category}</Category>
+      <Link key={course.name} href={`/courses/${id}`}>
+        <a>
+          <Title>{name}</Title>
+        </a>
+      </Link>
+      <TotalUser>{userCount}명이 같이 듣고 있습니다.</TotalUser>
+      <Rating>
+        <FontAwesomeIcon className="star" icon={faStar} />
+        {averageRatings} ({ratingsCount})
+      </Rating>
+    </Container>
   );
 }
 

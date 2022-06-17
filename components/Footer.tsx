@@ -2,7 +2,7 @@ import { FaInstagram, FaFacebookF, FaYoutube, FaTwitter } from "react-icons/fa";
 import styled from "styled-components";
 
 const Container = styled.footer`
-  width: 100%;
+  min-width: 1200px;
   text-align: center;
   display: flex;
   flex-direction: column;

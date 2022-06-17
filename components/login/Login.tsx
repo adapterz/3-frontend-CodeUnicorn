@@ -2,9 +2,10 @@ import loginApi from "@/core/api/login/loginApi";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IAuth, loginUser } from "slices/auth";
 import { setMessage, ToastType } from "slices/toast";
+import { AuthReducerType } from "slices";
 
 const Container = styled.div`
   display: flex;
@@ -58,19 +59,24 @@ const GoogleLogo = styled.img`
 `;
 
 export default function Login() {
-  const router = useRouter();
   const { data, status } = useSession();
+  const router = useRouter();
+  const {
+    auth: { isLogined },
+  } = useSelector<AuthReducerType, IAuth>((state) => state);
   const dispatch = useDispatch();
 
-  if (status === "authenticated") {
+  if (isLogined === false && status === "authenticated") {
     (async () => {
       const response = await loginApi(data.user);
+
       if (response.status === 200) {
         dispatch(
           loginUser({
             isLogined: true,
-            userId: response.data.id,
-            image: response.data.image,
+            userId: response.data.data.id,
+            userName: response.data.data.nickname,
+            image: response.data.data.profilePath,
           } as IAuth),
         );
         router.push("/");
@@ -79,6 +85,7 @@ export default function Login() {
       }
     })();
   }
+
   return (
     <Container>
       <Logo src="/images/logo.svg"></Logo>

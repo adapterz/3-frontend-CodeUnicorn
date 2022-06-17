@@ -1,5 +1,7 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setMessage, ToastType } from "slices/toast";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -9,6 +11,11 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 72vh;
+
+  h2 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
 `;
 
 const Title = styled.h1`
@@ -25,12 +32,19 @@ const BackBtn = styled.button`
 `;
 
 const Auth: React.FC = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(
+      setMessage({ message: "로그인 후 접근할 수 있습니다." } as ToastType),
+    );
+  }, []);
   return (
     <Container>
-      <Title>접근 권한이 없는 페이지 입니다.</Title>
-      <Link href="/">
+      <Title>로그인 후 이용할 수 있는 서비스 입니다.</Title>
+      <h2>로그인 or 회원가입 화면으로 이동하시겠습니까?</h2>
+      <Link href="/login">
         <a>
-          <BackBtn>Home 화면</BackBtn>
+          <BackBtn>Login 화면</BackBtn>
         </a>
       </Link>
     </Container>
