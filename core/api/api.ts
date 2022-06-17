@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// TODO 공통으로 들어가는 header 값 보완 예정
 export default async function comonApi(
   methods: string,
   url: string,

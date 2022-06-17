@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import { ICourseProps } from "@/interface/course";
 import Link from "next/link";
 
 const Container = styled.header`
   width: 100%;
-  height: 10%;
+  height: 12%;
   display: flex;
   align-items: center;
   background-color: #333333;
@@ -48,13 +47,12 @@ const InfoBox = styled.div`
   }
 
   .name {
-    margin-top: 4px;
     color: whitesmoke;
     font-weight: 400;
   }
 `;
 
-function Header({ course }: ICourseProps) {
+function Header({ courseDetail, instructor }) {
   return (
     <Container>
       <Link href="/">
@@ -65,12 +63,12 @@ function Header({ course }: ICourseProps) {
         </a>
       </Link>
       <TitleBox>
-        <h3 className="category">{course.category}</h3>
-        <h1 className="title">{course.title}</h1>
+        <h3 className="category">{courseDetail.category}</h3>
+        <h1 className="title">{courseDetail.name}</h1>
       </TitleBox>
       <InfoBox>
-        <img className="image" src={course.instructor.image} />
-        <span className="name">{course.instructor.name}</span>
+        <img className="image" src={instructor.profilePath} />
+        <span className="name">{instructor.name}</span>
       </InfoBox>
     </Container>
   );

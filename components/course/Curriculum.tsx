@@ -63,6 +63,8 @@ const Lecture = styled.div`
   }
 
   .play__time {
+    text-align: center;
+    min-width: 70px;
     padding: 12px 12px;
   }
 
@@ -71,27 +73,33 @@ const Lecture = styled.div`
   }
 `;
 
-function Curriculum({ section }) {
+function Curriculum({ curriculum }) {
   return (
-    <Container>
-      <h1>커리큘럼</h1>
-      {section.map((section: ISection) => (
-        <Section key={section.name}>
-          <SectionInfo>
-            <h2 className="section__name">{section.name}</h2>
-            <span className="section__lecture">{section.lectureCount}강</span>
-            <span className="section__time">{section.totalHours}</span>
-          </SectionInfo>
-          {section.lectures.map((lecture: ILecture) => (
-            <Lecture key={lecture.name}>
-              <h3 className="lecture__name">{lecture.name}</h3>
-              <MdTimer />
-              <span className="play__time">{lecture.playTime}</span>
-            </Lecture>
+    <>
+      {curriculum && (
+        <Container>
+          <h1>커리큘럼</h1>
+          {curriculum.map((section: ISection) => (
+            <Section key={section.name}>
+              <SectionInfo>
+                <h2 className="section__name">{section.name}</h2>
+                <span className="section__lecture">
+                  {section.lectureCount}강
+                </span>
+                <span className="section__time">{section.totalHours}</span>
+              </SectionInfo>
+              {section.lectures.map((lecture: ILecture) => (
+                <Lecture key={lecture.name}>
+                  <h3 className="lecture__name">{lecture.name}</h3>
+                  <MdTimer />
+                  <span className="play__time">{lecture.playTime}</span>
+                </Lecture>
+              ))}
+            </Section>
           ))}
-        </Section>
-      ))}
-    </Container>
+        </Container>
+      )}
+    </>
   );
 }
 

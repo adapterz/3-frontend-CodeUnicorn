@@ -2,13 +2,13 @@ import styled, { css } from "styled-components";
 import { ICategory } from "@/interface/category";
 
 const categories = [
-  { name: "전체" },
-  { name: "프론트엔드" },
-  { name: "백엔드" },
-  { name: "모바일" },
-  { name: "프로그래밍 언어" },
-  { name: "알고리즘" },
-  { name: "게임 개발" },
+  { key: "all", name: "전체" },
+  { key: "frontend", name: "프론트엔드" },
+  { key: "backend", name: "백엔드" },
+  { key: "mobile", name: "모바일" },
+  { key: "language", name: "프로그래밍 언어" },
+  { key: "algorithm", name: "알고리즘" },
+  { key: "database", name: "데이터베이스" },
 ];
 
 const Container = styled.div``;
@@ -33,9 +33,9 @@ function Catagories({ category, onSelect }) {
     <Container>
       {categories.map((c) => (
         <Catagory
-          key={c.name}
-          active={category === c.name}
-          onClick={() => onSelect(c.name)}
+          key={c.key}
+          active={category === c.key}
+          onClick={() => onSelect(c.key)}
         >
           {c.name}
         </Catagory>

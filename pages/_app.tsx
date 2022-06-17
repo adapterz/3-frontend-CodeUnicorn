@@ -11,6 +11,7 @@ import rootReducer from "../slices";
 import Toast from "@/components/Toast";
 import { DefaultSeo } from "next-seo";
 import { DEFAULT_SEO } from "../config/seo";
+import Head from "next/head";
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS
 
 const store = createStore(rootReducer, composeWithDevTools());
@@ -19,6 +20,9 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>
+        <Head>
+          <link rel="icon" type="image/png" href="/favicon.svg" />
+        </Head>
         <GlobalStyle />
         <DefaultSeo {...DEFAULT_SEO} />
         <Toast />

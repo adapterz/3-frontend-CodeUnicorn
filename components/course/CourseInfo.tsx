@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { MdPerson, MdPlayArrow, MdOutlineAccessTime } from "react-icons/md";
-import { ICourseProps } from "@/interface/course";
+import { CourseTypes } from "@/interface/course";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -137,54 +137,65 @@ const Title = styled.h1`
   margin-bottom: 30px;
 `;
 
-function CourseInfo({ course, instructor }: ICourseProps) {
+type CourseInfoProps = {
+  courseDetail: CourseTypes;
+  onLike: () => void;
+};
+
+function CourseInfo({ courseDetail, instructor, onLike }) {
   const { query } = useRouter();
   return (
     <Container>
-      <TopBox>
-        <Link href={`/courses/${query.courseId}/lectures/1`}>
-          <a>
-            <ImageBox>
-              <MdPlayArrow />
-              <img className="image" src={course.image} />
-            </ImageBox>
-          </a>
-        </Link>
-        <RightBox>
-          <BtnBox>
-            <LikeBtn>관심 교육 등록</LikeBtn>
+      {courseDetail && (
+        <>
+          <TopBox>
             <Link href={`/courses/${query.courseId}/lectures/1`}>
               <a>
-                <LearnBtn>바로 학습하기</LearnBtn>
+                <ImageBox>
+                  <MdPlayArrow />
+                  <img className="image" src={courseDetail.imagePath} />
+                </ImageBox>
               </a>
             </Link>
-          </BtnBox>
-          <InfoBox>
-            <h3>교육정보</h3>
-            <Info>
-              <AiFillStar className="star" />
-              <span>
-                ({course.rating})&nbsp;{course.ratingsRate}개의 수강평
-              </span>
-            </Info>
-            <Info>
-              <MdPerson className="person"></MdPerson>
-              <span>{instructor.name}</span>
-            </Info>
-            <Info>
-              <MdOutlineAccessTime />
-              <span>총 12개 교육(5시간20분)</span>
-            </Info>
-            <span className="totalUsers">
-              현재 {course.totalUsers}명이 수강하고 있습니다.
-            </span>
-          </InfoBox>
-        </RightBox>
-      </TopBox>
-      <BottomBox>
-        <Category>{course.category}</Category>
-        <Title>{course.title}</Title>
-      </BottomBox>
+            <RightBox>
+              <BtnBox>
+                <LikeBtn onClick={onLike}>관심 교육 등록</LikeBtn>
+                <Link href={`/courses/${query.courseId}/lectures/1`}>
+                  <a>
+                    <LearnBtn>바로 학습하기</LearnBtn>
+                  </a>
+                </Link>
+              </BtnBox>
+              <InfoBox>
+                <h3>교육정보</h3>
+                <Info>
+                  <AiFillStar className="star" />
+                  <span>
+                    ({courseDetail.averageRatings})&nbsp;
+                    {courseDetail.ratingsCount}
+                    개의 수강평
+                  </span>
+                </Info>
+                <Info>
+                  <MdPerson className="person"></MdPerson>
+                  <span>{instructor.name}</span>
+                </Info>
+                <Info>
+                  <MdOutlineAccessTime />
+                  <span>총 12개 교육({courseDetail.totalHours})</span>
+                </Info>
+                <span className="totalUsers">
+                  현재 {courseDetail.userCount}명이 수강하고 있습니다.
+                </span>
+              </InfoBox>
+            </RightBox>
+          </TopBox>
+          <BottomBox>
+            <Category>{courseDetail.category}</Category>
+            <Title>{courseDetail.name}</Title>
+          </BottomBox>
+        </>
+      )}
     </Container>
   );
 }

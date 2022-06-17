@@ -5,17 +5,26 @@ import { useRouter } from "next/router";
 
 const Container = styled.div`
   width: 50%;
+  height: 100%;
   padding: 0px 20px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
   overflow-y: scroll;
 `;
 
+const InnerContainer = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
 const Section = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   &:first-child {
     margin-top: 40px;
+  }
+  &:last-child {
+    padding-bottom: 40px;
   }
 `;
 
@@ -27,7 +36,6 @@ const SectionInfo = styled.div`
     font-size: 18px;
     padding-bottom: 10px;
     font-weight: bold;
-    flex: 1;
   }
 `;
 
@@ -63,29 +71,36 @@ const Lecture = styled.div`
   }
 `;
 
-function Curriculum({ section }) {
+// type CurriculumProps = {
+//   CurriculumTypes:
+// };
+
+function Curriculum({ curriculum }) {
   const router = useRouter();
   return (
     <Container>
-      {section.map((section: ISection) => (
-        <Section key={section.id}>
-          <SectionInfo>
-            <h2 className="section__name">{section.name}</h2>
-          </SectionInfo>
-          {section.lectures.map((lecture: ILecture) => (
-            <Link
-              href={`/courses/${router.query.courseId}/lectures/${lecture.id}`}
-            >
-              <a>
-                <Lecture key={lecture.id}>
-                  <h3 className="lecture__name">{lecture.name}</h3>
-                  <span className="play__time">{lecture.playTime}</span>
-                </Lecture>
-              </a>
-            </Link>
-          ))}
-        </Section>
-      ))}
+      <InnerContainer>
+        {curriculum.map((section: ISection) => (
+          <Section key={section.id}>
+            <SectionInfo>
+              <h2 className="section__name">{section.name}</h2>
+            </SectionInfo>
+            {section.lectures.map((lecture: ILecture) => (
+              <Link
+                key={lecture.id}
+                href={`/courses/${router.query.courseId}/lectures/${lecture.id}`}
+              >
+                <a>
+                  <Lecture key={lecture.id}>
+                    <h3 className="lecture__name">{lecture.name}</h3>
+                    <span className="play__time">{lecture.playTime}</span>
+                  </Lecture>
+                </a>
+              </Link>
+            ))}
+          </Section>
+        ))}
+      </InnerContainer>
     </Container>
   );
 }

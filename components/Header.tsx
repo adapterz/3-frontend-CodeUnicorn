@@ -4,8 +4,10 @@ import { HiUserCircle } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { IAuth } from "slices/auth";
 import { AuthReducerType } from "slices";
+import { signOut } from "next-auth/react";
 
 const Container = styled.nav`
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -39,15 +41,38 @@ const LoginBtn = styled.button`
   cursor: pointer;
 `;
 
+const LogOutBtn = styled.button`
+  text-align: center;
+  width: 80px;
+  height: 30px;
+  font-size: 17px;
+  padding-top: 2px;
+  font-weight: 500;
+  margin-left: 20px;
+  margin-bottom: 3px;
+  border: 0;
+  color: white;
+  background-color: #5314db;
+  border-radius: 20px;
+  cursor: pointer;
+`;
+
 const IsLoginedNav = styled.nav`
+  display: flex;
+  align-items: center;
   svg {
     font-size: 2.4rem;
-    color: #4819ad;
+    color: #444444;
     cursor: pointer;
   }
 `;
 
 function Header() {
+  const onLogOut = () => {
+    signOut();
+    // TODO 쿠키 제거 로직
+  };
+
   const {
     auth: { isLogined },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
@@ -65,6 +90,7 @@ function Header() {
               <HiUserCircle />
             </a>
           </Link>
+          <LogOutBtn onClick={onLogOut}>로그아웃</LogOutBtn>
         </IsLoginedNav>
       ) : (
         <Nav>

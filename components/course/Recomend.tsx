@@ -18,12 +18,13 @@ const Section = styled.section`
   }
 `;
 
-function Recomend({ course }) {
+function Recomend({ recomendCourses }) {
+  console.log(recomendCourses);
   return (
     <Container>
       <Section>
         <h1>추천 교육</h1>
-        <Slider courses={course} width="900px" />
+        <Slider courses={recomendCourses} width="900px" />
       </Section>
     </Container>
   );

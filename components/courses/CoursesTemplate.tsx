@@ -3,8 +3,7 @@ import Catagoryes from "../Catagories";
 import Course from "../Course";
 import PageBtns from "../PageBtns";
 import CoursesInfo from "./CoursesInfo";
-import { ICategoryItem } from "@/interface/category";
-import Link from "next/link";
+import { CourseTypes } from "@/interface/course";
 
 const Container = styled.div`
   width: 100%;
@@ -34,7 +33,8 @@ const CourseList = styled.div`
 function CoursesTemplate({
   courses,
   category,
-  page,
+  currentPage,
+  maxPage,
   onSelect,
   onIncresive,
   onDecresive,
@@ -44,12 +44,13 @@ function CoursesTemplate({
       <Catagoryes category={category} onSelect={onSelect} />
       <CoursesInfo courses={courses} />
       <CourseList>
-        {courses.map((coures: ICategoryItem) => (
-          <Course key={coures.id} coures={coures} />
+        {courses.map((course: CourseTypes) => (
+          <Course key={course.id} course={course} />
         ))}
       </CourseList>
       <PageBtns
-        page={page}
+        currentPage={currentPage}
+        maxPage={maxPage}
         onSelect={onSelect}
         onIncresive={onIncresive}
         onDecresive={onDecresive}

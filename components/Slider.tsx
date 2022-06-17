@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import Course from "./Course";
-import { ICourse } from "@/interface/course";
+import { CourseTypes } from "@/interface/course";
 
 interface IContainer {
   width: string;
@@ -78,9 +78,12 @@ function Slider({ courses, width }) {
         className="left__arrow"
       />
       <SliderContainer ref={slideRef}>
-        {courses.map((coures: ICourse) => (
-          <Course key={coures.id} coures={coures} />
-        ))}
+        {courses
+          .filter((course: CourseTypes) => course.category === "백엔드")
+          .slice(0, 4)
+          .map((course: CourseTypes) => (
+            <Course key={course.id} course={course} />
+          ))}
       </SliderContainer>
       <FontAwesomeIcon
         icon={faCircleChevronRight}

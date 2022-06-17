@@ -1,3 +1,9 @@
+import axios from "axios";
+import { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AuthReducerType } from "slices";
+import { IAuth } from "slices/auth";
+import { setMessage } from "slices/toast";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -24,12 +30,12 @@ const InfoBox = styled.div`
 const ImageBox = styled.label`
   margin: 0px auto;
   margin-top: 50px;
-  cursor: pointer;
 
   img {
-    width: 160px;
+    width: 200px;
     height: 160px;
     border-radius: 50%;
+    cursor: pointer;
   }
 
   input {
@@ -123,28 +129,86 @@ const RemoveBtn = styled.button`
 `;
 
 const Profile = () => {
+  const [currentImage, setCurrentImage] = useState("/images/profile.png");
+  const [currentName, setCurrentName] = useState("");
+  const dispatch = useDispatch();
+  const {
+    auth: { userId, userName },
+  } = useSelector<AuthReducerType, IAuth>((state) => state);
+
+  // 이미지 파일 추가시 미리보기
+  const addFile = useCallback(({ target }) => {
+    let reader = new FileReader();
+    reader.onload = () => {
+      setCurrentImage(reader.result as string);
+    };
+    reader.readAsDataURL(target.files[0]);
+  }, []);
+
+  // name 값 가져오기
+  const onChange = useCallback(
+    ({ target }) => {
+      setCurrentName(target.value);
+    },
+    [currentName],
+  );
+
+  // 닉네임 저장 이벤트
+  const onSave = useCallback(async (name: string) => {
+    const input = document.querySelector("#input-name") as HTMLInputElement;
+    const formData = new FormData();
+    formData.append("userImage", input.files[0]);
+
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
+      {
+        nickname: name,
+        image: formData,
+        headers: {
+          "content-type": "multipart/form-data",
+          withCredentials: true,
+        },
+      },
+    );
+    if (response.status === 200) {
+      const input = document.querySelector("#input-name") as HTMLInputElement;
+      input.value = "";
+      dispatch(
+        setMessage({ message: "프로필 정보를 성공적으로 변경되었습니다." }),
+      );
+    } else {
+      dispatch(setMessage({ message: "프로필 정보 변경에 실패했습니다." }));
+    }
+  }, []);
+
   return (
     <Container>
       <Title>내정보</Title>
       <InfoBox>
         <ImageBox htmlFor="input-file">
-          <img src="/images/profile.png" />
+          <img src={currentImage} />
           <input
             type="file"
             id="input-file"
             accept=".jpg, .jpeg, .png"
             style={{ display: "none" }}
+            onChange={addFile}
           />
         </ImageBox>
         <NameBox>
           <h2>닉네임</h2>
           <input
+            id="input-name"
             type="text"
-            placeholder="닉네임을 입력해주세요."
+            placeholder={userName}
+            minLength={2}
             maxLength={8}
+            onChange={onChange}
           />
         </NameBox>
-        <SaveBtn type="submit">저장</SaveBtn>
+        <SaveBtn type="submit" onClick={() => onSave(currentName)}>
+          저장
+        </SaveBtn>
       </InfoBox>
       <Title>회원탈퇴</Title>
       <AgreeInfoBox>

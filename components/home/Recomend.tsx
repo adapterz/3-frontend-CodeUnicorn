@@ -9,14 +9,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { CourseTypes } from "@/interface/course";
 
 const Container = styled.div`
+  margin: 0px auto;
   background-color: #193a91;
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
-  position: relative;
   overflow: hidden;
+  position: relative;
 
   h1 {
     color: whitesmoke;
@@ -34,6 +36,7 @@ const Container = styled.div`
 
   .userIcon {
     opacity: 0.8;
+    margin-right: 6px;
   }
 
   .left__arrow {
@@ -65,7 +68,7 @@ const Container = styled.div`
 `;
 
 const SliderContainer = styled.div`
-  width: 1500px;
+  max-width: 1500px;
   margin: 0 auto;
   display: flex;
 `;
@@ -125,9 +128,14 @@ const Description = styled.p`
   color: whitesmoke;
   width: 86%;
   font-size: 20px;
+  line-height: 1.4;
 `;
 
-function Recomend({ recomendCourse }) {
+type RecomendProps = {
+  recomendCourses: CourseTypes[];
+};
+
+function Recomend({ recomendCourses }: RecomendProps) {
   const TOTAL_SLIDES = 2;
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
@@ -156,23 +164,23 @@ function Recomend({ recomendCourse }) {
       />
       <h1>Code Unicorn 추천 교육</h1>
       <SliderContainer ref={slideRef}>
-        {recomendCourse.map((course: IRecomend) => (
-          <Link href="/courses/2">
+        {recomendCourses.map((course: CourseTypes) => (
+          <Link key={course.id} href={`/courses/${course.id}`}>
             <a>
               <CourseBox>
                 <ImageBox>
-                  <Image src={course.image} />
+                  <Image src={course.imagePath} />
                 </ImageBox>
                 <InfoBox>
                   <Catagory>{course.category}</Catagory>
-                  <Title>{course.title}</Title>
+                  <Title>{course.name}</Title>
                   <Instructor>
                     <FontAwesomeIcon className="userIcon" icon={faUserTie} />
-                    {course.instructor}
+                    {course.instructor.name}
                   </Instructor>
                   <Rating>
                     <FontAwesomeIcon className="star" icon={faStar} />
-                    {course.rating} ({course.ratingsRate})
+                    {course.averageRatings} ({course.ratingsCount})
                   </Rating>
                   <Description>{course.description}</Description>
                 </InfoBox>

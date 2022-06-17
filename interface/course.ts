@@ -1,21 +1,20 @@
-import { IInstructor } from "./Instructor";
+import { InstructorTypes } from "./Instructor";
 
-export interface ICourse {
+export type CourseProps = {
+  course: CourseTypes;
+};
+
+export type CourseTypes = {
   id: number;
-  title: string;
+  name: string;
   category: string;
   description: string;
-  image: string;
-  totalUsers: number;
-  rating: number;
-  ratingsRate: number;
-  instructor?: IInstructor;
-}
-
-export interface ICourseProps {
-  course: ICourse;
-  instructor?: IInstructor;
-}
+  imagePath: string;
+  userCount: number;
+  averageRatings: number;
+  ratingsCount: number;
+  instructor?: InstructorTypes;
+};
 
 export interface ISection {
   id: number;
@@ -31,11 +30,6 @@ export interface ILecture {
   desc: string;
   videoUrl: string;
   playTime: string;
-}
-
-export interface ICourseProps {
-  course: ICourse;
-  instructor?: IInstructor;
 }
 
 export interface ISection {

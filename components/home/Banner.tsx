@@ -1,17 +1,22 @@
 import styled from "styled-components";
-import { IBannder } from "@/interface/banner";
 import Link from "next/link";
+import { CourseTypes } from "@/interface/course";
 
 const Container = styled.div`
-  height: 400px;
-  border-bottom: 1px solid gray;
-  position: relative;
+  width: 100%;
+  max-height: 420px;
   background-color: #2b3d55;
   display: flex;
 `;
 
+const InnerContainer = styled.div`
+  margin: 0px auto;
+  display: flex;
+  align-items: center;
+`;
+
 const BannerInfoBox = styled.div`
-  width: 60%;
+  width: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,12 +24,13 @@ const BannerInfoBox = styled.div`
 `;
 
 const BackImage = styled.img`
-  width: 100%;
-  height: 100%;
+  border-radius: 20px;
+  width: 80%;
+  height: 90%;
 `;
 
 const Title = styled.h1`
-  width: 300px;
+  width: 320px;
   font-size: 24px;
   color: white;
   font-weight: bold;
@@ -33,25 +39,29 @@ const Title = styled.h1`
 
 const Description = styled.p`
   margin-top: 10px;
-  width: 300px;
+  width: 320px;
   color: #8d8a8a;
   font-weight: 500;
   font-size: 16px;
   line-height: 140%;
 `;
 
-function Banner({ banner }) {
-  const { name, description, image }: IBannder = banner;
+// type BannerProps = {
+//   newCourse: CourseTypes;
+// };
+
+function Banner({ newCourse }) {
   return (
-    // TODO 추후에 링크 추가
-    <Link href="#">
+    <Link href={`/courses/${newCourse.id}`}>
       <a>
         <Container>
-          <BannerInfoBox>
-            <Title>{name}</Title>
-            <Description>{description}</Description>
-          </BannerInfoBox>
-          <BackImage src={image} />
+          <InnerContainer>
+            <BannerInfoBox>
+              <Title>{newCourse.name}</Title>
+              <Description>{newCourse.description}</Description>
+            </BannerInfoBox>
+            <BackImage src={newCourse.imagePath} />
+          </InnerContainer>
         </Container>
       </a>
     </Link>

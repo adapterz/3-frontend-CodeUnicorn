@@ -1,5 +1,6 @@
-export interface IInstructor {
+export type InstructorTypes = {
+  id: number;
   name: string;
   introduction: string;
-  image: string;
-}
+  profilePath: string;
+};
