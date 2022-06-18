@@ -11,6 +11,12 @@ export default function Home() {
   const [categoryCourses, setCategoryCourses] = useState([]);
   const [recomendCourses, setRecomendCourses] = useState([]);
 
+  console.log(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
+  console.log(process.env.NEXT_PUBLIC_GOOGLE_SECRET);
+  console.log(process.env.NEXT_PUBLIC_NAVER_CLIENT_ID);
+  console.log(process.env.NEXT_PUBLIC_NAVER_SECRET);
+  console.log(process.env.NEXTAUTH_SECRET);
+
   // 전체 강의 데이터
   useEffect(() => {
     (async () => {
