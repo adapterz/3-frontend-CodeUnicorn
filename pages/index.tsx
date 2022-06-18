@@ -19,7 +19,7 @@ export default function Home() {
           data: { courses },
         },
       } = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/courses?category=all&page=1`,
+        `https://api.codeunicorn.kr/courses?category=all&page=1`,
       );
       setCourses(courses);
       setNewCourse(courses.slice(-1)[0]);
@@ -32,7 +32,7 @@ export default function Home() {
       const {
         data: { data },
       } = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/courses?category=${category}&page=1`,
+        `https://api.codeunicorn.kr/courses?category=${category}&page=1`,
       );
       setCategoryCourses(data.courses.splice(0, 4));
     })();
@@ -49,7 +49,7 @@ export default function Home() {
     for (let i = 1; i <= 3; i++) {
       (async () => {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/courses/${i}`,
+          `https://api.codeunicorn.kr/courses/${i}`,
         );
         temp.push(response.data.data);
       })();
