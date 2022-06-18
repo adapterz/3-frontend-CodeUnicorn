@@ -18,16 +18,14 @@ function user() {
   } = useSelector<AuthReducerType, IAuth>((state) => state);
   return (
     <Container>
-      <Aside />
-      <Profile />
-      {/* {isLogined === true ? (
+      {isLogined === true ? (
         <>
           <Aside />
           <Profile />
         </>
       ) : (
         <Auth />
-      )} */}
+      )}
     </Container>
   );
 }
