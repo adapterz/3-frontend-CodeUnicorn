@@ -13,7 +13,7 @@ export default nextAuth({
       clientSecret: process.env.NEXT_PUBLIC_NAVER_SECRET,
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: "mKJcxWuF+QtkfRJVG0+AWvQuXYR08NbIkAMYEjvd3XY=",
   session: {
     maxAge: 24 * 60 * 60,
   },
