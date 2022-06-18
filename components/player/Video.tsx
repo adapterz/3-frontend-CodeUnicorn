@@ -6,7 +6,6 @@ const Container = styled.div`
 `;
 
 function Video({ lecture }) {
-  console.log(lecture);
   return (
     <Container>
       <iframe

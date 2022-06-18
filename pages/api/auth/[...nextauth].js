@@ -10,6 +10,8 @@ export default nextAuth({
       clientId: "baCMqWMvrFjgtBv6EINk",
       clientSecret: "QPnkIqPDka",
     }),
+    console.log(Google.clientId),
+    console.log(Google.clientSecret),
     Naver({
       // clientId: process.env.NEXT_PUBLIC_NAVER_CLIENT_ID,
       // clientSecret: process.env.NEXT_PUBLIC_NAVER_SECRET,
@@ -17,6 +19,8 @@ export default nextAuth({
         "747350971501-27cdrcom8h5vual6idia9cl0u0jblb0v.apps.googleusercontent.com",
       clientSecret: "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",
     }),
+    console.log(Naver.clientId),
+    console.log(Naver.clientSecret),
   ],
   secret: "mKJcxWuF+QtkfRJVG0+AWvQuXYR08NbIkAMYEjvd3XY=",
   session: {
