@@ -79,7 +79,13 @@ function lecture() {
 
   return (
     <Container>
-      {isLogined === true ? (
+      <Player
+        courseDetail={courseDetail}
+        curriculum={curriculum}
+        lecture={lecture}
+        instructor={instructor}
+      />
+      {/* {isLogined === true ? (
         <Player
           courseDetail={courseDetail}
           curriculum={curriculum}
@@ -88,7 +94,7 @@ function lecture() {
         />
       ) : (
         <Auth />
-      )}
+      )} */}
     </Container>
   );
 }
