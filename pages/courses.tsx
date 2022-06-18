@@ -14,7 +14,7 @@ const Courses = () => {
       const {
         data: { data },
       } = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/courses?category=${category}&page=${currentPage}`,
+        `https://api.codeunicorn.kr/courses?category=${category}&page=${currentPage}`,
       );
       setCourses(data.courses);
     })();

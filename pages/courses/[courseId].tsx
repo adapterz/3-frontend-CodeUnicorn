@@ -29,7 +29,7 @@ function course() {
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/courses/${query.courseId}`,
+        `https://api.codeunicorn.kr/courses/${query.courseId}`,
       );
       setCourseDetail(response.data.data);
       setInstructor(response.data.data.instructor);
@@ -40,7 +40,7 @@ function course() {
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/courses/${query.courseId}/curriculum`,
+        `https://api.codeunicorn.kr/courses/${query.courseId}/curriculum`,
       );
       setCurriculum(response.data.data.sections);
     })();
@@ -54,7 +54,7 @@ function course() {
           data: { courses },
         },
       } = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/courses?category=all&page=1`,
+        `https://api.codeunicorn.kr/courses?category=all&page=1`,
       );
       setRecomendCourses(courses);
     })();
