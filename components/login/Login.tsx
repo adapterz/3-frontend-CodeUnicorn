@@ -79,7 +79,7 @@ export default function Login() {
             image: response.data.data.profilePath,
           } as IAuth),
         );
-        // router.push("/");
+        router.push("/");
       } else {
         dispatch(setMessage({ message: response.statusText } as ToastType));
       }

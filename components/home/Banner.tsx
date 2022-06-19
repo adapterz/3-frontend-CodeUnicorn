@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { CourseTypes } from "@/interface/course";
+import Loading from "../Loading";
 
 const Container = styled.div`
   width: 100%;
-  max-height: 420px;
+  min-height: 420px;
   background-color: #2b3d55;
   display: flex;
 `;
@@ -55,13 +55,17 @@ function Banner({ newCourse }) {
     <Link href={`/courses/${newCourse.id}`}>
       <a>
         <Container>
-          <InnerContainer>
-            <BannerInfoBox>
-              <Title>{newCourse.name}</Title>
-              <Description>{newCourse.description}</Description>
-            </BannerInfoBox>
-            <BackImage src={newCourse.imagePath} />
-          </InnerContainer>
+          {newCourse === true ? (
+            <InnerContainer>
+              <BannerInfoBox>
+                <Title>{newCourse.name}</Title>
+                <Description>{newCourse.description}</Description>
+              </BannerInfoBox>
+              <BackImage src={newCourse.imagePath} />
+            </InnerContainer>
+          ) : (
+            <Loading />
+          )}
         </Container>
       </a>
     </Link>

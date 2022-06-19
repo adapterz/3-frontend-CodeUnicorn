@@ -4,6 +4,7 @@ import Catagories from "../Catagories";
 import Link from "next/link";
 import Slider from "../Slider";
 import { CourseTypes } from "@/interface/course";
+import Loading from "../Loading";
 
 const Container = styled.main`
   margin: 0px auto;
@@ -14,6 +15,7 @@ const Container = styled.main`
 const Section = styled.section`
   position: relative;
   margin-top: 80px;
+  min-height: 390px;
 
   h1 {
     font-size: 28px;
@@ -38,6 +40,7 @@ const CourseList = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 type ContentsProps = {
@@ -63,12 +66,16 @@ function Contents({
           </a>
         </Link>
         <CourseList>
-          {courses
-            .filter((course: CourseTypes) => course.category === "프론트엔드")
-            .slice(0, 4)
-            .map((course: CourseTypes) => (
-              <Course key={course.id} course={course} />
-            ))}
+          {courses === undefined ? (
+            courses
+              .filter((course: CourseTypes) => course.category === "프론트엔드")
+              .slice(0, 4)
+              .map((course: CourseTypes) => (
+                <Course key={course.id} course={course} />
+              ))
+          ) : (
+            <Loading />
+          )}
         </CourseList>
       </Section>
       <Section>
@@ -78,11 +85,15 @@ function Contents({
       <Section>
         <h1>맞춤 강의</h1>
         <Catagories category={category} onSelect={onSelect} />
-        <CourseList>
-          {categoryCourses.map((coures: CourseTypes) => (
-            <Course key={coures.id} course={coures} />
-          ))}
-        </CourseList>
+        {categoryCourses === undefined ? (
+          <CourseList>
+            {categoryCourses.map((coures: CourseTypes) => (
+              <Course key={coures.id} course={coures} />
+            ))}
+          </CourseList>
+        ) : (
+          <Loading />
+        )}
       </Section>
     </Container>
   );

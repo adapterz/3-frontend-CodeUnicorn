@@ -21,7 +21,6 @@ export default async function loginApi(user: IUser) {
     },
   );
 
-  // TODO 백에서 쿠키 도메인 설정을 하지 않아서? 문제?
   console.log(response.headers);
 
   return response;

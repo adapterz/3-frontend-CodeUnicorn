@@ -7,6 +7,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import Course from "./Course";
 import { CourseTypes } from "@/interface/course";
+import Loading from "./Loading";
 
 interface IContainer {
   width: string;
@@ -78,12 +79,16 @@ function Slider({ courses, width }) {
         className="left__arrow"
       />
       <SliderContainer ref={slideRef}>
-        {courses
-          .filter((course: CourseTypes) => course.category === "백엔드")
-          .slice(0, 4)
-          .map((course: CourseTypes) => (
-            <Course key={course.id} course={course} />
-          ))}
+        {courses === undefined ? (
+          courses
+            .filter((course: CourseTypes) => course.category === "백엔드")
+            .slice(0, 4)
+            .map((course: CourseTypes) => (
+              <Course key={course.id} course={course} />
+            ))
+        ) : (
+          <Loading />
+        )}
       </SliderContainer>
       <FontAwesomeIcon
         icon={faCircleChevronRight}
