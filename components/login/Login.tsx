@@ -66,7 +66,8 @@ export default function Login() {
   } = useSelector<AuthReducerType, IAuth>((state) => state);
   const dispatch = useDispatch();
 
-  if (isLogined === false && status === "authenticated") {
+  //  && status === "authenticated"
+  if (isLogined === false) {
     (async () => {
       const response = await loginApi(data.user);
 
@@ -79,6 +80,7 @@ export default function Login() {
             image: response.data.data.profilePath,
           } as IAuth),
         );
+        console.log(isLogined);
         // router.push("/");
       } else {
         dispatch(setMessage({ message: response.statusText } as ToastType));

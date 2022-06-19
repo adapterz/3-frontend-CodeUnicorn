@@ -18,6 +18,7 @@ const Container = styled.div<IContainer>`
   margin: auto;
   overflow: hidden;
   min-height: 200px;
+  display: flex;
 
   .left__arrow {
     font-size: 50px;
@@ -57,7 +58,7 @@ const SliderContainer = styled.div`
 `;
 
 function Slider({ courses, width }) {
-  const TOTAL_SLIDES = 2;
+  const TOTAL_SLIDES = 1;
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
 
@@ -74,7 +75,7 @@ function Slider({ courses, width }) {
 
   useEffect(() => {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
-    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
+    slideRef.current.style.transform = `translateX(-${currentSlide}00%`;
   }, [currentSlide]);
 
   return (
@@ -88,12 +89,9 @@ function Slider({ courses, width }) {
         {courses.length === 0 ? (
           <Loading />
         ) : (
-          courses
-            .filter((course: CourseTypes) => course.category === "백엔드")
-            .slice(0, 4)
-            .map((course: CourseTypes) => (
-              <Course key={course.id} course={course} />
-            ))
+          courses.map((course: CourseTypes) => (
+            <Course key={course.id} course={course} />
+          ))
         )}
       </SliderContainer>
       <FontAwesomeIcon

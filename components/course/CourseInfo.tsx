@@ -30,6 +30,8 @@ const ImageBox = styled.div`
   opacity: 0.9;
   img {
     z-index: 1;
+    border: 1px solid gray;
+
     &:hover {
       opacity: 1;
     }
@@ -142,14 +144,14 @@ type CourseInfoProps = {
   onLike: () => void;
 };
 
-function CourseInfo({ courseDetail, instructor, onLike }) {
+function CourseInfo({ courseDetail, instructor, initLecture, onLike }) {
   const { query } = useRouter();
   return (
     <Container>
       {courseDetail && (
         <>
           <TopBox>
-            <Link href={`/courses/${query.courseId}/lectures/1`}>
+            <Link href={`/courses/${query.courseId}/lectures/${initLecture}`}>
               <a>
                 <ImageBox>
                   <MdPlayArrow />
@@ -160,7 +162,9 @@ function CourseInfo({ courseDetail, instructor, onLike }) {
             <RightBox>
               <BtnBox>
                 <LikeBtn onClick={onLike}>관심 교육 등록</LikeBtn>
-                <Link href={`/courses/${query.courseId}/lectures/1`}>
+                <Link
+                  href={`/courses/${query.courseId}/lectures/${initLecture}`}
+                >
                   <a>
                     <LearnBtn>바로 학습하기</LearnBtn>
                   </a>

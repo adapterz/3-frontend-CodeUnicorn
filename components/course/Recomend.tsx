@@ -19,7 +19,6 @@ const Section = styled.section`
 `;
 
 function Recomend({ recomendCourses }) {
-  console.log(recomendCourses);
   return (
     <Container>
       <Section>

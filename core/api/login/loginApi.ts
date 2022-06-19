@@ -21,7 +21,5 @@ export default async function loginApi(user: IUser) {
     },
   );
 
-  console.log(response.headers);
-
   return response;
 }

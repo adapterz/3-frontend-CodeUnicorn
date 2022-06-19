@@ -14,6 +14,7 @@ function course() {
   const [instructor, setInstructor] = useState({});
   const [curriculum, setCurriculum] = useState([]);
   const [recomendCourses, setRecomendCourses] = useState([]);
+  const [initLecture, setInitLecture] = useState();
   const dispatch = useDispatch();
 
   const onLike = useCallback(() => {
@@ -43,6 +44,7 @@ function course() {
         `https://api.codeunicorn.kr/courses/${query.courseId}/curriculum`,
       );
       setCurriculum(response.data.data.sections);
+      setInitLecture(response.data.data.sections[0].lectures[0].id);
     })();
   }, [query.courseId]);
 
@@ -65,6 +67,7 @@ function course() {
       <CourseInfo
         courseDetail={courseDetail}
         instructor={instructor}
+        initLecture={initLecture}
         onLike={onLike}
       />
       <Introduction courseDetail={courseDetail} instructor={instructor} />

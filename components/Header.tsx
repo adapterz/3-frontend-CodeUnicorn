@@ -66,10 +66,13 @@ const IsLoginedNav = styled.nav`
     color: #444444;
     cursor: pointer;
   }
+
+  .isLogined-lecture {
+    margin-right: 20px;
+  }
 `;
 
 function Header() {
-  // TODO 유저 상세 페이지에 현재 링크에 따라 href 가도록 보완중
   const router = useRouter();
   const {
     auth: { userId },
@@ -94,21 +97,29 @@ function Header() {
         <IsLoginedNav>
           <Link href="/courses">
             <a>
-              <Menu>강의</Menu>
+              <Menu className="isLogined-lecture">전체 강의</Menu>
             </a>
           </Link>
-          <Link href={`users/${userId}`}>
-            <a>
-              <HiUserCircle />
-            </a>
-          </Link>
+          {router.asPath === `/users/${userId}` ? (
+            <Link href={`/${userId}`}>
+              <a>
+                <HiUserCircle />
+              </a>
+            </Link>
+          ) : (
+            <Link href={`/users/${userId}`}>
+              <a>
+                <HiUserCircle />
+              </a>
+            </Link>
+          )}
           <LogOutBtn onClick={onLogOut}>로그아웃</LogOutBtn>
         </IsLoginedNav>
       ) : (
         <Nav>
           <Link href="/courses">
             <a>
-              <Menu>강의</Menu>
+              <Menu>전체 강의</Menu>
             </a>
           </Link>
           <Link href="/login">

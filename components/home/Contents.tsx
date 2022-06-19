@@ -56,6 +56,7 @@ const LoadingContainer = styled.div`
 type ContentsProps = {
   courses: CourseTypes[];
   category: string;
+  backCourses: CourseTypes[];
   categoryCourses: CourseTypes[];
   onSelect: (category: string) => void;
 };
@@ -63,6 +64,7 @@ type ContentsProps = {
 function Contents({
   courses,
   category,
+  backCourses,
   categoryCourses,
   onSelect,
 }: ContentsProps) {
@@ -90,7 +92,7 @@ function Contents({
       </Section>
       <Section>
         <h1>백엔드 강의</h1>
-        <Slider courses={courses} width="1200px" />
+        <Slider courses={backCourses} width="1200px" />
       </Section>
       <Section>
         <h1>맞춤 강의</h1>
