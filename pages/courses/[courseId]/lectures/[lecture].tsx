@@ -30,63 +30,57 @@ function lecture() {
     auth: { isLogined },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
 
-  // if (isLogined === true) {
-  // 강의 정보를 가져오는 로직
-  useEffect(() => {
-    (async () => {
-      const response = await axios.get(
-        `https://api.codeunicorn.kr/courses/${query.courseId}`,
-      );
-      response.status === 200
-        ? setCourseDetail(response.data.data)
-        : dispatch(
-            setMessage({ message: "강의 정보를 가져오는데 실패했습니다." }),
-          );
-      setiInstructor(response.data.data.instructor);
-    })();
-  }, [query.courseId]);
-
-  // 강의 커리큘럼을 가져오는 로직
-  useEffect(() => {
-    (async () => {
-      const response = await axios.get(
-        `https://api.codeunicorn.kr/courses/${query.courseId}/curriculum`,
-      );
-      if (response.status === 200) {
-        setCurriculum(response.data.data.sections);
-      } else {
-        dispatch(
-          setMessage({ message: "강의 정보를 가져오는데 실패했습니다." }),
+  if (isLogined === true) {
+    // 강의 정보를 가져오는 로직
+    useEffect(() => {
+      (async () => {
+        const response = await axios.get(
+          `https://api.codeunicorn.kr/courses/${query.courseId}`,
         );
-      }
-    })();
-  }, [query.courseId]);
+        response.status === 200
+          ? setCourseDetail(response.data.data)
+          : dispatch(
+              setMessage({ message: "강의 정보를 가져오는데 실패했습니다." }),
+            );
+        setiInstructor(response.data.data.instructor);
+      })();
+    }, [query.courseId]);
 
-  // 강의 상세 정보를 가져오는 로직
-  useEffect(() => {
-    (async () => {
-      const response = await axios.get(
-        `https://api.codeunicorn.kr/courses/${query.courseId}/lectures/${query.lecture}`,
-      );
-      response.status === 200
-        ? setLecture(response.data.data.lecture)
-        : dispatch(
+    // 강의 커리큘럼을 가져오는 로직
+    useEffect(() => {
+      (async () => {
+        const response = await axios.get(
+          `https://api.codeunicorn.kr/courses/${query.courseId}/curriculum`,
+        );
+        if (response.status === 200) {
+          setCurriculum(response.data.data.sections);
+        } else {
+          dispatch(
             setMessage({ message: "강의 정보를 가져오는데 실패했습니다." }),
           );
-      console.log(response.data.data.lecture);
-    })();
-  }, [query.lecture]);
-  // }
+        }
+      })();
+    }, [query.courseId]);
+
+    // 강의 상세 정보를 가져오는 로직
+    useEffect(() => {
+      (async () => {
+        const response = await axios.get(
+          `https://api.codeunicorn.kr/courses/${query.courseId}/lectures/${query.lecture}`,
+        );
+        response.status === 200
+          ? setLecture(response.data.data.lecture)
+          : dispatch(
+              setMessage({ message: "강의 정보를 가져오는데 실패했습니다." }),
+            );
+        console.log(response.data.data.lecture);
+      })();
+    }, [query.lecture]);
+  }
 
   return (
     <Container>
-      <Player
-        courseDetail={courseDetail}
-        curriculum={curriculum}
-        lecture={lecture}
-        instructor={instructor}
-      />
-      {/* {isLogined === true ? (
+      {isLogined === true ? (
         <Player
           courseDetail={courseDetail}
           curriculum={curriculum}
@@ -95,7 +89,7 @@ function lecture() {
         />
       ) : (
         <Auth />
-      )} */}
+      )}
     </Container>
   );
 }
