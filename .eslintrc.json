@@ -4,7 +4,7 @@
     "es6": true,
     "node": true
   },
-  "parser": "@typescript-eslint/parser",
+  // "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
     // "plugin:@typescript-eslint/recommended",
@@ -33,7 +33,7 @@
     "no-nested-ternary": 0,
     "import/prefer-default-export": "off",
     "react/jsx-props-no-spreading": "off",
-    "@typescript-eslint/ban-ts-comment": "off",
+    // "@typescript-eslint/ban-ts-comment": "off",
     "import/no-unresolved": "off"
   }
 }
