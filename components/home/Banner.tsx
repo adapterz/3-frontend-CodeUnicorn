@@ -52,23 +52,27 @@ const Description = styled.p`
 
 function Banner({ newCourse }) {
   return (
-    <Link href={`/courses/${newCourse.id}`}>
-      <a>
-        <Container>
-          {newCourse === true ? (
-            <InnerContainer>
-              <BannerInfoBox>
+    <Container>
+      {newCourse.length === 0 ? (
+        <Loading />
+      ) : (
+        <InnerContainer>
+          <BannerInfoBox>
+            <Link href={`/courses/${newCourse.id}`}>
+              <a>
                 <Title>{newCourse.name}</Title>
                 <Description>{newCourse.description}</Description>
-              </BannerInfoBox>
+              </a>
+            </Link>
+          </BannerInfoBox>
+          <Link href={`/courses/${newCourse.id}`}>
+            <a>
               <BackImage src={newCourse.imagePath} />
-            </InnerContainer>
-          ) : (
-            <Loading />
-          )}
-        </Container>
-      </a>
-    </Link>
+            </a>
+          </Link>
+        </InnerContainer>
+      )}
+    </Container>
   );
 }
 

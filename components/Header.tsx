@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { IAuth } from "slices/auth";
 import { AuthReducerType } from "slices";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Container = styled.nav`
   width: 100%;
@@ -68,6 +69,8 @@ const IsLoginedNav = styled.nav`
 `;
 
 function Header() {
+  // TODO 유저 상세 페이지에 현재 링크에 따라 href 가도록 보완중
+  const router = useRouter();
   const {
     auth: { userId },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
@@ -89,6 +92,11 @@ function Header() {
       </Link>
       {isLogined === true ? (
         <IsLoginedNav>
+          <Link href="/courses">
+            <a>
+              <Menu>강의</Menu>
+            </a>
+          </Link>
           <Link href={`users/${userId}`}>
             <a>
               <HiUserCircle />

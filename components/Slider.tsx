@@ -15,8 +15,9 @@ interface IContainer {
 
 const Container = styled.div<IContainer>`
   width: ${(props) => props.width};
-  margin: 0px auto;
+  margin: auto;
   overflow: hidden;
+  min-height: 200px;
 
   .left__arrow {
     font-size: 50px;
@@ -49,6 +50,10 @@ const Container = styled.div<IContainer>`
 const SliderContainer = styled.div`
   margin: 0 auto;
   display: flex;
+
+  .spinner-border {
+    margin-top: 6rem;
+  }
 `;
 
 function Slider({ courses, width }) {
@@ -71,6 +76,7 @@ function Slider({ courses, width }) {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
   }, [currentSlide]);
+
   return (
     <Container width={width}>
       <FontAwesomeIcon
@@ -79,15 +85,15 @@ function Slider({ courses, width }) {
         className="left__arrow"
       />
       <SliderContainer ref={slideRef}>
-        {courses === undefined ? (
+        {courses.length === 0 ? (
+          <Loading />
+        ) : (
           courses
             .filter((course: CourseTypes) => course.category === "백엔드")
             .slice(0, 4)
             .map((course: CourseTypes) => (
               <Course key={course.id} course={course} />
             ))
-        ) : (
-          <Loading />
         )}
       </SliderContainer>
       <FontAwesomeIcon

@@ -22,7 +22,7 @@ function course() {
     );
     setTimeout(() => {
       dispatch(setMessage({ message: "" }));
-    });
+    }, 5000);
   }, []);
 
   // 강의 디테일 정보를 가져오는 로직

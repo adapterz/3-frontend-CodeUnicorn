@@ -38,9 +38,19 @@ const Section = styled.section`
 
 const CourseList = styled.div`
   width: 100%;
+  min-height: 150px;
   display: flex;
   justify-content: space-between;
+`;
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
   align-items: center;
+
+  .spinner-border {
+    margin-top: 5rem;
+  }
 `;
 
 type ContentsProps = {
@@ -66,15 +76,15 @@ function Contents({
           </a>
         </Link>
         <CourseList>
-          {courses === undefined ? (
+          {courses.length === 0 ? (
+            <Loading />
+          ) : (
             courses
               .filter((course: CourseTypes) => course.category === "프론트엔드")
               .slice(0, 4)
               .map((course: CourseTypes) => (
                 <Course key={course.id} course={course} />
               ))
-          ) : (
-            <Loading />
           )}
         </CourseList>
       </Section>
@@ -85,14 +95,16 @@ function Contents({
       <Section>
         <h1>맞춤 강의</h1>
         <Catagories category={category} onSelect={onSelect} />
-        {categoryCourses === undefined ? (
+        {categoryCourses.length === 0 ? (
+          <LoadingContainer>
+            <Loading />
+          </LoadingContainer>
+        ) : (
           <CourseList>
             {categoryCourses.map((coures: CourseTypes) => (
               <Course key={coures.id} course={coures} />
             ))}
           </CourseList>
-        ) : (
-          <Loading />
         )}
       </Section>
     </Container>

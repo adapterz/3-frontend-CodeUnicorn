@@ -16,11 +16,11 @@ const TotalCourse = styled.div`
   }
 `;
 
-function CoursesInfo({ courses }) {
+function CoursesInfo({ totalCourses }) {
   return (
     <Container>
       <TotalCourse>
-        <b>{courses.length}개</b>의 교육을 찾았습니다!
+        <b>{totalCourses}개</b>의 교육을 찾았습니다!
       </TotalCourse>
       <Sort />
     </Container>

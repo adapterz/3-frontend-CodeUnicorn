@@ -4,9 +4,11 @@ import Course from "../Course";
 import PageBtns from "../PageBtns";
 import CoursesInfo from "./CoursesInfo";
 import { CourseTypes } from "@/interface/course";
+import Loading from "../Loading";
 
 const Container = styled.div`
   width: 100%;
+  min-height: 1100px;
   margin: 30px auto;
   display: flex;
   flex-direction: column;
@@ -32,6 +34,7 @@ const CourseList = styled.div`
 
 function CoursesTemplate({
   courses,
+  totalCourses,
   category,
   currentPage,
   maxPage,
@@ -42,12 +45,16 @@ function CoursesTemplate({
   return (
     <Container>
       <Catagoryes category={category} onSelect={onSelect} />
-      <CoursesInfo courses={courses} />
-      <CourseList>
-        {courses.map((course: CourseTypes) => (
-          <Course key={course.id} course={course} />
-        ))}
-      </CourseList>
+      <CoursesInfo totalCourses={totalCourses} />
+      {courses.length === 0 ? (
+        <Loading />
+      ) : (
+        <CourseList>
+          {courses.map((course: CourseTypes) => (
+            <Course key={course.id} course={course} />
+          ))}
+        </CourseList>
+      )}
       <PageBtns
         currentPage={currentPage}
         maxPage={maxPage}

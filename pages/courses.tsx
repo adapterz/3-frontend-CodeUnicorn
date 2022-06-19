@@ -8,6 +8,7 @@ const Courses = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [maxPage, setMaxPage] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [totalCourses, setTotalCourses] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -17,12 +18,14 @@ const Courses = () => {
         `https://api.codeunicorn.kr/courses?category=${category}&page=${currentPage}`,
       );
       setCourses(data.courses);
+      setTotalCourses(data.courseCount);
     })();
   }, [category, currentPage]);
 
+  // 자동 페이지 생성을 위한 로직
   useEffect(() => {
     let pageArr = [];
-    for (let i = 1; i <= Math.ceil(courses.length / 9); i++) {
+    for (let i = 1; i <= Math.ceil(totalCourses / 9); i++) {
       pageArr.push(i);
     }
     setMaxPage(pageArr);
@@ -49,6 +52,7 @@ const Courses = () => {
       ></NextSeo>
       <CoursesTemplate
         courses={courses}
+        totalCourses={totalCourses}
         category={category}
         currentPage={currentPage}
         maxPage={maxPage}

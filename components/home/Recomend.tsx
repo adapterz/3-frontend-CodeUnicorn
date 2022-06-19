@@ -22,6 +22,10 @@ const Container = styled.div`
   overflow: hidden;
   position: relative;
 
+  .spinner-border {
+    margin-top: 10rem;
+  }
+
   h1 {
     color: whitesmoke;
     font-size: 28px;
@@ -166,7 +170,9 @@ function Recomend({ recomendCourses }: RecomendProps) {
       />
       <h1>Code Unicorn 추천 교육</h1>
       <SliderContainer ref={slideRef}>
-        {recomendCourses === undefined ? (
+        {recomendCourses.length === 0 ? (
+          <Loading />
+        ) : (
           recomendCourses.map((course: CourseTypes) => (
             <Link key={course.id} href={`/courses/${course.id}`}>
               <a>
@@ -191,8 +197,6 @@ function Recomend({ recomendCourses }: RecomendProps) {
               </a>
             </Link>
           ))
-        ) : (
-          <Loading />
         )}
       </SliderContainer>
       <FontAwesomeIcon
