@@ -21,5 +21,7 @@ export default async function loginApi(user: IUser) {
     },
   );
 
+  console.log(response.headers["set-cookie"]);
+
   return response;
 }

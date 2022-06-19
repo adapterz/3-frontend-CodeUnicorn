@@ -155,15 +155,18 @@ const Profile = () => {
 
   // 닉네임 저장 이벤트
   const onSave = useCallback(async (name: string) => {
-    const input = document.querySelector("#input-name") as HTMLInputElement;
+    const input = document.querySelector("#input-file") as HTMLInputElement;
     const formData = new FormData();
     formData.append("userImage", input.files[0]);
+
+    // TODO 함수 밖에서 미리 넣어줬을 떄 파라미터로 데이터 받아야할듯 이미지 넣고 요청시 현재 Form 데이터에 아무것도 안들어감
+    console.log(formData);
 
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
       {
         nickname: name,
-        image: formData,
+        // image: formData,
         headers: {
           "content-type": "multipart/form-data",
           withCredentials: true,

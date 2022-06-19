@@ -68,6 +68,10 @@ const IsLoginedNav = styled.nav`
 `;
 
 function Header() {
+  const {
+    auth: { userId },
+  } = useSelector<AuthReducerType, IAuth>((state) => state);
+
   const onLogOut = () => {
     signOut();
     // TODO 쿠키 제거 로직
@@ -85,7 +89,7 @@ function Header() {
       </Link>
       {isLogined === true ? (
         <IsLoginedNav>
-          <Link href="/users/2">
+          <Link href={`users/${userId}`}>
             <a>
               <HiUserCircle />
             </a>
