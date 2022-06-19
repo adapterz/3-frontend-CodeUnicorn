@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ISection, ILecture } from "@/interface/course";
-import { BsArrowLeftShort } from "react-icons/Bs";
+import { BsArrowLeftShort } from "react-icons/bs";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Loading from "../Loading";
