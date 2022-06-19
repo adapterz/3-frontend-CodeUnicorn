@@ -6,11 +6,11 @@
   },
   "parser": "@typescript-eslint/parser",
   "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "airbnb",
-    "plugin:prettier/recommended"
+    // "eslint:recommended",
+    // "plugin:@typescript-eslint/recommended",
+    // "plugin:react/recommended"
+    // "airbnb",
+    // "plugin:prettier/recommended"
   ],
   "settings": {
     "react": {
@@ -24,7 +24,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks", "prettier"],
+  "plugins": ["react", "react-hooks"],
   "rules": {
     "react/react-in-jsx-scope": 0,
     "react/prefer-stateless-function": 0,
