@@ -68,15 +68,12 @@ function Slider({ courses, width }) {
       : setCurrentSlide(currentSlide + 5);
   };
   const backSlide = () => {
-    currentSlide === 0
-      ? setCurrentSlide(TOTAL_SLIDES)
-      : setCurrentSlide(currentSlide - 5);
+    currentSlide === 0 ? setCurrentSlide(5) : setCurrentSlide(currentSlide - 5);
   };
 
   useEffect(() => {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
     slideRef.current.style.transform = `translateX(-${currentSlide}0%`;
-    console.log(currentSlide);
   }, [currentSlide]);
 
   return (

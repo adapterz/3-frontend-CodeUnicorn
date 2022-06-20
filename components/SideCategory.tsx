@@ -24,7 +24,8 @@ const Option = styled.li`
   padding: 6px 0px;
   cursor: pointer;
   &:first-child {
-    font-weight: bold;
+    color: black;
+    font-weight: 500;
   }
 `;
 

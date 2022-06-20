@@ -155,25 +155,55 @@ const Profile = () => {
     [currentName],
   );
 
-  // 닉네임 저장 이벤트
-  const onSave = useCallback(async (name: string, image: string) => {
-    // const formData = new FormData();
-    // formData.append("image", image);
-    // formData.append("name", name);
-    // console.log(formData);
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", testImage);
+    formData.append("nickname", currentName);
+    console.log(formData);
 
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
       {
-        nickname: name,
-        image: image,
+        data: {
+          formdata: formData,
+        },
         headers: {
           "content-type": "multipart/form-data",
           withCredentials: true,
         },
       },
     );
-    console.log(response);
+
+    if (response.status === 200) {
+      const input = document.querySelector("#input-name") as HTMLInputElement;
+      input.value = "";
+      console.log(response);
+      dispatch(
+        setMessage({ message: "프로필 정보를 성공적으로 변경되었습니다." }),
+      );
+      setTimeout(() => {
+        setMessage({ message: "" });
+      }, 4000);
+    } else {
+      dispatch(setMessage({ message: "프로필 정보 변경에 실패했습니다." }));
+    }
+  };
+
+  // 닉네임 저장 이벤트
+  const onSave = useCallback(async (formdata) => {
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
+      {
+        data: {
+          formdata: formdata,
+        },
+        headers: {
+          "content-type": "multipart/form-data",
+          withCredentials: true,
+        },
+      },
+    );
 
     if (response.status === 200) {
       const input = document.querySelector("#input-name") as HTMLInputElement;
@@ -195,14 +225,21 @@ const Profile = () => {
       <Title>내정보</Title>
       <InfoBox>
         <ImageBox htmlFor="input-file">
-          <img src={currentImage} />
-          <input
-            type="file"
-            id="input-file"
-            accept=".jpg, .jpeg, .png"
-            style={{ display: "none" }}
-            onChange={addFile}
-          />
+          <form
+            method="post"
+            encType="multipart/form-data"
+            onSubmit={handelSubmit}
+          >
+            <img src={currentImage} />
+            <input
+              type="file"
+              id="input-file"
+              accept=".jpg, .jpeg, .png"
+              style={{ display: "none" }}
+              onChange={addFile}
+            />
+            <SaveBtn type="submit"></SaveBtn>
+          </form>
         </ImageBox>
         <NameBox>
           <h2>닉네임</h2>
@@ -215,12 +252,12 @@ const Profile = () => {
             onChange={onChange}
           />
         </NameBox>
-        <SaveBtn
+        {/* <SaveBtn
           type="submit"
           onClick={() => onSave(currentName, currentImage)}
         >
           저장
-        </SaveBtn>
+        </SaveBtn> */}
       </InfoBox>
       <Title>회원탈퇴</Title>
       <AgreeInfoBox>
