@@ -130,6 +130,7 @@ const RemoveBtn = styled.button`
 
 const Profile = () => {
   const [currentImage, setCurrentImage] = useState("/images/profile.png");
+  const [currentFile, setCurrentFile] = useState();
   const [currentName, setCurrentName] = useState("");
   const [formData, setFormData] = useState<any>();
   const dispatch = useDispatch();
@@ -142,10 +143,7 @@ const Profile = () => {
     let reader = new FileReader();
     reader.onload = () => {
       setCurrentImage(reader.result as string);
-      const formArr = new FormData();
-      formArr.append("image", target.files[0]);
-      formArr.append("nickname", currentName);
-      setFormData(formArr);
+      setCurrentFile(target.files[0]);
     };
     reader.readAsDataURL(target.files[0]);
   }, []);
@@ -158,8 +156,14 @@ const Profile = () => {
     [currentName],
   );
 
+  // 유저 정보 저장
   const onSave = async (e: any) => {
     e.preventDefault();
+    const formArr = new FormData();
+    formArr.append("image", currentFile);
+    formArr.append("nickname", currentName);
+    setFormData(formArr);
+    console.log(currentName);
 
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
@@ -167,8 +171,8 @@ const Profile = () => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          Accept: "*/*",
-          encType: "multipart/form-data",
+          // Accept: "*/*",
+          // encType: "multipart/form-data",
         },
       },
     );
