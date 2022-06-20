@@ -155,7 +155,7 @@ const Profile = () => {
     [currentName],
   );
 
-  const handelSubmit = async (e) => {
+  const handelSubmit = async (e: any) => {
     e.preventDefault();
     console.log(currentName);
     console.log(testImage);
@@ -176,6 +176,8 @@ const Profile = () => {
         encType: "multipart/form-data",
       },
     );
+
+    console.log(formData);
 
     if (response.status === 200) {
       const input = document.querySelector("#input-name") as HTMLInputElement;
@@ -227,7 +229,11 @@ const Profile = () => {
       <Title>내정보</Title>
       <InfoBox>
         <ImageBox htmlFor="input-file">
-          <form method="post" encType="multipart/form-data">
+          <form
+            onSubmit={handelSubmit}
+            method="post"
+            encType="multipart/form-data"
+          >
             <img src={currentImage} />
             <input
               type="file"
@@ -236,7 +242,7 @@ const Profile = () => {
               style={{ display: "none" }}
               onChange={addFile}
             />
-            <SaveBtn type="submit" onSubmit={handelSubmit}></SaveBtn>
+            <SaveBtn type="submit"></SaveBtn>
           </form>
         </ImageBox>
         <NameBox>
