@@ -158,11 +158,11 @@ const Profile = () => {
     [currentName],
   );
 
-  const handelSubmit = async (e: any) => {
+  const onSave = async (e: any) => {
     e.preventDefault();
 
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/users/5/info `,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
       formData,
       {
         headers: {
@@ -188,46 +188,12 @@ const Profile = () => {
     }
   };
 
-  // 유저 이미지, 닉네임 저장 이벤트
-  const onSave = useCallback(async (formdata) => {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
-      {
-        data: {
-          formdata: formdata,
-        },
-        headers: {
-          "Content-Type": "multipart/form-data",
-          withCredentials: true,
-        },
-      },
-    );
-
-    if (response.status === 200) {
-      const input = document.querySelector("#input-name") as HTMLInputElement;
-      input.value = "";
-      console.log(response);
-      dispatch(
-        setMessage({ message: "프로필 정보를 성공적으로 변경되었습니다." }),
-      );
-      setTimeout(() => {
-        setMessage({ message: "" });
-      }, 4000);
-    } else {
-      dispatch(setMessage({ message: "프로필 정보 변경에 실패했습니다." }));
-    }
-  }, []);
-
   return (
     <Container>
       <Title>내정보</Title>
       <InfoBox>
         <ImageBox htmlFor="input-file">
-          <form
-            id="info-form"
-            onSubmit={handelSubmit}
-            encType="multipart/form-data"
-          >
+          <form id="info-form" onSubmit={onSave} encType="multipart/form-data">
             <img src={currentImage} />
             <input
               type="file"
@@ -236,7 +202,6 @@ const Profile = () => {
               style={{ display: "none" }}
               onChange={addFile}
             />
-            <SaveBtn type="submit">저장</SaveBtn>
           </form>
         </ImageBox>
         <NameBox>
@@ -250,13 +215,9 @@ const Profile = () => {
             onChange={onChange}
           />
         </NameBox>
-        {/* <SaveBtn
-          type="submit"
-          form="info-form"
-          // onClick={() => onSave(currentName, currentImage)}
-        >
+        <SaveBtn type="submit" form="info-form">
           저장
-        </SaveBtn> */}
+        </SaveBtn>
       </InfoBox>
       <Title>회원탈퇴</Title>
       <AgreeInfoBox>
