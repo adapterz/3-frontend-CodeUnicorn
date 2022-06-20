@@ -237,6 +237,7 @@ const Profile = () => {
               style={{ display: "none" }}
               onChange={addFile}
             />
+            <SaveBtn type="submit">저장</SaveBtn>
           </form>
         </ImageBox>
         <NameBox>
@@ -250,13 +251,13 @@ const Profile = () => {
             onChange={onChange}
           />
         </NameBox>
-        <SaveBtn
+        {/* <SaveBtn
           type="submit"
           form="info-form"
           // onClick={() => onSave(currentName, currentImage)}
         >
           저장
-        </SaveBtn>
+        </SaveBtn> */}
       </InfoBox>
       <Title>회원탈퇴</Title>
       <AgreeInfoBox>
