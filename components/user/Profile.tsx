@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AuthReducerType } from "slices";
-import { IAuth } from "slices/auth";
+import { useDispatch } from "react-redux";
 import { setMessage } from "slices/toast";
 import styled from "styled-components";
 
@@ -128,15 +126,14 @@ const RemoveBtn = styled.button`
   color: gray;
 `;
 
-const Profile = () => {
-  const [currentImage, setCurrentImage] = useState("/images/profile.png");
-  const [currentFile, setCurrentFile] = useState();
+const Profile = ({ userId, userName, image }) => {
+  const [currentImage, setCurrentImage] = useState(
+    image || "/images/profile.png",
+  );
   const [currentName, setCurrentName] = useState("");
+  const [currentFile, setCurrentFile] = useState();
   const [formData, setFormData] = useState<any>();
   const dispatch = useDispatch();
-  const {
-    auth: { userId, userName },
-  } = useSelector<AuthReducerType, IAuth>((state) => state);
 
   // 이미지 파일 추가시 미리보기
   const addFile = useCallback(({ target }) => {
@@ -181,6 +178,8 @@ const Profile = () => {
       input.value = "";
       setCurrentName(response.data.nickname);
       setCurrentImage(response.data.profilePath);
+      console.log(currentName);
+      console.log(currentImage);
       dispatch(
         setMessage({ message: "프로필 정보를 성공적으로 변경되었습니다." }),
       );

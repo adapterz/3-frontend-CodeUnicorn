@@ -32,7 +32,12 @@ const Courses = () => {
   }, [courses]);
 
   function onSelect(data: string | number) {
-    typeof data === "string" ? setCategory(data) : setCurrentPage(data);
+    if (typeof data === "string") {
+      setCategory(data);
+      setCurrentPage(1);
+    } else {
+      setCurrentPage(data);
+    }
   }
 
   const onIncresive = () => {
