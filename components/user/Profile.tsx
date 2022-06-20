@@ -131,7 +131,7 @@ const RemoveBtn = styled.button`
 const Profile = () => {
   const [currentImage, setCurrentImage] = useState("/images/profile.png");
   const [currentName, setCurrentName] = useState("");
-  const [testImage, setTestImage] = useState<any>();
+  const [formData, setFormData] = useState<any>();
   const dispatch = useDispatch();
   const {
     auth: { userId, userName },
@@ -142,11 +142,10 @@ const Profile = () => {
     let reader = new FileReader();
     reader.onload = () => {
       setCurrentImage(reader.result as string);
-      const formData = new FormData();
-      formData.append("image", target.files[0]);
-      formData.append("nickname", currentName);
-      console.log(target.files[0]);
-      setTestImage(formData);
+      const formArr = new FormData();
+      formArr.append("image", target.files[0]);
+      formArr.append("nickname", currentName);
+      setFormData(formArr);
     };
     reader.readAsDataURL(target.files[0]);
   }, []);
@@ -162,20 +161,18 @@ const Profile = () => {
   const handelSubmit = async (e: any) => {
     e.preventDefault();
 
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/users/5/info `,
       {
         headers: {
           "Content-Type": "multipart/form-data",
         },
         data: {
-          formdata: testImage,
+          formdata: formData,
         },
         encType: "multipart/form-data",
       },
     );
-
-    console.log(testImage);
 
     if (response.status === 200) {
       const input = document.querySelector("#input-name") as HTMLInputElement;
@@ -228,8 +225,8 @@ const Profile = () => {
       <InfoBox>
         <ImageBox htmlFor="input-file">
           <form
+            id="info-form"
             onSubmit={handelSubmit}
-            method="post"
             encType="multipart/form-data"
           >
             <img src={currentImage} />
@@ -240,7 +237,6 @@ const Profile = () => {
               style={{ display: "none" }}
               onChange={addFile}
             />
-            <SaveBtn type="submit">저장</SaveBtn>
           </form>
         </ImageBox>
         <NameBox>
@@ -254,12 +250,13 @@ const Profile = () => {
             onChange={onChange}
           />
         </NameBox>
-        {/* <SaveBtn
+        <SaveBtn
           type="submit"
-          onClick={() => onSave(currentName, currentImage)}
+          form="info-form"
+          // onClick={() => onSave(currentName, currentImage)}
         >
           저장
-        </SaveBtn> */}
+        </SaveBtn>
       </InfoBox>
       <Title>회원탈퇴</Title>
       <AgreeInfoBox>
