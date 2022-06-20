@@ -142,7 +142,11 @@ const Profile = () => {
     let reader = new FileReader();
     reader.onload = () => {
       setCurrentImage(reader.result as string);
-      setTestImage(target.files[0]);
+      const formData = new FormData();
+      formData.append("image", target.files[0]);
+      formData.append("nickname", currentName);
+      console.log(target.files[0]);
+      setTestImage(formData);
     };
     reader.readAsDataURL(target.files[0]);
   }, []);
@@ -157,12 +161,6 @@ const Profile = () => {
 
   const handelSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(currentName);
-    console.log(testImage);
-    const formData = new FormData();
-    formData.append("image", testImage);
-    formData.append("nickname", currentName);
-    console.log(formData);
 
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
@@ -171,13 +169,13 @@ const Profile = () => {
           "Content-Type": "multipart/form-data",
         },
         data: {
-          formdata: formData,
+          formdata: testImage,
         },
         encType: "multipart/form-data",
       },
     );
 
-    console.log(formData);
+    console.log(testImage);
 
     if (response.status === 200) {
       const input = document.querySelector("#input-name") as HTMLInputElement;
@@ -194,7 +192,7 @@ const Profile = () => {
     }
   };
 
-  // 닉네임 저장 이벤트
+  // 유저 이미지, 닉네임 저장 이벤트
   const onSave = useCallback(async (formdata) => {
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
@@ -242,7 +240,7 @@ const Profile = () => {
               style={{ display: "none" }}
               onChange={addFile}
             />
-            <SaveBtn type="submit"></SaveBtn>
+            <SaveBtn type="submit">저장</SaveBtn>
           </form>
         </ImageBox>
         <NameBox>
