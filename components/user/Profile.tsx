@@ -142,9 +142,9 @@ const Profile = () => {
     let reader = new FileReader();
     reader.onload = () => {
       setCurrentImage(reader.result as string);
+      setTestImage(target.files[0]);
     };
     reader.readAsDataURL(target.files[0]);
-    setTestImage(target.files[0]);
   }, []);
 
   // name 값 가져오기
@@ -157,6 +157,8 @@ const Profile = () => {
 
   const handelSubmit = async (e) => {
     e.preventDefault();
+    console.log(currentName);
+    console.log(testImage);
     const formData = new FormData();
     formData.append("image", testImage);
     formData.append("nickname", currentName);
@@ -165,13 +167,14 @@ const Profile = () => {
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
       {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          withCredentials: true,
+        },
         data: {
           formdata: formData,
         },
-        headers: {
-          "content-type": "multipart/form-data",
-          withCredentials: true,
-        },
+        encType: "multipart/form-data",
       },
     );
 
