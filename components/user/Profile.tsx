@@ -162,9 +162,6 @@ const Profile = () => {
     // formData.append("name", name);
     // console.log(formData);
 
-    console.log(name);
-    console.log(image);
-
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
       {
@@ -180,9 +177,13 @@ const Profile = () => {
     if (response.status === 200) {
       const input = document.querySelector("#input-name") as HTMLInputElement;
       input.value = "";
+      console.log("respones = " + response);
       dispatch(
         setMessage({ message: "프로필 정보를 성공적으로 변경되었습니다." }),
       );
+      setTimeout(() => {
+        setMessage({ message: "" });
+      }, 4000);
     } else {
       dispatch(setMessage({ message: "프로필 정보 변경에 실패했습니다." }));
     }
