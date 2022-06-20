@@ -166,6 +166,7 @@ const Profile = () => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
+          Accept: "*/*",
         },
         data: {
           formdata: formData,
