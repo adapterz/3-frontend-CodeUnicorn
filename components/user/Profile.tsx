@@ -157,23 +157,23 @@ const Profile = () => {
 
   // 닉네임 저장 이벤트
   const onSave = useCallback(async (name: string, image) => {
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("name", name);
-    console.log(formData);
+    // const formData = new FormData();
+    // formData.append("image", image);
+    // formData.append("name", name);
+    // console.log(formData);
 
     const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/users/5/info `,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
       {
-        formdata: formData,
-        // nickname: name,
-        // image: image,
+        nickname: name,
+        image: image,
         headers: {
           "content-type": "multipart/form-data",
           withCredentials: true,
         },
       },
     );
+
     if (response.status === 200) {
       const input = document.querySelector("#input-name") as HTMLInputElement;
       input.value = "";
