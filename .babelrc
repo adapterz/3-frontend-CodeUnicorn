@@ -2,7 +2,7 @@
   "presets": ["next/babel"],
   "env": {
     // production에서 console.log 보이지 않도록 설정
-    "production": { "plugins": ["babel-plugin-transform-remove-console"] }
+    // "production": { "plugins": ["babel-plugin-transform-remove-console"] }
   },
   "plugins": [
     [

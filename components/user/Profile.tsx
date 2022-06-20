@@ -156,11 +156,14 @@ const Profile = () => {
   );
 
   // 닉네임 저장 이벤트
-  const onSave = useCallback(async (name: string, image) => {
+  const onSave = useCallback(async (name: string, image: string) => {
     // const formData = new FormData();
     // formData.append("image", image);
     // formData.append("name", name);
     // console.log(formData);
+
+    console.log(name);
+    console.log(image);
 
     const response = await axios.patch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
@@ -210,7 +213,10 @@ const Profile = () => {
             onChange={onChange}
           />
         </NameBox>
-        <SaveBtn type="submit" onClick={() => onSave(currentName, testImage)}>
+        <SaveBtn
+          type="submit"
+          onClick={() => onSave(currentName, currentImage)}
+        >
           저장
         </SaveBtn>
       </InfoBox>
