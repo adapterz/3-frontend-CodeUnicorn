@@ -163,15 +163,13 @@ const Profile = () => {
 
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_BASE_URL}/users/5/info `,
+      formData,
       {
         headers: {
           "Content-Type": "multipart/form-data",
           Accept: "*/*",
+          encType: "multipart/form-data",
         },
-        data: {
-          formdata: formData,
-        },
-        encType: "multipart/form-data",
       },
     );
 
