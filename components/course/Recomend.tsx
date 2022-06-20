@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Slider from "../Slider";
 
 const Container = styled.div`
-  width: 850px;
+  width: 900px;
   margin: 0px auto;
   margin-bottom: 3rem;
 `;

@@ -14,7 +14,7 @@ interface IContainer {
 }
 
 const Container = styled.div<IContainer>`
-  width: ${(props) => props.width};
+  max-width: ${(props) => props.width};
   margin: auto;
   overflow: hidden;
   min-height: 200px;
@@ -65,17 +65,18 @@ function Slider({ courses, width }) {
   const nextSlide = () => {
     currentSlide >= TOTAL_SLIDES
       ? setCurrentSlide(0)
-      : setCurrentSlide(currentSlide + 1);
+      : setCurrentSlide(currentSlide + 5);
   };
   const backSlide = () => {
     currentSlide === 0
       ? setCurrentSlide(TOTAL_SLIDES)
-      : setCurrentSlide(currentSlide - 1);
+      : setCurrentSlide(currentSlide - 5);
   };
 
   useEffect(() => {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
-    slideRef.current.style.transform = `translateX(-${currentSlide}00%`;
+    slideRef.current.style.transform = `translateX(-${currentSlide}0%`;
+    console.log(currentSlide);
   }, [currentSlide]);
 
   return (

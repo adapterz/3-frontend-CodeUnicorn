@@ -131,6 +131,7 @@ const RemoveBtn = styled.button`
 const Profile = () => {
   const [currentImage, setCurrentImage] = useState("/images/profile.png");
   const [currentName, setCurrentName] = useState("");
+  const [testImage, setTestImage] = useState<any>();
   const dispatch = useDispatch();
   const {
     auth: { userId, userName },
@@ -143,6 +144,7 @@ const Profile = () => {
       setCurrentImage(reader.result as string);
     };
     reader.readAsDataURL(target.files[0]);
+    setTestImage(target.files[0]);
   }, []);
 
   // name 값 가져오기
@@ -154,19 +156,18 @@ const Profile = () => {
   );
 
   // 닉네임 저장 이벤트
-  const onSave = useCallback(async (name: string) => {
-    const input = document.querySelector("#input-file") as HTMLInputElement;
+  const onSave = useCallback(async (name: string, image) => {
     const formData = new FormData();
-    formData.append("userImage", input.files[0]);
-
-    // TODO 함수 밖에서 미리 넣어줬을 떄 파라미터로 데이터 받아야할듯 이미지 넣고 요청시 현재 Form 데이터에 아무것도 안들어감
+    formData.append("image", image);
+    formData.append("name", name);
     console.log(formData);
 
     const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/users/5/info `,
       {
-        nickname: name,
-        // image: formData,
+        formdata: formData,
+        // nickname: name,
+        // image: image,
         headers: {
           "content-type": "multipart/form-data",
           withCredentials: true,
@@ -209,7 +210,7 @@ const Profile = () => {
             onChange={onChange}
           />
         </NameBox>
-        <SaveBtn type="submit" onClick={() => onSave(currentName)}>
+        <SaveBtn type="submit" onClick={() => onSave(currentName, testImage)}>
           저장
         </SaveBtn>
       </InfoBox>

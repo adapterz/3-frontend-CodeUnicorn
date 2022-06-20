@@ -21,14 +21,16 @@ function user() {
 
   return (
     <Container>
-      {isLogined === true && router.asPath === `/users/${userId}` ? (
+      <Aside />
+      <Profile />
+      {/* {isLogined === true && router.asPath === `/users/${userId}` ? (
         <>
           <Aside />
           <Profile />
         </>
       ) : (
         <Auth />
-      )}
+      )} */}
     </Container>
   );
 }

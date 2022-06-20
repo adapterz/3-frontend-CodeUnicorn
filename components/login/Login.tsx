@@ -79,7 +79,6 @@ export default function Login() {
             image: response.data.data.profilePath,
           } as IAuth),
         );
-        console.log(isLogined);
         router.push("/");
       } else {
         dispatch(setMessage({ message: response.statusText } as ToastType));

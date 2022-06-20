@@ -73,7 +73,6 @@ function lecture() {
           : dispatch(
               setMessage({ message: "강의 정보를 가져오는데 실패했습니다." }),
             );
-        console.log(response.data.data.lecture);
       })();
     }, [query.lecture]);
   }

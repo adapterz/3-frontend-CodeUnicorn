@@ -101,7 +101,7 @@ function Header() {
             </a>
           </Link>
           {router.asPath === `/users/${userId}` ? (
-            <Link href={`/${userId}`}>
+            <Link href={`/users/${userId}`}>
               <a>
                 <HiUserCircle />
               </a>
