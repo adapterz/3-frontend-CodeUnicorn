@@ -163,7 +163,6 @@ const Profile = () => {
     formArr.append("image", currentFile);
     formArr.append("nickname", currentName);
     setFormData(formArr);
-    console.log(currentName);
 
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
@@ -180,7 +179,8 @@ const Profile = () => {
     if (response.status === 200) {
       const input = document.querySelector("#input-name") as HTMLInputElement;
       input.value = "";
-      console.log(response);
+      setCurrentName(response.data.nickname);
+      setCurrentImage(response.data.profilePath);
       dispatch(
         setMessage({ message: "프로필 정보를 성공적으로 변경되었습니다." }),
       );

@@ -144,7 +144,13 @@ type CourseInfoProps = {
   onLike: () => void;
 };
 
-function CourseInfo({ courseDetail, instructor, initLecture, onLike }) {
+function CourseInfo({
+  courseDetail,
+  instructor,
+  initLecture,
+  curriculum,
+  onLike,
+}) {
   const { query } = useRouter();
   return (
     <Container>
@@ -186,7 +192,9 @@ function CourseInfo({ courseDetail, instructor, initLecture, onLike }) {
                 </Info>
                 <Info>
                   <MdOutlineAccessTime />
-                  <span>총 12개 교육({courseDetail.totalHours})</span>
+                  <span>
+                    총 {curriculum.length}개 교육({courseDetail.totalHours})
+                  </span>
                 </Info>
                 <span className="totalUsers">
                   현재 {courseDetail.userCount}명이 수강하고 있습니다.

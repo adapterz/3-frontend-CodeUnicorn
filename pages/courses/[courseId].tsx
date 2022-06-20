@@ -68,6 +68,7 @@ function course() {
         courseDetail={courseDetail}
         instructor={instructor}
         initLecture={initLecture}
+        curriculum={curriculum}
         onLike={onLike}
       />
       <Introduction courseDetail={courseDetail} instructor={instructor} />
