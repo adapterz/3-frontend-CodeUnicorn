@@ -130,10 +130,14 @@ const Profile = ({ userId, userName, image }) => {
   const [currentImage, setCurrentImage] = useState(
     image || "/images/profile.png",
   );
-  const [currentName, setCurrentName] = useState("");
+  const [currentName, setCurrentName] = useState(userName);
   const [currentFile, setCurrentFile] = useState();
   const [formData, setFormData] = useState<any>();
   const dispatch = useDispatch();
+
+  console.log(userId);
+  console.log(userName);
+  console.log(image);
 
   // 이미지 파일 추가시 미리보기
   const addFile = useCallback(({ target }) => {
@@ -178,10 +182,9 @@ const Profile = ({ userId, userName, image }) => {
       input.value = "";
       setCurrentName(response.data.nickname);
       setCurrentImage(response.data.profilePath);
-      console.log(currentName);
-      console.log(currentImage);
+      console.log(response.data);
       dispatch(
-        setMessage({ message: "프로필 정보를 성공적으로 변경되었습니다." }),
+        setMessage({ message: "프로필 정보가 성공적으로 변경되었습니다." }),
       );
       setTimeout(() => {
         setMessage({ message: "" });
@@ -212,7 +215,7 @@ const Profile = ({ userId, userName, image }) => {
           <input
             id="input-name"
             type="text"
-            placeholder={userName}
+            placeholder={currentName}
             minLength={2}
             maxLength={8}
             onChange={onChange}
