@@ -77,7 +77,7 @@ function Header() {
   const {
     auth: { userId },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
-
+  
   const onLogOut = () => {
     signOut();
     // TODO 쿠키 제거 로직
