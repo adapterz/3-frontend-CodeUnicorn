@@ -4,6 +4,7 @@ import Catagories from "../Catagories";
 import Link from "next/link";
 import Slider from "../Slider";
 import { CourseTypes } from "@/interface/course";
+import Loading from "../Loading";
 
 const Container = styled.main`
   margin: 0px auto;
@@ -14,6 +15,7 @@ const Container = styled.main`
 const Section = styled.section`
   position: relative;
   margin-top: 80px;
+  min-height: 390px;
 
   h1 {
     font-size: 28px;
@@ -36,13 +38,25 @@ const Section = styled.section`
 
 const CourseList = styled.div`
   width: 100%;
+  min-height: 150px;
   display: flex;
   justify-content: space-between;
+`;
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .spinner-border {
+    margin-top: 5rem;
+  }
 `;
 
 type ContentsProps = {
   courses: CourseTypes[];
   category: string;
+  backCourses: CourseTypes[];
   categoryCourses: CourseTypes[];
   onSelect: (category: string) => void;
 };
@@ -50,6 +64,7 @@ type ContentsProps = {
 function Contents({
   courses,
   category,
+  backCourses,
   categoryCourses,
   onSelect,
 }: ContentsProps) {
@@ -63,26 +78,36 @@ function Contents({
           </a>
         </Link>
         <CourseList>
-          {courses
-            .filter((course: CourseTypes) => course.category === "프론트엔드")
-            .slice(0, 4)
-            .map((course: CourseTypes) => (
-              <Course key={course.id} course={course} />
-            ))}
+          {courses.length === 0 ? (
+            <Loading />
+          ) : (
+            courses
+              .filter((course: CourseTypes) => course.category === "프론트엔드")
+              .slice(0, 4)
+              .map((course: CourseTypes) => (
+                <Course key={course.id} course={course} />
+              ))
+          )}
         </CourseList>
       </Section>
       <Section>
         <h1>백엔드 강의</h1>
-        <Slider courses={courses} width="1200px" />
+        <Slider courses={backCourses} width="1200px" />
       </Section>
       <Section>
         <h1>맞춤 강의</h1>
         <Catagories category={category} onSelect={onSelect} />
-        <CourseList>
-          {categoryCourses.map((coures: CourseTypes) => (
-            <Course key={coures.id} course={coures} />
-          ))}
-        </CourseList>
+        {categoryCourses.length === 0 ? (
+          <LoadingContainer>
+            <Loading />
+          </LoadingContainer>
+        ) : (
+          <CourseList>
+            {categoryCourses.map((coures: CourseTypes) => (
+              <Course key={coures.id} course={coures} />
+            ))}
+          </CourseList>
+        )}
       </Section>
     </Container>
   );

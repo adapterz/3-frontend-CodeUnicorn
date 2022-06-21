@@ -23,14 +23,14 @@ const SectionInfo = styled.div`
   border-bottom: 1px solid #333333;
 
   .section__name {
+    min-width: 695px;
     font-size: 18px;
     padding-bottom: 10px;
     font-weight: bold;
-    flex: 1;
   }
 
   .section__lecture {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: bold;
     padding-bottom: 10px;
     margin-right: 6px;
@@ -38,7 +38,7 @@ const SectionInfo = styled.div`
 
   .section__time {
     padding: 0px 12px;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: bold;
     padding-bottom: 10px;
   }
@@ -48,9 +48,10 @@ const Lecture = styled.div`
   display: flex;
 
   .lecture__name {
+    min-width: 700px;
     font-size: 16px;
     padding: 12px 12px;
-    flex: 1;
+    /* flex: 1; */
     color: #444444;
   }
 
@@ -63,7 +64,6 @@ const Lecture = styled.div`
   }
 
   .play__time {
-    text-align: center;
     min-width: 70px;
     padding: 12px 12px;
   }

@@ -44,6 +44,7 @@ const InfoBox = styled.div`
   .image {
     width: 60px;
     height: 60px;
+    margin-bottom: 6px;
   }
 
   .name {

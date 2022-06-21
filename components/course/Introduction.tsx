@@ -10,6 +10,10 @@ const Container = styled.div`
     font-weight: bold;
     margin-bottom: 1rem;
   }
+
+  .copyright {
+    margin-top: 40px;
+  }
 `;
 
 const InfoBox = styled.div`
@@ -23,8 +27,8 @@ const ImageBox = styled.div`
   flex-direction: column;
   margin-right: 20px;
   img {
-    width: 150px;
-    height: 110px;
+    width: 160px;
+    height: 150px;
   }
   .name {
     font-size: 18px;
@@ -38,6 +42,10 @@ const Info = styled.p`
   line-height: 1.6;
   font-weight: 400;
   color: #333333;
+
+  a {
+    color: blue;
+  }
 `;
 
 function Introduction({ courseDetail, instructor }) {
@@ -55,6 +63,17 @@ function Introduction({ courseDetail, instructor }) {
           </InfoBox>
           <h1>교육 소개</h1>
           <Info>{courseDetail.description}</Info>
+          <h1 className="copyright">수업 저작권</h1>
+          <img src="/images/copyright.jpeg" />
+          <Info>
+            이 강의는 CC 라이센스를 따르고 있으며, 아래 링크에서도 볼 수
+            있습니다.
+            <br />
+            <a href="https://opentutorials.org/module/">
+              https://opentutorials.org/module/
+            </a>
+            좋은 지식을 공유해주시는 생활코딩에 감사의 말씀을 전합니다.
+          </Info>
         </Container>
       )}
     </>

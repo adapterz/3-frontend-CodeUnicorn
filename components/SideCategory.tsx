@@ -23,6 +23,10 @@ const Option = styled.li`
   color: #888888;
   padding: 6px 0px;
   cursor: pointer;
+  &:first-child {
+    color: black;
+    font-weight: 500;
+  }
 `;
 
 type SideCategoryProps = {

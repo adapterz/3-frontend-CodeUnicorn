@@ -15,9 +15,14 @@ const Container = styled.div`
     color: #ffeb34;
     margin-right: 4px;
   }
+
+  a {
+    max-width: 280px;
+  }
 `;
 
 const Image = styled.img`
+  min-width: 280px;
   max-width: 280px;
   height: 200px;
   border-radius: 20px;

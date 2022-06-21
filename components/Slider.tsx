@@ -7,15 +7,18 @@ import {
 import { useEffect, useRef, useState } from "react";
 import Course from "./Course";
 import { CourseTypes } from "@/interface/course";
+import Loading from "./Loading";
 
 interface IContainer {
   width: string;
 }
 
 const Container = styled.div<IContainer>`
-  width: ${(props) => props.width};
-  margin: 0px auto;
+  max-width: ${(props) => props.width};
+  margin: auto;
   overflow: hidden;
+  min-height: 200px;
+  display: flex;
 
   .left__arrow {
     font-size: 50px;
@@ -48,28 +51,31 @@ const Container = styled.div<IContainer>`
 const SliderContainer = styled.div`
   margin: 0 auto;
   display: flex;
+
+  .spinner-border {
+    margin-top: 6rem;
+  }
 `;
 
 function Slider({ courses, width }) {
-  const TOTAL_SLIDES = 2;
+  const TOTAL_SLIDES = 1;
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
 
   const nextSlide = () => {
     currentSlide >= TOTAL_SLIDES
       ? setCurrentSlide(0)
-      : setCurrentSlide(currentSlide + 1);
+      : setCurrentSlide(currentSlide + 5);
   };
   const backSlide = () => {
-    currentSlide === 0
-      ? setCurrentSlide(TOTAL_SLIDES)
-      : setCurrentSlide(currentSlide - 1);
+    currentSlide === 0 ? setCurrentSlide(5) : setCurrentSlide(currentSlide - 5);
   };
 
   useEffect(() => {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
-    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
+    slideRef.current.style.transform = `translateX(-${currentSlide}0%`;
   }, [currentSlide]);
+
   return (
     <Container width={width}>
       <FontAwesomeIcon
@@ -78,12 +84,13 @@ function Slider({ courses, width }) {
         className="left__arrow"
       />
       <SliderContainer ref={slideRef}>
-        {courses
-          .filter((course: CourseTypes) => course.category === "백엔드")
-          .slice(0, 4)
-          .map((course: CourseTypes) => (
+        {courses.length === 0 ? (
+          <Loading />
+        ) : (
+          courses.map((course: CourseTypes) => (
             <Course key={course.id} course={course} />
-          ))}
+          ))
+        )}
       </SliderContainer>
       <FontAwesomeIcon
         icon={faCircleChevronRight}

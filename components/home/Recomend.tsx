@@ -10,15 +10,22 @@ import {
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { CourseTypes } from "@/interface/course";
+import Loading from "../Loading";
 
 const Container = styled.div`
   margin: 0px auto;
+  width: 1450px;
+  min-height: 520px;
   background-color: #193a91;
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
+
+  .spinner-border {
+    margin-top: 10rem;
+  }
 
   h1 {
     color: whitesmoke;
@@ -164,30 +171,34 @@ function Recomend({ recomendCourses }: RecomendProps) {
       />
       <h1>Code Unicorn 추천 교육</h1>
       <SliderContainer ref={slideRef}>
-        {recomendCourses.map((course: CourseTypes) => (
-          <Link key={course.id} href={`/courses/${course.id}`}>
-            <a>
-              <CourseBox>
-                <ImageBox>
-                  <Image src={course.imagePath} />
-                </ImageBox>
-                <InfoBox>
-                  <Catagory>{course.category}</Catagory>
-                  <Title>{course.name}</Title>
-                  <Instructor>
-                    <FontAwesomeIcon className="userIcon" icon={faUserTie} />
-                    {course.instructor.name}
-                  </Instructor>
-                  <Rating>
-                    <FontAwesomeIcon className="star" icon={faStar} />
-                    {course.averageRatings} ({course.ratingsCount})
-                  </Rating>
-                  <Description>{course.description}</Description>
-                </InfoBox>
-              </CourseBox>
-            </a>
-          </Link>
-        ))}
+        {recomendCourses.length === 0 ? (
+          <Loading />
+        ) : (
+          recomendCourses.map((course: CourseTypes) => (
+            <Link key={course.id} href={`/courses/${course.id}`}>
+              <a>
+                <CourseBox>
+                  <ImageBox>
+                    <Image src={course.imagePath} />
+                  </ImageBox>
+                  <InfoBox>
+                    <Catagory>{course.category}</Catagory>
+                    <Title>{course.name}</Title>
+                    <Instructor>
+                      <FontAwesomeIcon className="userIcon" icon={faUserTie} />
+                      {course.instructor.name}
+                    </Instructor>
+                    <Rating>
+                      <FontAwesomeIcon className="star" icon={faStar} />
+                      {course.averageRatings} ({course.ratingsCount})
+                    </Rating>
+                    <Description>{course.description}</Description>
+                  </InfoBox>
+                </CourseBox>
+              </a>
+            </Link>
+          ))
+        )}
       </SliderContainer>
       <FontAwesomeIcon
         icon={faCircleChevronRight}

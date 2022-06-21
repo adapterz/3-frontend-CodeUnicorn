@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { IAuth } from "slices/auth";
 import { AuthReducerType } from "slices";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Container = styled.nav`
   width: 100%;
@@ -45,7 +46,7 @@ const LogOutBtn = styled.button`
   text-align: center;
   width: 80px;
   height: 30px;
-  font-size: 17px;
+  font-size: 16px;
   padding-top: 2px;
   font-weight: 500;
   margin-left: 20px;
@@ -65,9 +66,18 @@ const IsLoginedNav = styled.nav`
     color: #444444;
     cursor: pointer;
   }
+
+  .isLogined-lecture {
+    margin-right: 20px;
+  }
 `;
 
 function Header() {
+  const router = useRouter();
+  const {
+    auth: { userId },
+  } = useSelector<AuthReducerType, IAuth>((state) => state);
+  
   const onLogOut = () => {
     signOut();
     // TODO 쿠키 제거 로직
@@ -85,18 +95,31 @@ function Header() {
       </Link>
       {isLogined === true ? (
         <IsLoginedNav>
-          <Link href="/users/2">
+          <Link href="/courses">
             <a>
-              <HiUserCircle />
+              <Menu className="isLogined-lecture">전체 강의</Menu>
             </a>
           </Link>
+          {router.asPath === `/users/${userId}` ? (
+            <Link href={`/users/${userId}`}>
+              <a>
+                <HiUserCircle />
+              </a>
+            </Link>
+          ) : (
+            <Link href={`/users/${userId}`}>
+              <a>
+                <HiUserCircle />
+              </a>
+            </Link>
+          )}
           <LogOutBtn onClick={onLogOut}>로그아웃</LogOutBtn>
         </IsLoginedNav>
       ) : (
         <Nav>
           <Link href="/courses">
             <a>
-              <Menu>강의</Menu>
+              <Menu>전체 강의</Menu>
             </a>
           </Link>
           <Link href="/login">

@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { CourseTypes } from "@/interface/course";
+import Loading from "../Loading";
 
 const Container = styled.div`
   width: 100%;
-  max-height: 420px;
+  min-height: 420px;
   background-color: #2b3d55;
   display: flex;
 `;
@@ -52,19 +52,27 @@ const Description = styled.p`
 
 function Banner({ newCourse }) {
   return (
-    <Link href={`/courses/${newCourse.id}`}>
-      <a>
-        <Container>
-          <InnerContainer>
-            <BannerInfoBox>
-              <Title>{newCourse.name}</Title>
-              <Description>{newCourse.description}</Description>
-            </BannerInfoBox>
-            <BackImage src={newCourse.imagePath} />
-          </InnerContainer>
-        </Container>
-      </a>
-    </Link>
+    <Container>
+      {newCourse.length === 0 ? (
+        <Loading />
+      ) : (
+        <InnerContainer>
+          <BannerInfoBox>
+            <Link href={`/courses/${newCourse.id}`}>
+              <a>
+                <Title>{newCourse.name}</Title>
+                <Description>{newCourse.description}</Description>
+              </a>
+            </Link>
+          </BannerInfoBox>
+          <Link href={`/courses/${newCourse.id}`}>
+            <a>
+              <BackImage src={newCourse.imagePath} />
+            </a>
+          </Link>
+        </InnerContainer>
+      )}
+    </Container>
   );
 }
 

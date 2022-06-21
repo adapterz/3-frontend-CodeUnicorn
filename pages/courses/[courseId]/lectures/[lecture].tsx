@@ -35,7 +35,7 @@ function lecture() {
     useEffect(() => {
       (async () => {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/courses/${query.courseId}`,
+          `https://api.codeunicorn.kr/courses/${query.courseId}`,
         );
         response.status === 200
           ? setCourseDetail(response.data.data)
@@ -50,7 +50,7 @@ function lecture() {
     useEffect(() => {
       (async () => {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/courses/${query.courseId}/curriculum`,
+          `https://api.codeunicorn.kr/courses/${query.courseId}/curriculum`,
         );
         if (response.status === 200) {
           setCurriculum(response.data.data.sections);
@@ -62,11 +62,11 @@ function lecture() {
       })();
     }, [query.courseId]);
 
-    // 강의 상세정보를 가져오는 로직
+    // 강의 상세 정보를 가져오는 로직
     useEffect(() => {
       (async () => {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/courses/${query.courseId}/lectures/${query.lecture}`,
+          `https://api.codeunicorn.kr/courses/${query.courseId}/lectures/${query.lecture}`,
         );
         response.status === 200
           ? setLecture(response.data.data.lecture)

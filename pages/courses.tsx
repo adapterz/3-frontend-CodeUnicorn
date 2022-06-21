@@ -8,28 +8,36 @@ const Courses = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [maxPage, setMaxPage] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [totalCourses, setTotalCourses] = useState(null);
 
   useEffect(() => {
     (async () => {
       const {
         data: { data },
       } = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/courses?category=${category}&page=${currentPage}`,
+        `https://api.codeunicorn.kr/courses?category=${category}&page=${currentPage}`,
       );
       setCourses(data.courses);
+      setTotalCourses(data.courseCount);
     })();
   }, [category, currentPage]);
 
+  // 자동 페이지 생성을 위한 로직
   useEffect(() => {
     let pageArr = [];
-    for (let i = 1; i <= Math.ceil(courses.length / 9); i++) {
+    for (let i = 1; i <= Math.ceil(totalCourses / 9); i++) {
       pageArr.push(i);
     }
     setMaxPage(pageArr);
   }, [courses]);
 
   function onSelect(data: string | number) {
-    typeof data === "string" ? setCategory(data) : setCurrentPage(data);
+    if (typeof data === "string") {
+      setCategory(data);
+      setCurrentPage(1);
+    } else {
+      setCurrentPage(data);
+    }
   }
 
   const onIncresive = () => {
@@ -49,6 +57,7 @@ const Courses = () => {
       ></NextSeo>
       <CoursesTemplate
         courses={courses}
+        totalCourses={totalCourses}
         category={category}
         currentPage={currentPage}
         maxPage={maxPage}

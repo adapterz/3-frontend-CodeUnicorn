@@ -14,22 +14,20 @@ function course() {
   const [instructor, setInstructor] = useState({});
   const [curriculum, setCurriculum] = useState([]);
   const [recomendCourses, setRecomendCourses] = useState([]);
+  const [initLecture, setInitLecture] = useState();
   const dispatch = useDispatch();
 
   const onLike = useCallback(() => {
     dispatch(
       setMessage({ message: "로그인 후 관심 교육을 등록할 수 있습니다." }),
     );
-    setTimeout(() => {
-      dispatch(setMessage({ message: "" }));
-    });
   }, []);
 
   // 강의 디테일 정보를 가져오는 로직
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/courses/${query.courseId}`,
+        `https://api.codeunicorn.kr/courses/${query.courseId}`,
       );
       setCourseDetail(response.data.data);
       setInstructor(response.data.data.instructor);
@@ -40,9 +38,10 @@ function course() {
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/courses/${query.courseId}/curriculum`,
+        `https://api.codeunicorn.kr/courses/${query.courseId}/curriculum`,
       );
       setCurriculum(response.data.data.sections);
+      setInitLecture(response.data.data.sections[0].lectures[0].id);
     })();
   }, [query.courseId]);
 
@@ -54,7 +53,7 @@ function course() {
           data: { courses },
         },
       } = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/courses?category=all&page=1`,
+        `https://api.codeunicorn.kr/courses?category=all&page=1`,
       );
       setRecomendCourses(courses);
     })();
@@ -65,6 +64,8 @@ function course() {
       <CourseInfo
         courseDetail={courseDetail}
         instructor={instructor}
+        initLecture={initLecture}
+        curriculum={curriculum}
         onLike={onLike}
       />
       <Introduction courseDetail={courseDetail} instructor={instructor} />

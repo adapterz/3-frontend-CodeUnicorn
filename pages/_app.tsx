@@ -13,6 +13,7 @@ import { DefaultSeo } from "next-seo";
 import { DEFAULT_SEO } from "../config/seo";
 import Head from "next/head";
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS
+import "bootstrap/dist/css/bootstrap.css";
 
 const store = createStore(rootReducer, composeWithDevTools());
 

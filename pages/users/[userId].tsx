@@ -4,6 +4,7 @@ import Profile from "@/components/user/Profile";
 import { useSelector } from "react-redux";
 import { AuthReducerType } from "slices";
 import { IAuth } from "slices/auth";
+import { useRouter } from "next/router";
 import Auth from "@/components/Auth";
 
 const Container = styled.div`
@@ -13,15 +14,17 @@ const Container = styled.div`
 `;
 
 function user() {
+  const router = useRouter();
   const {
-    auth: { isLogined },
+    auth: { isLogined, userId, userName, image },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
+
   return (
     <Container>
-      {isLogined === true ? (
+      {isLogined === true && router.asPath === `/users/${userId}` ? (
         <>
           <Aside />
-          <Profile />
+          <Profile userId={userId} userName={userName} image={image} />
         </>
       ) : (
         <Auth />

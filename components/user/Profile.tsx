@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AuthReducerType } from "slices";
-import { IAuth } from "slices/auth";
+import { useDispatch } from "react-redux";
 import { setMessage } from "slices/toast";
 import styled from "styled-components";
 
@@ -128,19 +126,21 @@ const RemoveBtn = styled.button`
   color: gray;
 `;
 
-const Profile = () => {
-  const [currentImage, setCurrentImage] = useState("/images/profile.png");
-  const [currentName, setCurrentName] = useState("");
+const Profile = ({ userId, userName, image }) => {
+  const [currentImage, setCurrentImage] = useState(
+    image || "/images/profile.png",
+  );
+  const [currentName, setCurrentName] = useState(userName);
+  const [currentFile, setCurrentFile] = useState();
+  const [formData, setFormData] = useState<any>();
   const dispatch = useDispatch();
-  const {
-    auth: { userId, userName },
-  } = useSelector<AuthReducerType, IAuth>((state) => state);
 
   // 이미지 파일 추가시 미리보기
   const addFile = useCallback(({ target }) => {
     let reader = new FileReader();
     reader.onload = () => {
       setCurrentImage(reader.result as string);
+      setCurrentFile(target.files[0]);
     };
     reader.readAsDataURL(target.files[0]);
   }, []);
@@ -153,60 +153,68 @@ const Profile = () => {
     [currentName],
   );
 
-  // 닉네임 저장 이벤트
-  const onSave = useCallback(async (name: string) => {
-    const input = document.querySelector("#input-name") as HTMLInputElement;
-    const formData = new FormData();
-    formData.append("userImage", input.files[0]);
+  // 유저 정보 저장
+  const onSave = async (e: any) => {
+    e.preventDefault();
+    const formArr = new FormData();
+    formArr.append("image", currentFile);
+    formArr.append("nickname", currentName);
+    setFormData(formArr);
 
-    const response = await axios.patch(
+    const response = await axios.post(
       `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
+      formData,
       {
-        nickname: name,
-        image: formData,
         headers: {
-          "content-type": "multipart/form-data",
-          withCredentials: true,
+          "Content-Type": "multipart/form-data",
+          Accept: "*/*",
+          encType: "multipart/form-data",
         },
       },
     );
+
     if (response.status === 200) {
       const input = document.querySelector("#input-name") as HTMLInputElement;
       input.value = "";
+      console.log(response);
       dispatch(
-        setMessage({ message: "프로필 정보를 성공적으로 변경되었습니다." }),
+        setMessage({ message: "프로필 정보가 성공적으로 변경되었습니다." }),
       );
+      setCurrentName(response.data.nickname);
+      setCurrentImage(response.data.profilePath);
     } else {
       dispatch(setMessage({ message: "프로필 정보 변경에 실패했습니다." }));
     }
-  }, []);
+  };
 
   return (
     <Container>
       <Title>내정보</Title>
       <InfoBox>
         <ImageBox htmlFor="input-file">
-          <img src={currentImage} />
-          <input
-            type="file"
-            id="input-file"
-            accept=".jpg, .jpeg, .png"
-            style={{ display: "none" }}
-            onChange={addFile}
-          />
+          <form id="info-form" onSubmit={onSave} encType="multipart/form-data">
+            <img src={currentImage} />
+            <input
+              type="file"
+              id="input-file"
+              accept=".jpg, .jpeg, .png"
+              style={{ display: "none" }}
+              onChange={addFile}
+            />
+          </form>
         </ImageBox>
         <NameBox>
           <h2>닉네임</h2>
           <input
             id="input-name"
             type="text"
-            placeholder={userName}
+            placeholder={currentName}
             minLength={2}
             maxLength={8}
             onChange={onChange}
           />
         </NameBox>
-        <SaveBtn type="submit" onClick={() => onSave(currentName)}>
+        <SaveBtn type="submit" form="info-form">
           저장
         </SaveBtn>
       </InfoBox>
