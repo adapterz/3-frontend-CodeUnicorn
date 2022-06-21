@@ -6,7 +6,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
   const defaultFields: ISitemapField[] = [
     {
-      loc: process.env.NEXT_PUBLIC_BASE_URL,
+      loc: "https://codeunicorn.kr",
       changefreq: "daily",
       priority: 0.8,
       lastmod,
