@@ -135,10 +135,6 @@ const Profile = ({ userId, userName, image }) => {
   const [formData, setFormData] = useState<any>();
   const dispatch = useDispatch();
 
-  console.log(userId);
-  console.log(userName);
-  console.log(image);
-
   // 이미지 파일 추가시 미리보기
   const addFile = useCallback(({ target }) => {
     let reader = new FileReader();
@@ -180,15 +176,11 @@ const Profile = ({ userId, userName, image }) => {
     if (response.status === 200) {
       const input = document.querySelector("#input-name") as HTMLInputElement;
       input.value = "";
-      setCurrentName(response.data.nickname);
-      setCurrentImage(response.data.profilePath);
-      console.log(response.data);
       dispatch(
         setMessage({ message: "프로필 정보가 성공적으로 변경되었습니다." }),
       );
-      setTimeout(() => {
-        setMessage({ message: "" });
-      }, 4000);
+      setCurrentName(response.data.nickname);
+      setCurrentImage(response.data.profilePath);
     } else {
       dispatch(setMessage({ message: "프로필 정보 변경에 실패했습니다." }));
     }

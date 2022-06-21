@@ -14,6 +14,7 @@ import Loading from "../Loading";
 
 const Container = styled.div`
   margin: 0px auto;
+  width: 1450px;
   min-height: 520px;
   background-color: #193a91;
   margin-bottom: 30px;

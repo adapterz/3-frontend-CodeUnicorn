@@ -21,9 +21,6 @@ function course() {
     dispatch(
       setMessage({ message: "로그인 후 관심 교육을 등록할 수 있습니다." }),
     );
-    setTimeout(() => {
-      dispatch(setMessage({ message: "" }));
-    }, 5000);
   }, []);
 
   // 강의 디테일 정보를 가져오는 로직
