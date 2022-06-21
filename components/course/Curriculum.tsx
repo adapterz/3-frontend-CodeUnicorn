@@ -30,7 +30,7 @@ const SectionInfo = styled.div`
   }
 
   .section__lecture {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: bold;
     padding-bottom: 10px;
     margin-right: 6px;
@@ -38,7 +38,7 @@ const SectionInfo = styled.div`
 
   .section__time {
     padding: 0px 12px;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: bold;
     padding-bottom: 10px;
   }
