@@ -1,14 +1,11 @@
 import styled from "styled-components";
 import Aside from "@/components/user/Aside";
 import Profile from "@/components/user/Profile";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { AuthReducerType } from "slices";
 import { IAuth } from "slices/auth";
 import { useRouter } from "next/router";
 import Auth from "@/components/Auth";
-import { useState } from "react";
-import axios from "axios";
-import { setMessage } from "slices/toast";
 
 const Container = styled.div`
   width: 850px;
@@ -24,21 +21,14 @@ function user() {
 
   return (
     <Container>
-      <Aside />
-      <Profile
-        userId={userId}
-        userName={userName}
-        image={image}
-        // onSave={onSave}
-      />
-      {/* {isLogined === true && router.asPath === `/users/${userId}` ? (
+      {isLogined === true && router.asPath === `/users/${userId}` ? (
         <>
           <Aside />
           <Profile userId={userId} userName={userName} image={image} />
         </>
       ) : (
         <Auth />
-      )} */}
+      )}
     </Container>
   );
 }

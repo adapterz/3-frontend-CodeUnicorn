@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
+import { loginUser } from "slices/auth";
 import { setMessage } from "slices/toast";
 import styled from "styled-components";
 
@@ -127,9 +128,7 @@ const RemoveBtn = styled.button`
 `;
 
 const Profile = ({ userId, userName, image }) => {
-  const [currentImage, setCurrentImage] = useState(
-    image || "/images/profile.png",
-  );
+  const [currentImage, setCurrentImage] = useState("");
   const [currentName, setCurrentName] = useState(userName);
   const [currentFile, setCurrentFile] = useState();
   const [formData, setFormData] = useState<any>();
@@ -157,6 +156,7 @@ const Profile = ({ userId, userName, image }) => {
   const onSave = async (e: any) => {
     e.preventDefault();
     const formArr = new FormData();
+    formArr.append("userId", userId);
     formArr.append("image", currentFile);
     formArr.append("nickname", currentName);
     setFormData(formArr);
@@ -168,6 +168,12 @@ const Profile = ({ userId, userName, image }) => {
       input.value = "";
       setCurrentName(response.data.data.nickname);
       setCurrentImage(response.data.data.profilePath);
+      dispatch(
+        loginUser({
+          userName: response.data.data.nickname,
+          image: response.data.data.profilePath,
+        }),
+      );
       dispatch(
         setMessage({ message: "프로필 정보가 성공적으로 변경되었습니다." }),
       );
@@ -187,7 +193,7 @@ const Profile = ({ userId, userName, image }) => {
             onSubmit={onSave}
             encType="multipart/form-data"
           >
-            <img src={currentImage} />
+            <img src={image || "/images/profile.png"} />
             <input
               type="file"
               id="input-file"
