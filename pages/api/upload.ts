@@ -25,9 +25,6 @@ export const upload = async (req, res) => {
   formData.append("nickname", fileData[0].nickname);
   formData.append("image", readStream);
 
-  console.log(fileData[0].nickname);
-  console.log(fileData[1].image);
-
   const response = await axios.post(
     `https://api.codeunicorn.kr/users/6/info`,
     formData,
@@ -40,8 +37,7 @@ export const upload = async (req, res) => {
   );
 
   if (response.status === 200) {
-    console.log(response);
-    res.json({ success: true });
+    res.json({ success: true }, { response: response.data });
   } else {
     console.log(response);
     return res.status(500).json("Unknown Error");
