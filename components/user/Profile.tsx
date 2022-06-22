@@ -170,6 +170,8 @@ const Profile = ({ userId, userName, image }) => {
       setCurrentImage(response.data.data.profilePath);
       dispatch(
         loginUser({
+          isLogined: true,
+          userId: userId,
           userName: response.data.data.nickname,
           image: response.data.data.profilePath,
         }),
