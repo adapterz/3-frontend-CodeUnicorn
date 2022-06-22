@@ -126,7 +126,7 @@ const RemoveBtn = styled.button`
   color: gray;
 `;
 
-const Profile = ({ userId, userName, image }) => {
+const Profile = ({ userId, userName, image, onSave }) => {
   const [currentImage, setCurrentImage] = useState(
     image || "/images/profile.png",
   );
@@ -154,47 +154,49 @@ const Profile = ({ userId, userName, image }) => {
   );
 
   // 유저 정보 저장
-  const onSave = async (e: any) => {
-    e.preventDefault();
-    const formArr = new FormData();
-    formArr.append("image", currentFile);
-    formArr.append("nickname", currentName);
-    setFormData(formArr);
+  // const onSave = async (e: any) => {
+  //   e.preventDefault();
+  //   const formArr = new FormData();
+  //   formArr.append("image", currentFile);
+  //   formArr.append("nickname", currentName);
+  //   setFormData(formArr);
 
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          // Accept: "*/*",
-          // encType: "multipart/form-data",
-        },
-      },
-    );
+  //   const response = await axios.post(`/api/upload' `, formData, {
+  //     // headers: {
+  //     //   "content-type": "multipart/form-data",
+  //     //   Accept: "multipart/form-data",
+  //     //   // encType: "multipart/form-data",
+  //     // },
+  //     method: "POST",
+  //   });
 
-    console.log(response);
+  //   console.log(response);
 
-    if (response.status === 200) {
-      const input = document.querySelector("#input-name") as HTMLInputElement;
-      input.value = "";
-      console.log(response);
-      dispatch(
-        setMessage({ message: "프로필 정보가 성공적으로 변경되었습니다." }),
-      );
-      setCurrentName(response.data.nickname);
-      setCurrentImage(response.data.profilePath);
-    } else {
-      dispatch(setMessage({ message: "프로필 정보 변경에 실패했습니다." }));
-    }
-  };
+  //   if (response.status === 200) {
+  //     const input = document.querySelector("#input-name") as HTMLInputElement;
+  //     input.value = "";
+  //     console.log(response);
+  //     dispatch(
+  //       setMessage({ message: "프로필 정보가 성공적으로 변경되었습니다." }),
+  //     );
+  //     setCurrentName(response.data.nickname);
+  //     setCurrentImage(response.data.profilePath);
+  //   } else {
+  //     dispatch(setMessage({ message: "프로필 정보 변경에 실패했습니다." }));
+  //   }
+  // };
 
   return (
     <Container>
       <Title>내정보</Title>
       <InfoBox>
         <ImageBox htmlFor="input-file">
-          <form id="info-form" onSubmit={onSave} encType="multipart/form-data">
+          <form
+            id="info-form"
+            method="post"
+            onSubmit={onSave}
+            encType="multipart/form-data"
+          >
             <img src={currentImage} />
             <input
               type="file"
