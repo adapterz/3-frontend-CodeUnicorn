@@ -51,10 +51,18 @@ const LoadingContainer = styled.div`
   height: 100%;
 `;
 
+const InnerContainer = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
 const Section = styled.div`
   margin-bottom: 30px;
   &:first-child {
     margin-top: 70px;
+  }
+  &:last-child {
+    padding-bottom: 40px;
   }
   &:last-child {
     padding-bottom: 40px;

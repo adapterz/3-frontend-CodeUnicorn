@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { InstructorTypes } from "./Instructor";
 
 export type CourseProps = {
@@ -46,4 +47,13 @@ export interface ILecture {
   desc: string;
   videoUrl: string;
   playTime: string;
+=======
+export interface ICourse {
+  title: string;
+  catagory: string;
+  image: string;
+  totalUsers: number;
+  rating: number;
+  ratingsRate: number;
+>>>>>>> 5bed03b9f954b57fcf815461b16c3c64e62cd756
 }
