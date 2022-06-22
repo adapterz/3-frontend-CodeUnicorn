@@ -20,23 +20,35 @@ export const upload = async (req, res) => {
   });
 
   const formData = new FormData();
-  formData.append("nickname", fileData[0]);
-  formData.append("image", fileData[1]);
+  const file = fileData[1].image;
+  const readStream = fs.createReadStream(file.filepath);
+  formData.append("nickname", fileData[0].nickname);
+  formData.append("image", readStream);
 
-  const response = await axios(`https://api.codeunicorn.kr/users/6/info`, {
+  //   const response = await axios(`https://api.codeunicorn.kr/users/6/info`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "multipart/form-data; boundary=" + formData.getBoundary(),
+  //     },
+  //     data: formData,
+  //   });
+
+  const response = await fetch("https://api.codeunicorn.kr/users/6/info", {
     method: "POST",
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "multipart/form-data; boundary=" + formData.getBoundary(),
     },
     data: formData,
   });
 
-  //   if (response.status === 200) {
-  //     res.json({ success: true });
-  //   } else {
-  //     console.log(response);
-  //     return res.status(500).json("Unknown Error");
-  //   }
+  console.log(response);
+
+  if (response.status === 200) {
+    res.json({ success: true });
+  } else {
+    console.log(response);
+    return res.status(500).json("Unknown Error");
+  }
 };
 
 export default upload;
