@@ -55,9 +55,14 @@ function CoursesTemplate({
           ))}
         </CourseList>
       )}
+      <CoursesInfo courses={courses} />
+      <CourseList>
+        {courses.map((coures: ICategoryItem) => (
+          <Course key={coures.id} coures={coures} />
+        ))}
+      </CourseList>
       <PageBtns
-        currentPage={currentPage}
-        maxPage={maxPage}
+        page={page}
         onSelect={onSelect}
         onIncresive={onIncresive}
         onDecresive={onDecresive}
