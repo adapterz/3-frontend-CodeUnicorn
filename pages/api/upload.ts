@@ -25,6 +25,9 @@ export const upload = async (req, res) => {
   formData.append("nickname", fileData[0].nickname);
   formData.append("image", readStream);
 
+  console.log(fileData[0].nickname);
+  console.log(fileData[1].image);
+
   const response = await axios(`https://api.codeunicorn.kr/users/6/info`, {
     method: "POST",
     headers: {
@@ -33,17 +36,8 @@ export const upload = async (req, res) => {
     data: formData,
   });
 
-  //   const response = await fetch("https://api.codeunicorn.kr/users/6/info", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "multipart/form-data; boundary=" + formData.getBoundary(),
-  //     },
-  //     data: formData,
-  //   });
-
-  console.log(response);
-
   if (response.status === 200) {
+    console.log(response);
     res.json({ success: true });
   } else {
     console.log(response);
