@@ -28,13 +28,16 @@ export const upload = async (req, res) => {
   console.log(fileData[0].nickname);
   console.log(fileData[1].image);
 
-  const response = await axios(`https://api.codeunicorn.kr/users/6/info`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "multipart/form-data; boundary=" + formData.getBoundary(),
+  const response = await axios.post(
+    `https://api.codeunicorn.kr/users/6/info`,
+    formData,
+    {
+      headers: {
+        "Content-Type":
+          "multipart/form-data; boundary=" + formData.getBoundary(),
+      },
     },
-    data: formData,
-  });
+  );
 
   if (response.status === 200) {
     console.log(response);
