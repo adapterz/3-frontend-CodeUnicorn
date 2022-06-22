@@ -162,7 +162,7 @@ const Profile = ({ userId, userName, image }) => {
     setFormData(formArr);
 
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/users/6/info `,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
       formData,
       {
         headers: {
