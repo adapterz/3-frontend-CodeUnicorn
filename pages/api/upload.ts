@@ -25,21 +25,21 @@ export const upload = async (req, res) => {
   formData.append("nickname", fileData[0].nickname);
   formData.append("image", readStream);
 
-  //   const response = await axios(`https://api.codeunicorn.kr/users/6/info`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "multipart/form-data; boundary=" + formData.getBoundary(),
-  //     },
-  //     data: formData,
-  //   });
-
-  const response = await fetch("https://api.codeunicorn.kr/users/6/info", {
+  const response = await axios(`https://api.codeunicorn.kr/users/6/info`, {
     method: "POST",
     headers: {
       "Content-Type": "multipart/form-data; boundary=" + formData.getBoundary(),
     },
     data: formData,
   });
+
+  //   const response = await fetch("https://api.codeunicorn.kr/users/6/info", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "multipart/form-data; boundary=" + formData.getBoundary(),
+  //     },
+  //     data: formData,
+  //   });
 
   console.log(response);
 
