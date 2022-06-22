@@ -4,7 +4,7 @@ import Catagories from "../Catagories";
 import Link from "next/link";
 import Slider from "../Slider";
 import { CourseTypes } from "@/interface/course";
-import Loading from "../Loading";56
+import Loading from "../Loading";
 
 const Container = styled.main`
   margin: 0px auto;
