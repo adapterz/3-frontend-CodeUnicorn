@@ -34,15 +34,10 @@ const CourseList = styled.div`
 
 function CoursesTemplate({
   courses,
-<<<<<<< HEAD
   totalCourses,
   category,
   currentPage,
   maxPage,
-=======
-  category,
-  page,
->>>>>>> 5bed03b9f954b57fcf815461b16c3c64e62cd756
   onSelect,
   onIncresive,
   onDecresive,
@@ -50,7 +45,6 @@ function CoursesTemplate({
   return (
     <Container>
       <Catagoryes category={category} onSelect={onSelect} />
-<<<<<<< HEAD
       <CoursesInfo totalCourses={totalCourses} />
       {courses.length === 0 ? (
         <Loading />
@@ -64,16 +58,6 @@ function CoursesTemplate({
       <PageBtns
         currentPage={currentPage}
         maxPage={maxPage}
-=======
-      <CoursesInfo courses={courses} />
-      <CourseList>
-        {courses.map((coures: ICategoryItem) => (
-          <Course key={coures.id} coures={coures} />
-        ))}
-      </CourseList>
-      <PageBtns
-        page={page}
->>>>>>> 5bed03b9f954b57fcf815461b16c3c64e62cd756
         onSelect={onSelect}
         onIncresive={onIncresive}
         onDecresive={onDecresive}
