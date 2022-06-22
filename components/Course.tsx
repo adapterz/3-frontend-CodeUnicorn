@@ -3,6 +3,7 @@ import { CourseProps, CourseTypes } from "@/interface/course";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import Images from "next/image";
 
 const Container = styled.div`
   width: 300px;
@@ -79,6 +80,7 @@ function Course({ course }: CourseProps) {
     <Container>
       <Link key={course.id} href={`/courses/${id}`}>
         <a>
+          {/* <Images src={imagePath} width={280} height={200} /> */}
           <Image src={imagePath} />
         </a>
       </Link>

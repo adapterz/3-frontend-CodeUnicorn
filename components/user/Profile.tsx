@@ -162,16 +162,18 @@ const Profile = ({ userId, userName, image }) => {
     setFormData(formArr);
 
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/users/6/info `,
       formData,
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          Accept: "*/*",
-          encType: "multipart/form-data",
+          // Accept: "*/*",
+          // encType: "multipart/form-data",
         },
       },
     );
+
+    console.log(response);
 
     if (response.status === 200) {
       const input = document.querySelector("#input-name") as HTMLInputElement;
