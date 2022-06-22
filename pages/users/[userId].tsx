@@ -21,16 +21,14 @@ function user() {
 
   return (
     <Container>
-      <Aside />
-      <Profile userId={userId} userName={userName} image={image} />
-      {/* {isLogined === true && router.asPath === `/users/${userId}` ? (
+      {isLogined === true && router.asPath === `/users/${userId}` ? (
         <>
           <Aside />
           <Profile userId={userId} userName={userName} image={image} />
         </>
       ) : (
         <Auth />
-      )} */}
+      )}
     </Container>
   );
 }
