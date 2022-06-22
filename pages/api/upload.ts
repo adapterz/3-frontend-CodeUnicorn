@@ -37,10 +37,12 @@ export const upload = async (req, res) => {
   );
 
   if (response.status === 200) {
-    res.json({ success: true }, { response: response.data });
+    return res.send(response.data);
   } else {
-    console.log(response);
-    return res.status(500).json("Unknown Error");
+    return res.send({
+      status: "500",
+      message: "error",
+    });
   }
 };
 

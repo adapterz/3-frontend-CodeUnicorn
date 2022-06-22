@@ -166,9 +166,8 @@ const Profile = ({ userId, userName, image }) => {
     if (response.status === 200) {
       const input = document.querySelector("#input-name") as HTMLInputElement;
       input.value = "";
-      setCurrentName(response.data.nickname);
-      setCurrentImage(response.data.profilePath);
-      console.log(response);
+      setCurrentName(response.data.data.nickname);
+      setCurrentImage(response.data.data.profilePath);
       dispatch(
         setMessage({ message: "프로필 정보가 성공적으로 변경되었습니다." }),
       );
