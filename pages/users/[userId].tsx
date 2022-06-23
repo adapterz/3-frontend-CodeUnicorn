@@ -18,7 +18,7 @@ function user() {
   const cookies = new Cookies();
   const router = useRouter();
   const {
-    auth: { isLogined, userId, userName, image },
+    auth: { userId, userName, image },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
 
   return (

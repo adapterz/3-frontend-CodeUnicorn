@@ -85,9 +85,6 @@ function Header() {
     cookie.remove("user");
   };
 
-  // const {
-  //   auth: { isLogined },
-  // } = useSelector<AuthReducerType, IAuth>((state) => state);
   return (
     <Container>
       <Link href="/">

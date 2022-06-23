@@ -2,9 +2,7 @@ import Player from "@/components/player/Player";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { AuthReducerType } from "slices";
-import { IAuth } from "slices/auth";
+import { useDispatch } from "react-redux";
 import { setMessage, ToastType } from "slices/toast";
 import Auth from "@/components/Auth";
 import axios from "axios";
@@ -28,9 +26,6 @@ function lecture() {
   const [lecture, setLecture] = useState({});
   const [instructor, setiInstructor] = useState([]);
   const dispatch = useDispatch();
-  const {
-    auth: { isLogined },
-  } = useSelector<AuthReducerType, IAuth>((state) => state);
 
   if (cookie.get("user") !== undefined) {
     // 강의 정보를 가져오는 로직
