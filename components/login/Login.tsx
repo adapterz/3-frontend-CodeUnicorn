@@ -68,7 +68,7 @@ export default function Login() {
   } = useSelector<AuthReducerType, IAuth>((state) => state);
   const dispatch = useDispatch();
 
-  if (cookie.get("user") === undefined && status === "unauthenticated") {
+  if (cookie.get("user") === undefined && status === "authenticated") {
     (async () => {
       const response = await loginApi(data.user);
 
