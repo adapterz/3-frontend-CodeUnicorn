@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IAuth, loginUser } from "slices/auth";
 import { setMessage, ToastType } from "slices/toast";
 import { AuthReducerType } from "slices";
+import { Cookies } from "react-cookie";
 
 const Container = styled.div`
   display: flex;
@@ -79,6 +80,15 @@ export default function Login() {
             image: response.data.data.profilePath,
           } as IAuth),
         );
+
+        const cookies = new Cookies();
+
+        cookies.set("user", response.data.data.loginSessionId, {
+          maxAge: 86400,
+          domain: "codeunicorn.kr",
+          path: "/",
+        });
+
         router.push("/");
       } else {
         dispatch(setMessage({ message: response.statusText } as ToastType));

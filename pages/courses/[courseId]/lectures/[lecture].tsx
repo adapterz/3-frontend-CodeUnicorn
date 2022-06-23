@@ -8,6 +8,7 @@ import { IAuth } from "slices/auth";
 import { setMessage, ToastType } from "slices/toast";
 import Auth from "@/components/Auth";
 import axios from "axios";
+import { Cookies } from "react-cookie";
 
 const Container = styled.div`
   position: absolute;
@@ -20,6 +21,7 @@ const Container = styled.div`
 `;
 
 function lecture() {
+  const cookie = new Cookies();
   const { query } = useRouter();
   const [courseDetail, setCourseDetail] = useState({});
   const [curriculum, setCurriculum] = useState([]);
@@ -30,7 +32,7 @@ function lecture() {
     auth: { isLogined },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
 
-  if (isLogined === true) {
+  if (cookie.get("user") !== undefined) {
     // 강의 정보를 가져오는 로직
     useEffect(() => {
       (async () => {
@@ -79,7 +81,7 @@ function lecture() {
 
   return (
     <Container>
-      {isLogined === true ? (
+      {cookie.get("user") !== undefined ? (
         <Player
           courseDetail={courseDetail}
           curriculum={curriculum}

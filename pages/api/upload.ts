@@ -19,6 +19,7 @@ export const upload = async (req, res) => {
     });
   });
 
+  // TODO name, image 중 데이터가 하나만 들어갔을 때 실패하는 이슈
   const formData = new FormData();
   const file = fileData[1].image;
   const readStream = fs.createReadStream(file.filepath);
@@ -26,7 +27,7 @@ export const upload = async (req, res) => {
   formData.append("image", readStream);
 
   const response = await axios.post(
-    `https://api.codeunicorn.kr/users/${fileData[0].userId}/info`,
+    `https://api.codeunicorn.kr/users/$6/info`,
     formData,
     {
       headers: {

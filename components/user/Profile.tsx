@@ -128,7 +128,9 @@ const RemoveBtn = styled.button`
 `;
 
 const Profile = ({ userId, userName, image }) => {
-  const [currentImage, setCurrentImage] = useState("");
+  const [currentImage, setCurrentImage] = useState(
+    image || "/images/profile.png",
+  );
   const [currentName, setCurrentName] = useState(userName);
   const [currentFile, setCurrentFile] = useState();
   const [formData, setFormData] = useState<any>();
@@ -195,7 +197,7 @@ const Profile = ({ userId, userName, image }) => {
             onSubmit={onSave}
             encType="multipart/form-data"
           >
-            <img src={image || "/images/profile.png"} />
+            <img src={currentImage} />
             <input
               type="file"
               id="input-file"
