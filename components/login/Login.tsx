@@ -62,12 +62,13 @@ const GoogleLogo = styled.img`
 export default function Login() {
   const { data, status } = useSession();
   const router = useRouter();
+  const cookie = new Cookies();
   const {
     auth: { isLogined },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
   const dispatch = useDispatch();
 
-  if (isLogined === false && status === "authenticated") {
+  if (cookie.get("user") !== undefined) {
     (async () => {
       const response = await loginApi(data.user);
 
