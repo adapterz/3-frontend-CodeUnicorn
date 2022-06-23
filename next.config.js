@@ -3,6 +3,9 @@
 const nextConfig = {
   reactStrictMode: true,
   baseUrl: ".",
+  images: {
+    domains: ["code-unicorn-service.s3.ap-northeast-2.amazonaws.com"],
+  },
   paths: {
     "@/components/*": ["components/*"],
     "@/core/*": ["core/*"],

@@ -6,6 +6,7 @@ import { IAuth } from "slices/auth";
 import { AuthReducerType } from "slices";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import { Cookies } from "react-cookie";
 
 const Container = styled.nav`
   width: 100%;
@@ -74,18 +75,16 @@ const IsLoginedNav = styled.nav`
 
 function Header() {
   const router = useRouter();
+  const cookie = new Cookies();
   const {
     auth: { userId },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
-  
+
   const onLogOut = () => {
     signOut();
-    // TODO 쿠키 제거 로직
+    cookie.remove("user");
   };
 
-  const {
-    auth: { isLogined },
-  } = useSelector<AuthReducerType, IAuth>((state) => state);
   return (
     <Container>
       <Link href="/">
@@ -93,7 +92,7 @@ function Header() {
           <Logo src="/images/logo.svg"></Logo>
         </a>
       </Link>
-      {isLogined === true ? (
+      {cookie.get("user") !== undefined ? (
         <IsLoginedNav>
           <Link href="/courses">
             <a>

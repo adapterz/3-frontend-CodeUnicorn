@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
+import { loginUser } from "slices/auth";
 import { setMessage } from "slices/toast";
 import styled from "styled-components";
 
@@ -157,31 +158,29 @@ const Profile = ({ userId, userName, image }) => {
   const onSave = async (e: any) => {
     e.preventDefault();
     const formArr = new FormData();
+    formArr.append("userId", userId);
     formArr.append("image", currentFile);
     formArr.append("nickname", currentName);
     setFormData(formArr);
 
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Accept: "*/*",
-          encType: "multipart/form-data",
-        },
-      },
-    );
+    const response = await axios.post("/api/upload", formArr);
 
     if (response.status === 200) {
       const input = document.querySelector("#input-name") as HTMLInputElement;
       input.value = "";
-      console.log(response);
+      setCurrentName(response.data.data.nickname);
+      setCurrentImage(response.data.data.profilePath);
+      dispatch(
+        loginUser({
+          isLogined: true,
+          userId: userId,
+          userName: response.data.data.nickname,
+          image: response.data.data.profilePath,
+        }),
+      );
       dispatch(
         setMessage({ message: "프로필 정보가 성공적으로 변경되었습니다." }),
       );
-      setCurrentName(response.data.nickname);
-      setCurrentImage(response.data.profilePath);
     } else {
       dispatch(setMessage({ message: "프로필 정보 변경에 실패했습니다." }));
     }
@@ -192,7 +191,12 @@ const Profile = ({ userId, userName, image }) => {
       <Title>내정보</Title>
       <InfoBox>
         <ImageBox htmlFor="input-file">
-          <form id="info-form" onSubmit={onSave} encType="multipart/form-data">
+          <form
+            id="info-form"
+            method="post"
+            onSubmit={onSave}
+            encType="multipart/form-data"
+          >
             <img src={currentImage} />
             <input
               type="file"

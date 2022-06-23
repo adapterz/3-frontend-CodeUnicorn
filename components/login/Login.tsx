@@ -2,10 +2,11 @@ import loginApi from "@/core/api/login/loginApi";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { IAuth, loginUser } from "slices/auth";
 import { setMessage, ToastType } from "slices/toast";
-import { AuthReducerType } from "slices";
+import { Cookies } from "react-cookie";
+import Link from "next/link";
 
 const Container = styled.div`
   display: flex;
@@ -58,15 +59,24 @@ const GoogleLogo = styled.img`
   margin-right: 10px;
 `;
 
+const JoinInfo = styled.span`
+  margin-top: 20px;
+  text-align: center;
+
+  a {
+    padding-left: 2px;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+`;
+
 export default function Login() {
   const { data, status } = useSession();
   const router = useRouter();
-  const {
-    auth: { isLogined },
-  } = useSelector<AuthReducerType, IAuth>((state) => state);
+  const cookie = new Cookies();
   const dispatch = useDispatch();
 
-  if (isLogined === false && status === "authenticated") {
+  if (cookie.get("user") === undefined && status === "authenticated") {
     (async () => {
       const response = await loginApi(data.user);
 
@@ -79,6 +89,15 @@ export default function Login() {
             image: response.data.data.profilePath,
           } as IAuth),
         );
+
+        const cookies = new Cookies();
+
+        cookies.set("user", response.data.data.loginSessionId, {
+          maxAge: 86400,
+          domain: "codeunicorn.kr",
+          path: "/",
+        });
+
         router.push("/");
       } else {
         dispatch(setMessage({ message: response.statusText } as ToastType));
@@ -97,6 +116,12 @@ export default function Login() {
         <GoogleLogo src="/images/google.png" />
         <Title color={"#4d4949"}>Google 로그인</Title>
       </GoogleBtn>
+      <JoinInfo>
+        아직 회원이 아니신가요?
+        <Link href={"/join"}>
+          <a>회원가입하기</a>
+        </Link>
+      </JoinInfo>
     </Container>
   );
 }

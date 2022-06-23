@@ -7,10 +7,10 @@ export interface IAuth {
     userName: string;
     image: string;
   };
-  isLogined: boolean;
-  userId: number;
-  userName: string;
-  image: string;
+  isLogined?: boolean;
+  userId?: number;
+  userName?: string;
+  image?: string;
 }
 
 export const auth = createSlice({
