@@ -13,12 +13,14 @@ const categories = [
 const Container = styled.div``;
 
 const Catagory = styled.button<ICategory>`
-  padding: 5px 20px;
+  font-size: 15px;
+  padding: 6px 20px;
   border: 1px solid gray;
   border-radius: 20px;
   margin: 0px 6px;
   color: black;
   background-color: white;
+
   ${(props) =>
     props.active &&
     css`

@@ -18,9 +18,9 @@ const Container = styled.div`
 const CourseList = styled.div`
   width: 850px;
   display: flex;
-  justify-content: space-between;
   margin: 0px auto;
   flex-wrap: wrap;
+  gap: 20px 2%;
 
   div {
     width: 270px;

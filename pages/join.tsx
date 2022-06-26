@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { setMessage, ToastType } from "slices/toast";
+import { useDispatch } from "react-redux";
+import joinApi from "@/core/api/joinApi";
 
 const Container = styled.div`
   display: flex;
@@ -66,6 +70,24 @@ const JoinInfo = styled.span`
 `;
 
 const Join = () => {
+  const router = useRouter();
+  const { data, status } = useSession();
+  const dispatch = useDispatch();
+
+  if (status === "authenticated") {
+    (async () => {
+      const response = await joinApi(data.user);
+      if (response.status === 201) {
+        dispatch(
+          setMessage({ message: "회원가입에 성공했습니다." } as ToastType),
+        );
+        router.push("/login");
+      } else {
+        dispatch(setMessage({ message: response.statusText } as ToastType));
+      }
+    })();
+  }
+
   return (
     <Container>
       <Logo src="/images/logo.svg"></Logo>

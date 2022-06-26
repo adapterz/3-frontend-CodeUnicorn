@@ -18,18 +18,15 @@ const Container = styled.div`
   }
 
   a {
-    max-width: 280px;
-  }
-`;
-
-const Image = styled.img`
-  min-width: 280px;
-  max-width: 280px;
-  height: 200px;
-  border-radius: 20px;
-  border: 1px solid gray;
-  &:hover {
-    opacity: 0.8;
+    img {
+      width: 280px;
+      height: 200px;
+      border-radius: 20px;
+      border: 1px solid gray !important;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
   }
 `;
 
@@ -80,8 +77,7 @@ function Course({ course }: CourseProps) {
     <Container>
       <Link key={course.id} href={`/courses/${id}`}>
         <a>
-          {/* <Images src={imagePath} width={280} height={200} /> */}
-          <Image src={imagePath} />
+          <Images src={imagePath} alt="course" width={280} height={200} />
         </a>
       </Link>
       <Category>{category}</Category>

@@ -9,7 +9,8 @@ import { useDispatch } from "react-redux";
 import { setMessage } from "slices/toast";
 
 function course() {
-  const { query } = useRouter();
+  const router = useRouter();
+  const [allCourses, setAllCourses] = useState([]);
   const [courseDetail, setCourseDetail] = useState([]);
   const [instructor, setInstructor] = useState({});
   const [curriculum, setCurriculum] = useState([]);
@@ -17,45 +18,57 @@ function course() {
   const [initLecture, setInitLecture] = useState();
   const dispatch = useDispatch();
 
+  // 모든 강의를 가져오는 로직
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get(
+        "https://api.codeunicorn.kr/courses/all",
+      );
+      setAllCourses(response.data.courses);
+    })();
+  }, []);
+
+  allCourses.length !== 0 &&
+    allCourses.length < Number(router.query.courseId) &&
+    router.push("/404");
+
   const onLike = useCallback(() => {
-    dispatch(
-      setMessage({ message: "로그인 후 관심 교육을 등록할 수 있습니다." }),
-    );
+    dispatch(setMessage({ message: "관심 교육 등록은 준비 중입니다." }));
   }, []);
 
   // 강의 디테일 정보를 가져오는 로직
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        `https://api.codeunicorn.kr/courses/${query.courseId}`,
+        `https://api.codeunicorn.kr/courses/${router.query.courseId}`,
       );
-      setCourseDetail(response.data.data);
-      setInstructor(response.data.data.instructor);
+      if (response.status === 200) {
+        setCourseDetail(response.data.data);
+        setInstructor(response.data.data.instructor);
+      }
     })();
-  }, [query.courseId]);
+  }, [router.query.courseId]);
 
   // 커리큘럼 정보를 가져오는 로직
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        `https://api.codeunicorn.kr/courses/${query.courseId}/curriculum`,
+        `https://api.codeunicorn.kr/courses/${router.query.courseId}/curriculum`,
       );
-      setCurriculum(response.data.data.sections);
-      setInitLecture(response.data.data.sections[0].lectures[0].id);
+      if (response.status === 200) {
+        setCurriculum(response.data.data.sections);
+        setInitLecture(response.data.data.sections[0].lectures[0].id);
+      }
     })();
-  }, [query.courseId]);
+  }, [router.query.courseId]);
 
   // 추천 강의를 가져오는 로직
   useEffect(() => {
     (async () => {
-      const {
-        data: {
-          data: { courses },
-        },
-      } = await axios.get(
+      const response = await axios.get(
         `https://api.codeunicorn.kr/courses?category=all&page=1`,
       );
-      setRecomendCourses(courses);
+      response.status === 200 && setRecomendCourses(response.data.data.courses);
     })();
   }, []);
 

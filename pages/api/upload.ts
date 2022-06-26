@@ -27,12 +27,13 @@ export const upload = async (req, res) => {
   formData.append("image", readStream);
 
   const response = await axios.post(
-    `https://api.codeunicorn.kr/users/$6/info`,
+    `https://api.codeunicorn.kr/users/${fileData[0].userId}/info`,
     formData,
     {
       headers: {
         "Content-Type":
           "multipart/form-data; boundary=" + formData.getBoundary(),
+        loginSessionId: req.headers.cookies,
       },
     },
   );

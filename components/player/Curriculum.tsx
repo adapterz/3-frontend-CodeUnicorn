@@ -80,9 +80,9 @@ const Lecture = styled.div`
   transition: all 0.4s ease-in-out;
 
   .lecture__name {
+    min-width: 360px;
     font-size: 16px;
     padding: 12px 12px;
-    flex: 1;
     color: #444444;
   }
 
@@ -95,6 +95,7 @@ const Lecture = styled.div`
   }
 
   .play__time {
+    min-width: 90px;
     padding: 12px 12px;
   }
 

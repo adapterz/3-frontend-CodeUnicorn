@@ -17,7 +17,7 @@ const Container = styled.div<IContainer>`
   max-width: ${(props) => props.width};
   margin: auto;
   overflow: hidden;
-  min-height: 200px;
+  min-height: 340px;
   display: flex;
 
   .left__arrow {

@@ -27,7 +27,7 @@ const MessageBox = styled.div<IMessage>`
   justify-content: center;
   align-items: center;
   opacity: ${(props) => props.action};
-  transition: 1.2s opacity ease-in;
+  transition: 1s opacity ease-in;
   z-index: 9999;
 `;
 
@@ -48,9 +48,9 @@ const Toast: React.FC = () => {
       setTimeout(() => {
         setShow(false);
       }, 3000);
-      return () => {
+      setTimeout(() => {
         dispatch(setMessage({ message: "" } as ToastType));
-      };
+      }, 4000);
     }
   }, [toast.message]);
 

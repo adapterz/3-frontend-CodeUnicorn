@@ -21,13 +21,17 @@ function user() {
     auth: { userId, userName, image },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
 
+  // userId에 해당하지 않는 페이지 접근제한
+  router.query.userId !== undefined &&
+    Number(router.query.userId) !== userId &&
+    router.push("/404");
+
   return (
     <Container>
-      {cookies.get("user") !== undefined &&
-      router.asPath === `/users/${userId}` ? (
+      {cookies.get("user") !== undefined ? (
         <>
           <Aside />
-          <Profile userId={userId} userName={userName} image={image} />
+          <Profile userId={userId} currentName={userName} image={image} />
         </>
       ) : (
         <Auth />

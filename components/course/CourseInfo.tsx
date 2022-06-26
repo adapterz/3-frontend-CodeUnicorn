@@ -89,6 +89,7 @@ const InfoBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 10px;
+  min-height: 140px;
 
   h3 {
     margin: 10px 0px;
@@ -130,6 +131,7 @@ const BottomBox = styled.div`
 const Category = styled.h2`
   font-size: 1.125rem;
   font-weight: 400;
+  min-height: 20px;
 `;
 
 const Title = styled.h1`
@@ -137,6 +139,7 @@ const Title = styled.h1`
   font-weight: bold;
   margin: 10px 0px;
   margin-bottom: 30px;
+  min-height: 25px;
 `;
 
 type CourseInfoProps = {

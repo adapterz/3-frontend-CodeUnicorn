@@ -6,6 +6,7 @@ const sorts = [{ name: "인기순" }, { name: "최신순" }];
 
 const Container = styled.div`
   display: flex;
+  margin-right: 10px;
 `;
 
 const Title = styled.h2`

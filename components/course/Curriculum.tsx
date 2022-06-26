@@ -51,11 +51,11 @@ const Lecture = styled.div`
     min-width: 700px;
     font-size: 16px;
     padding: 12px 12px;
-    /* flex: 1; */
     color: #444444;
   }
 
   svg {
+    min-width: 25px;
     font-size: 1.5rem;
     padding-top: 6px;
     margin-right: 8px;

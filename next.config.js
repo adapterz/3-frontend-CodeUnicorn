@@ -3,9 +3,6 @@
 const nextConfig = {
   reactStrictMode: true,
   baseUrl: ".",
-  images: {
-    domains: ["code-unicorn-service.s3.ap-northeast-2.amazonaws.com"],
-  },
   paths: {
     "@/components/*": ["components/*"],
     "@/core/*": ["core/*"],
@@ -16,6 +13,9 @@ const nextConfig = {
 };
 
 module.exports = {
+  images: {
+    domains: ["code-unicorn-service.s3.ap-northeast-2.amazonaws.com"],
+  },
   nextConfig,
   env: {
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,

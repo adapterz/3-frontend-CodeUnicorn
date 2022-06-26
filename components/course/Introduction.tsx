@@ -31,6 +31,7 @@ const ImageBox = styled.div`
     height: 150px;
   }
   .name {
+    min-height: 20px;
     font-size: 18px;
     font-weight: 500;
     margin-top: 10px;
@@ -38,6 +39,7 @@ const ImageBox = styled.div`
 `;
 
 const Info = styled.p`
+  min-height: 25px;
   font-size: 14px;
   line-height: 1.6;
   font-weight: 400;

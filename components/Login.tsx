@@ -1,4 +1,4 @@
-import loginApi from "@/core/api/login/loginApi";
+import loginApi from "@/core/api/loginApi";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
@@ -92,12 +92,17 @@ export default function Login() {
 
         const cookies = new Cookies();
 
+        console.log(response.data);
+
         cookies.set("user", response.data.data.loginSessionId, {
           maxAge: 86400,
           domain: "codeunicorn.kr",
           path: "/",
         });
 
+        dispatch(
+          setMessage({ message: "로그인에 성공했습니다." } as ToastType),
+        );
         router.push("/");
       } else {
         dispatch(setMessage({ message: response.statusText } as ToastType));

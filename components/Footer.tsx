@@ -9,7 +9,7 @@ const Container = styled.footer`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 270px;
+  min-height: 300px;
   background-color: #f4f4f4;
 `;
 

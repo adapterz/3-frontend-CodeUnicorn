@@ -1,10 +1,12 @@
 import CoursesTemplate from "@/components/courses/CoursesTemplate";
 import axios from "axios";
 import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const Courses = () => {
-  const [category, setCategory] = useState("all");
+  const router = useRouter();
+  const [category, setCategory] = useState(router.query.category || "all");
   const [currentPage, setCurrentPage] = useState(1);
   const [maxPage, setMaxPage] = useState([]);
   const [courses, setCourses] = useState([]);
@@ -33,6 +35,7 @@ const Courses = () => {
 
   function onSelect(data: string | number) {
     if (typeof data === "string") {
+      router.push(`/courses?category=${data}`);
       setCategory(data);
       setCurrentPage(1);
     } else {
@@ -45,6 +48,7 @@ const Courses = () => {
       ? setCurrentPage(currentPage)
       : setCurrentPage(currentPage + 1);
   };
+
   const onDecresive = () => {
     currentPage === 1 ? setCurrentPage(1) : setCurrentPage(currentPage - 1);
   };
