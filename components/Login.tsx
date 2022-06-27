@@ -92,8 +92,6 @@ export default function Login() {
 
         const cookies = new Cookies();
 
-        console.log(response.data);
-
         cookies.set("user", response.data.data.loginSessionId, {
           maxAge: 86400,
           domain: "codeunicorn.kr",

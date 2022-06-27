@@ -88,8 +88,11 @@ function Header() {
   } = useSelector<AuthReducerType, IAuth>((state) => state);
 
   const onLogOut = () => {
+    cookie.remove("user", {
+      domain: "codeunicorn.kr",
+      path: "/",
+    });
     signOut();
-    cookie.remove("user");
   };
 
   return (

@@ -33,7 +33,7 @@ export const upload = async (req, res) => {
       headers: {
         "Content-Type":
           "multipart/form-data; boundary=" + formData.getBoundary(),
-        loginSessionId: req.headers.cookies,
+        cookie: req.headers.cookies,
       },
     },
   );
