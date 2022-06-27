@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -24,16 +24,16 @@ function Loading() {
   const [isData, setIsData] = useState(true);
   setTimeout(() => {
     setIsData(false);
-  }, 3000);
+  }, 1000);
 
   return (
     <Container>
-      {isData === true ? (
+      {isData === false ? (
+        <InfoMessage>데이터가 존재하지 않습니다.</InfoMessage>
+      ) : (
         <LoadingBox className="spinner-border" role="status">
           <LoadingEvent className="sr-only">Loading...</LoadingEvent>
         </LoadingBox>
-      ) : (
-        <InfoMessage>데이터가 존재하지 않습니다.</InfoMessage>
       )}
     </Container>
   );

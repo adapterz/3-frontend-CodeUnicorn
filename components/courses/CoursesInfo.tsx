@@ -2,9 +2,9 @@ import styled from "styled-components";
 import Sort from "@/components/Sorts";
 
 const Container = styled.div`
-  width: 90%;
+  width: 850px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin: 30px auto;
 `;

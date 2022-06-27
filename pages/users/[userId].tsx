@@ -6,6 +6,7 @@ import { AuthReducerType } from "slices";
 import { IAuth } from "slices/auth";
 import { useRouter } from "next/router";
 import Auth from "@/components/Auth";
+import { Cookies } from "react-cookie";
 
 const Container = styled.div`
   width: 850px;
@@ -14,17 +15,23 @@ const Container = styled.div`
 `;
 
 function user() {
+  const cookies = new Cookies();
   const router = useRouter();
   const {
-    auth: { isLogined, userId, userName, image },
+    auth: { userId, userName, image },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
+
+  // userId에 해당하지 않는 페이지 접근제한
+  router.query.userId !== undefined &&
+    Number(router.query.userId) !== userId &&
+    router.push("/404");
 
   return (
     <Container>
-      {isLogined === true && router.asPath === `/users/${userId}` ? (
+      {cookies.get("user") !== undefined ? (
         <>
           <Aside />
-          <Profile userId={userId} userName={userName} image={image} />
+          <Profile userId={userId} currentName={userName} image={image} />
         </>
       ) : (
         <Auth />

@@ -1,4 +1,4 @@
-import Login from "@/components/login/Login";
+import Login from "@/components/Login";
 import { NextSeo } from "next-seo";
 
 export default function login() {

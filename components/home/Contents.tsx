@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Course from "@/components/Course";
-import Catagories from "../Catagories";
 import Link from "next/link";
 import Slider from "../Slider";
 import { CourseTypes } from "@/interface/course";
@@ -15,7 +14,7 @@ const Container = styled.main`
 const Section = styled.section`
   position: relative;
   margin-top: 80px;
-  min-height: 390px;
+  min-height: 410px;
 
   h1 {
     font-size: 28px;
@@ -38,41 +37,22 @@ const Section = styled.section`
 
 const CourseList = styled.div`
   width: 100%;
-  min-height: 150px;
+  min-height: 340px;
   display: flex;
   justify-content: space-between;
 `;
 
-const LoadingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .spinner-border {
-    margin-top: 5rem;
-  }
-`;
-
 type ContentsProps = {
   courses: CourseTypes[];
-  category: string;
   backCourses: CourseTypes[];
-  categoryCourses: CourseTypes[];
-  onSelect: (category: string) => void;
 };
 
-function Contents({
-  courses,
-  category,
-  backCourses,
-  categoryCourses,
-  onSelect,
-}: ContentsProps) {
+function Contents({ courses, backCourses }: ContentsProps) {
   return (
     <Container>
       <Section>
         <h1>프론트엔드 강의</h1>
-        <Link href="/courses">
+        <Link href="/courses?category=frontend">
           <a>
             <span className="show__more">더보기 &gt;</span>
           </a>
@@ -93,21 +73,6 @@ function Contents({
       <Section>
         <h1>백엔드 강의</h1>
         <Slider courses={backCourses} width="1200px" />
-      </Section>
-      <Section>
-        <h1>맞춤 강의</h1>
-        <Catagories category={category} onSelect={onSelect} />
-        {categoryCourses.length === 0 ? (
-          <LoadingContainer>
-            <Loading />
-          </LoadingContainer>
-        ) : (
-          <CourseList>
-            {categoryCourses.map((coures: CourseTypes) => (
-              <Course key={coures.id} course={coures} />
-            ))}
-          </CourseList>
-        )}
       </Section>
     </Container>
   );

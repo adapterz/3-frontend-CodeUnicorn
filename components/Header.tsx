@@ -6,14 +6,21 @@ import { IAuth } from "slices/auth";
 import { AuthReducerType } from "slices";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import { Cookies } from "react-cookie";
 
 const Container = styled.nav`
   width: 100%;
+  height: 70px;
+  border-bottom: 1px solid gray;
+`;
+
+const InnerContainer = styled.div`
+  width: 1400px;
+  height: 100%;
+  margin: 0px auto;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 70px;
-  border-bottom: 1px solid gray;
 `;
 
 const Logo = styled.img`
@@ -32,6 +39,7 @@ const Menu = styled.span`
 const LoginBtn = styled.button`
   width: 80px;
   height: 30px;
+  padding-top: 2px;
   font-size: 18px;
   font-weight: 500;
   margin-left: 20px;
@@ -74,61 +82,61 @@ const IsLoginedNav = styled.nav`
 
 function Header() {
   const router = useRouter();
+  const cookie = new Cookies();
   const {
     auth: { userId },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
-  
+
   const onLogOut = () => {
     signOut();
-    // TODO 쿠키 제거 로직
+    cookie.remove("user");
   };
 
-  const {
-    auth: { isLogined },
-  } = useSelector<AuthReducerType, IAuth>((state) => state);
   return (
     <Container>
-      <Link href="/">
-        <a>
-          <Logo src="/images/logo.svg"></Logo>
-        </a>
-      </Link>
-      {isLogined === true ? (
-        <IsLoginedNav>
-          <Link href="/courses">
-            <a>
-              <Menu className="isLogined-lecture">전체 강의</Menu>
-            </a>
-          </Link>
-          {router.asPath === `/users/${userId}` ? (
-            <Link href={`/users/${userId}`}>
+      <InnerContainer>
+        <Link href="/">
+          <a>
+            <Logo src="/images/logo.svg"></Logo>
+          </a>
+        </Link>
+        {cookie.get("user") !== undefined ? (
+          <IsLoginedNav>
+            <Link href="/courses?category=all">
               <a>
-                <HiUserCircle />
+                <Menu className="isLogined-lecture">전체 강의</Menu>
               </a>
             </Link>
-          ) : (
-            <Link href={`/users/${userId}`}>
+            {router.asPath === `/users/${userId}` ? (
+              <Link href={`/users/${userId}`}>
+                <a>
+                  <HiUserCircle />
+                </a>
+              </Link>
+            ) : (
+              <Link href={`/users/${userId}`}>
+                <a>
+                  <HiUserCircle />
+                </a>
+              </Link>
+            )}
+            <LogOutBtn onClick={onLogOut}>로그아웃</LogOutBtn>
+          </IsLoginedNav>
+        ) : (
+          <Nav>
+            <Link href="/courses?category=all">
               <a>
-                <HiUserCircle />
+                <Menu>전체 강의</Menu>
               </a>
             </Link>
-          )}
-          <LogOutBtn onClick={onLogOut}>로그아웃</LogOutBtn>
-        </IsLoginedNav>
-      ) : (
-        <Nav>
-          <Link href="/courses">
-            <a>
-              <Menu>전체 강의</Menu>
-            </a>
-          </Link>
-          <Link href="/login">
-            <a>
-              <LoginBtn>로그인</LoginBtn>
-            </a>
-          </Link>
-        </Nav>
-      )}
+            <Link href="/login">
+              <a>
+                <LoginBtn>로그인</LoginBtn>
+              </a>
+            </Link>
+          </Nav>
+        )}
+      </InnerContainer>
     </Container>
   );
 }

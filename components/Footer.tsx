@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaInstagram, FaFacebookF, FaYoutube, FaTwitter } from "react-icons/fa";
 import styled from "styled-components";
 
@@ -8,12 +9,12 @@ const Container = styled.footer`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 270px;
+  min-height: 300px;
   background-color: #f4f4f4;
 `;
 
 const Notice = styled.div`
-  span {
+  a {
     font-size: 16px;
     opacity: 0.6;
     margin: 0px 20px;
@@ -24,14 +25,19 @@ const Notice = styled.div`
 
 const SnsList = styled.div`
   margin-bottom: 30px;
+  display: flex;
+  width: 160px;
+  justify-content: space-between;
 
-  .icon {
+  svg {
     color: white;
-    font-size: 1.125rem;
-    padding: 8px 10px;
+    font-size: 18px;
     border-radius: 50%;
     background-color: #c4c4c4;
-    margin: 0px 8px;
+    padding: 6px 6px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
   }
 `;
 
@@ -48,14 +54,21 @@ function Footer() {
   return (
     <Container>
       <Notice>
-        <span>이용약관</span> <span>개인정보</span> <span>처리방침</span>
-        <span>환불 정책</span> <span>고객센터</span>
+        <Link href="/terms-of-service">
+          <a>이용약관</a>
+        </Link>
+        <Link href="/privacy">
+          <a>이용약관 개인정보</a>
+        </Link>
+        <Link href="">
+          <a>고객센터</a>
+        </Link>
       </Notice>
       <SnsList>
-        <FaFacebookF className="icon" />
-        <FaInstagram className="icon" />
-        <FaTwitter className="icon" />
-        <FaYoutube className="icon" />
+        <FaFacebookF />
+        <FaInstagram />
+        <FaTwitter />
+        <FaYoutube />
       </SnsList>
       <SiteInfo>
         대표 : 코드유니콘

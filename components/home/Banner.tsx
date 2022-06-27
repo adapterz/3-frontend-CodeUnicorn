@@ -1,32 +1,35 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Loading from "../Loading";
+import Images from "next/image";
 
 const Container = styled.div`
   width: 100%;
   min-height: 420px;
   background-color: #2b3d55;
   display: flex;
+  justify-content: center;
 `;
 
 const InnerContainer = styled.div`
-  margin: 0px auto;
+  width: 835px;
+  margin: auto;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+
+  img {
+    border-radius: 20px;
+  }
 `;
 
 const BannerInfoBox = styled.div`
-  width: 70%;
+  min-width: 320px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-`;
-
-const BackImage = styled.img`
-  border-radius: 20px;
-  width: 80%;
-  height: 90%;
+  padding-left: 10px;
 `;
 
 const Title = styled.h1`
@@ -67,7 +70,12 @@ function Banner({ newCourse }) {
           </BannerInfoBox>
           <Link href={`/courses/${newCourse.id}`}>
             <a>
-              <BackImage src={newCourse.imagePath} />
+              <Images
+                src={newCourse.imagePath}
+                alt="course"
+                width={400}
+                height={300}
+              />
             </a>
           </Link>
         </InnerContainer>

@@ -18,9 +18,9 @@ const Container = styled.div`
 const CourseList = styled.div`
   width: 850px;
   display: flex;
-  justify-content: space-between;
   margin: 0px auto;
   flex-wrap: wrap;
+  gap: 20px 2%;
 
   div {
     width: 270px;
@@ -55,14 +55,9 @@ function CoursesTemplate({
           ))}
         </CourseList>
       )}
-      <CoursesInfo courses={courses} />
-      <CourseList>
-        {courses.map((coures: ICategoryItem) => (
-          <Course key={coures.id} coures={coures} />
-        ))}
-      </CourseList>
       <PageBtns
-        page={page}
+        currentPage={currentPage}
+        maxPage={maxPage}
         onSelect={onSelect}
         onIncresive={onIncresive}
         onDecresive={onDecresive}

@@ -1,11 +1,10 @@
-import loginApi from "@/core/api/login/loginApi";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { IAuth, loginUser } from "slices/auth";
+import { signIn, useSession } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { setMessage, ToastType } from "slices/toast";
-import { AuthReducerType } from "slices";
+import { useDispatch } from "react-redux";
+import joinApi from "@/core/api/joinApi";
 
 const Container = styled.div`
   display: flex;
@@ -58,28 +57,31 @@ const GoogleLogo = styled.img`
   margin-right: 10px;
 `;
 
-export default function Login() {
-  const { data, status } = useSession();
+const JoinInfo = styled.span`
+  margin-top: 20px;
+  text-align: center;
+  line-height: 1.4;
+
+  a {
+    padding-left: 2px;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+`;
+
+const Join = () => {
   const router = useRouter();
-  const {
-    auth: { isLogined },
-  } = useSelector<AuthReducerType, IAuth>((state) => state);
+  const { data, status } = useSession();
   const dispatch = useDispatch();
 
-  if (isLogined === false && status === "authenticated") {
+  if (status === "authenticated") {
     (async () => {
-      const response = await loginApi(data.user);
-
-      if (response.status === 200) {
+      const response = await joinApi(data.user);
+      if (response.status === 201) {
         dispatch(
-          loginUser({
-            isLogined: true,
-            userId: response.data.data.id,
-            userName: response.data.data.nickname,
-            image: response.data.data.profilePath,
-          } as IAuth),
+          setMessage({ message: "회원가입에 성공했습니다." } as ToastType),
         );
-        router.push("/");
+        router.push("/login");
       } else {
         dispatch(setMessage({ message: response.statusText } as ToastType));
       }
@@ -91,12 +93,25 @@ export default function Login() {
       <Logo src="/images/logo.svg"></Logo>
       <NaverBtn onClick={() => signIn("naver")}>
         <NaverLogo src="/images/naver.png" />
-        <Title color={"white"}>네이버 로그인</Title>
+        <Title color={"white"}>네이버 회원가입</Title>
       </NaverBtn>
       <GoogleBtn onClick={() => signIn("google")}>
         <GoogleLogo src="/images/google.png" />
-        <Title color={"#4d4949"}>Google 로그인</Title>
+        <Title color={"#4d4949"}>Google 회원가입</Title>
       </GoogleBtn>
+      <JoinInfo>
+        위의 버튼을 클릭함으로써 코드유니콘의
+        <br />
+        <Link href="/terms-of-service">
+          <a>이용약관, </a>
+        </Link>
+        <Link href="/privacy">
+          <a>개인정보 취급방침</a>
+        </Link>
+        에 동의합니다.
+      </JoinInfo>
     </Container>
   );
-}
+};
+
+export default Join;

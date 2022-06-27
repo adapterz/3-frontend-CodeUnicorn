@@ -1,8 +1,11 @@
 import axios from "axios";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
+import { Cookies } from "react-cookie";
 import { useDispatch } from "react-redux";
+import { loginUser } from "slices/auth";
 import { setMessage } from "slices/toast";
 import styled from "styled-components";
+import NameBox from "@/components/user/NameBox";
 
 const Container = styled.div`
   margin-top: 3rem;
@@ -39,27 +42,6 @@ const ImageBox = styled.label`
   input {
     width: 200px;
     height: 200px;
-  }
-`;
-
-const NameBox = styled.div`
-  margin-top: 30px;
-  text-align: center;
-
-  h2 {
-    font-size: 1.125rem;
-    font-weight: bold;
-    margin-bottom: 14px;
-  }
-
-  input {
-    font-size: 1rem;
-    width: 220px;
-    border: none;
-    border-bottom: 1px solid black;
-    &:focus {
-      outline: none;
-    }
   }
 `;
 
@@ -126,11 +108,10 @@ const RemoveBtn = styled.button`
   color: gray;
 `;
 
-const Profile = ({ userId, userName, image }) => {
+const Profile = ({ userId, currentName, image }) => {
   const [currentImage, setCurrentImage] = useState(
     image || "/images/profile.png",
   );
-  const [currentName, setCurrentName] = useState(userName);
   const [currentFile, setCurrentFile] = useState();
   const [formData, setFormData] = useState<any>();
   const dispatch = useDispatch();
@@ -145,43 +126,42 @@ const Profile = ({ userId, userName, image }) => {
     reader.readAsDataURL(target.files[0]);
   }, []);
 
-  // name 값 가져오기
-  const onChange = useCallback(
-    ({ target }) => {
-      setCurrentName(target.value);
-    },
-    [currentName],
-  );
-
   // 유저 정보 저장
-  const onSave = async (e: any) => {
+  const onSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const newNameName = document.getElementById(
+      "input-name",
+    ) as HTMLInputElement;
+
+    const cookie = new Cookies();
     const formArr = new FormData();
+    formArr.append("userId", userId);
     formArr.append("image", currentFile);
-    formArr.append("nickname", currentName);
+    formArr.append("nickname", newNameName.value);
     setFormData(formArr);
 
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/users/${userId}/info `,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Accept: "*/*",
-          encType: "multipart/form-data",
-        },
+    const response = await axios.post("/api/upload", formArr, {
+      headers: {
+        cookies: cookie.get("user"),
       },
-    );
+    });
 
     if (response.status === 200) {
       const input = document.querySelector("#input-name") as HTMLInputElement;
       input.value = "";
-      console.log(response);
+      dispatch(
+        loginUser({
+          isLogined: true,
+          userId: userId,
+          userName: response.data.data.nickname,
+          image: response.data.data.profilePath,
+        }),
+      );
+      setCurrentImage(response.data.data.profilePath);
       dispatch(
         setMessage({ message: "프로필 정보가 성공적으로 변경되었습니다." }),
       );
-      setCurrentName(response.data.nickname);
-      setCurrentImage(response.data.profilePath);
     } else {
       dispatch(setMessage({ message: "프로필 정보 변경에 실패했습니다." }));
     }
@@ -192,7 +172,12 @@ const Profile = ({ userId, userName, image }) => {
       <Title>내정보</Title>
       <InfoBox>
         <ImageBox htmlFor="input-file">
-          <form id="info-form" onSubmit={onSave} encType="multipart/form-data">
+          <form
+            id="info-form"
+            method="post"
+            onSubmit={onSave}
+            encType="multipart/form-data"
+          >
             <img src={currentImage} />
             <input
               type="file"
@@ -203,17 +188,7 @@ const Profile = ({ userId, userName, image }) => {
             />
           </form>
         </ImageBox>
-        <NameBox>
-          <h2>닉네임</h2>
-          <input
-            id="input-name"
-            type="text"
-            placeholder={currentName}
-            minLength={2}
-            maxLength={8}
-            onChange={onChange}
-          />
-        </NameBox>
+        <NameBox currentName={currentName} />
         <SaveBtn type="submit" form="info-form">
           저장
         </SaveBtn>

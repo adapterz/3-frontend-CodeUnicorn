@@ -11,11 +11,13 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { CourseTypes } from "@/interface/course";
 import Loading from "../Loading";
+import Images from "next/image";
 
 const Container = styled.div`
   margin: 0px auto;
-  width: 1450px;
+  width: 100%;
   min-height: 520px;
+  max-height: 520px;
   background-color: #193a91;
   margin-bottom: 30px;
   display: flex;
@@ -25,14 +27,6 @@ const Container = styled.div`
 
   .spinner-border {
     margin-top: 10rem;
-  }
-
-  h1 {
-    color: whitesmoke;
-    font-size: 28px;
-    font-weight: bold;
-    margin: 25px 0px;
-    margin-left: 42px;
   }
 
   .star {
@@ -74,34 +68,61 @@ const Container = styled.div`
   }
 `;
 
+const TitleBox = styled.div`
+  width: 1200px;
+  margin: 0px auto;
+
+  h1 {
+    color: whitesmoke;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 25px 0px;
+  }
+`;
+
 const SliderContainer = styled.div`
+  min-width: 1500px;
   max-width: 1500px;
-  margin: 0 auto;
   display: flex;
+  margin-left: 150px;
+
+  @media only screen and (min-width: 1520px) and (max-width: 3500px) {
+    min-width: 1200px;
+    max-width: 1200px;
+    margin-left: 0px;
+    margin: 0px auto;
+  }
 `;
 
 const CourseBox = styled.div`
-  width: 1500px;
+  min-width: 1500px;
+  max-width: 1500px;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin-bottom: 40px;
-  position: relative;
+
+  @media only screen and (min-width: 1520px) and (max-width: 3500px) {
+    min-width: 1200px;
+    max-width: 1200px;
+    padding-right: 100px;
+  }
 `;
 
 const ImageBox = styled.div`
-  width: 60%;
-  margin-left: 40px;
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 400px;
+  min-width: 850px;
+  min-height: 400px;
+  max-width: 850px;
+  max-height: 400px;
   border-radius: 20px;
+
+  img {
+    width: 850px;
+    height: 400px;
+    border-radius: 20px;
+  }
 `;
 
 const InfoBox = styled.div`
-  width: 40%;
+  min-width: 300px;
+  max-width: 300px;
   margin-left: 50px;
 `;
 
@@ -133,7 +154,9 @@ const Rating = styled.p`
 
 const Description = styled.p`
   color: whitesmoke;
-  width: 86%;
+  min-width: 280px;
+  max-width: 280px;
+  min-height: 100px;
   font-size: 20px;
   line-height: 1.4;
 `;
@@ -143,7 +166,7 @@ type RecomendProps = {
 };
 
 function Recomend({ recomendCourses }: RecomendProps) {
-  const TOTAL_SLIDES = 2;
+  const TOTAL_SLIDES = recomendCourses.length - 1;
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
 
@@ -153,6 +176,7 @@ function Recomend({ recomendCourses }: RecomendProps) {
       : setCurrentSlide(currentSlide + 1);
   };
   const backSlide = () => {
+    console.log(currentSlide);
     currentSlide === 0
       ? setCurrentSlide(TOTAL_SLIDES)
       : setCurrentSlide(currentSlide - 1);
@@ -169,18 +193,29 @@ function Recomend({ recomendCourses }: RecomendProps) {
         onClick={backSlide}
         className="left__arrow"
       />
-      <h1>Code Unicorn 추천 교육</h1>
+      <TitleBox>
+        <h1>Code Unicorn 추천 교육</h1>
+      </TitleBox>
       <SliderContainer ref={slideRef}>
         {recomendCourses.length === 0 ? (
           <Loading />
         ) : (
           recomendCourses.map((course: CourseTypes) => (
-            <Link key={course.id} href={`/courses/${course.id}`}>
-              <a>
-                <CourseBox>
-                  <ImageBox>
-                    <Image src={course.imagePath} />
-                  </ImageBox>
+            <CourseBox>
+              <ImageBox>
+                <Link key={course.id} href={`/courses/${course.id}`}>
+                  <a>
+                    <Images
+                      src={course.imagePath}
+                      alt="course"
+                      width={850}
+                      height={400}
+                    />
+                  </a>
+                </Link>
+              </ImageBox>
+              <Link key={course.id} href={`/courses/${course.id}`}>
+                <a>
                   <InfoBox>
                     <Catagory>{course.category}</Catagory>
                     <Title>{course.name}</Title>
@@ -194,9 +229,9 @@ function Recomend({ recomendCourses }: RecomendProps) {
                     </Rating>
                     <Description>{course.description}</Description>
                   </InfoBox>
-                </CourseBox>
-              </a>
-            </Link>
+                </a>
+              </Link>
+            </CourseBox>
           ))
         )}
       </SliderContainer>

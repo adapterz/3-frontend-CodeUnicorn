@@ -27,7 +27,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/login/Login.tsx",
+    "components/Login.tsx",
     "core/api/login/naverOauth.js",
     "pages/_app.js",
     "pages/_document.js"

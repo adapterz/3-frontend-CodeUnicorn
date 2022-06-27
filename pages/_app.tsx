@@ -14,10 +14,12 @@ import { DEFAULT_SEO } from "../config/seo";
 import Head from "next/head";
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS
 import "bootstrap/dist/css/bootstrap.css";
+import axios from "axios";
 
 const store = createStore(rootReducer, composeWithDevTools());
 
 export default function MyApp({ Component, pageProps }) {
+  axios.defaults.withCredentials = true;
   return (
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>
