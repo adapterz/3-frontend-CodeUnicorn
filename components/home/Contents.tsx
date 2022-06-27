@@ -4,7 +4,6 @@ import Link from "next/link";
 import Slider from "../Slider";
 import { CourseTypes } from "@/interface/course";
 import Loading from "../Loading";
-56;
 
 const Container = styled.main`
   margin: 0px auto;
