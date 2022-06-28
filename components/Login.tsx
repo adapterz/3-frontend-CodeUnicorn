@@ -95,7 +95,6 @@ export default function Login() {
         cookies.set("SESSION", response.data.data.loginSessionId, {
           domain: "codeunicorn.kr",
           path: "/",
-          httpOnly: true,
           secure: true,
         });
 
