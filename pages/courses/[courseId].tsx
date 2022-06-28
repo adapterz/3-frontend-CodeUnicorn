@@ -3,89 +3,92 @@ import Curriculum from "@/components/course/Curriculum";
 import Introduction from "@/components/course/Introduction";
 import Recomend from "@/components/course/Recomend";
 import axios from "axios";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { setMessage } from "slices/toast";
 
-function course() {
-  const router = useRouter();
-  const [allCourses, setAllCourses] = useState([]);
-  const [courseDetail, setCourseDetail] = useState([]);
-  const [instructor, setInstructor] = useState({});
-  const [curriculum, setCurriculum] = useState([]);
-  const [recomendCourses, setRecomendCourses] = useState([]);
-  const [initLecture, setInitLecture] = useState();
+// TODO typeScript 적용 해야함(props)
+function course({ courseDetail, curriculum, recommendCourses }) {
   const dispatch = useDispatch();
-
-  // 모든 강의를 가져오는 로직
-  useEffect(() => {
-    (async () => {
-      const response = await axios.get(
-        "https://api.codeunicorn.kr/courses/all",
-      );
-      setAllCourses(response.data.courses);
-    })();
-  }, []);
-
-  allCourses.length !== 0 &&
-    allCourses.length < Number(router.query.courseId) &&
-    router.push("/404");
 
   const onLike = useCallback(() => {
     dispatch(setMessage({ message: "관심 교육 등록은 준비 중입니다." }));
-  }, []);
-
-  // 강의 디테일 정보를 가져오는 로직
-  useEffect(() => {
-    (async () => {
-      const response = await axios.get(
-        `https://api.codeunicorn.kr/courses/${router.query.courseId}`,
-      );
-      if (response.status === 200) {
-        setCourseDetail(response.data.data);
-        setInstructor(response.data.data.instructor);
-      }
-    })();
-  }, [router.query.courseId]);
-
-  // 커리큘럼 정보를 가져오는 로직
-  useEffect(() => {
-    (async () => {
-      const response = await axios.get(
-        `https://api.codeunicorn.kr/courses/${router.query.courseId}/curriculum`,
-      );
-      if (response.status === 200) {
-        setCurriculum(response.data.data.sections);
-        setInitLecture(response.data.data.sections[0].lectures[0].id);
-      }
-    })();
-  }, [router.query.courseId]);
-
-  // 추천 강의를 가져오는 로직
-  useEffect(() => {
-    (async () => {
-      const response = await axios.get(
-        `https://api.codeunicorn.kr/courses?category=all&page=1`,
-      );
-      response.status === 200 && setRecomendCourses(response.data.data.courses);
-    })();
   }, []);
 
   return (
     <>
       <CourseInfo
         courseDetail={courseDetail}
-        instructor={instructor}
-        initLecture={initLecture}
-        curriculum={curriculum}
+        instructor={courseDetail.instructor}
+        initLecture={curriculum.sections[0].lectures[0].id}
+        lectureCount={curriculum.sections[0].lectureCount}
         onLike={onLike}
       />
-      <Introduction courseDetail={courseDetail} instructor={instructor} />
-      <Curriculum curriculum={curriculum} />
-      <Recomend recomendCourses={recomendCourses} />
+      <Introduction
+        courseDetail={courseDetail}
+        instructor={courseDetail.instructor}
+      />
+      <Curriculum curriculum={curriculum.sections} />
+      <Recomend recommendCourses={recommendCourses} />
     </>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const {
+    data: { courses },
+  } = await axios.get("https://api.codeunicorn.kr/courses/all");
+
+  const paths = courses.map((course) => ({
+    params: { courseId: course.id.toString() },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // 전체 강의 API
+  const {
+    data: { courses },
+  } = await axios.get("https://api.codeunicorn.kr/courses/all");
+
+  // 강의 상세 정보 API
+  const {
+    data: { data: courseDetail },
+  } = await axios.get(`https://api.codeunicorn.kr/courses/${params.courseId}`);
+
+  // 강의 커리큘럼 API
+  const {
+    data: { data: curriculum },
+  } = await axios.get(
+    `https://api.codeunicorn.kr/courses/${params.courseId}/curriculum`,
+  );
+
+  // 추천 강의 API
+  const recommendCourses = [];
+
+  for (let i = 1; i <= 9; i++) {
+    let randomNum = Math.floor(Math.random() * courses.length) + 1;
+    const {
+      data: { data },
+    } = await axios.get(`https://api.codeunicorn.kr/courses/${randomNum}`);
+    recommendCourses.push(data);
+  }
+
+  if (!course || !curriculum || !recommendCourses) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { courseDetail, curriculum, recommendCourses },
+    revalidate: 86400,
+  };
+};
 
 export default course;

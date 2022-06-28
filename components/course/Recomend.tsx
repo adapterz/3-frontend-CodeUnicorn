@@ -70,7 +70,7 @@ const SliderContainer = styled.div`
   }
 `;
 
-function Recomend({ recomendCourses }) {
+function Recomend({ recommendCourses }) {
   const TOTAL_SLIDES = 2;
   const [currentSlide, setCurrentSlide] = useState(1);
   const slideRef = useRef(null);
@@ -100,10 +100,10 @@ function Recomend({ recomendCourses }) {
           className="left__arrow"
         />
         <SliderContainer ref={slideRef}>
-          {recomendCourses.length === 0 ? (
+          {recommendCourses.length === 0 ? (
             <Loading />
           ) : (
-            recomendCourses.map((course: CourseTypes) => (
+            recommendCourses.map((course: CourseTypes) => (
               <Course key={course.id} course={course} />
             ))
           )}

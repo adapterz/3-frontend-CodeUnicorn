@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
+import Loading from "../Loading";
 
 const Container = styled.header`
   width: 100%;
@@ -53,25 +54,31 @@ const InfoBox = styled.div`
   }
 `;
 
-function Header({ courseDetail, instructor }) {
+function Header({ courseDetail }) {
   return (
-    <Container>
-      <Link href="/">
-        <a>
-          <ImageBox>
-            <img className="logo" src="/images/logo.svg" />
-          </ImageBox>
-        </a>
-      </Link>
-      <TitleBox>
-        <h3 className="category">{courseDetail.category}</h3>
-        <h1 className="title">{courseDetail.name}</h1>
-      </TitleBox>
-      <InfoBox>
-        <img className="image" src={instructor.profilePath} />
-        <span className="name">{instructor.name}</span>
-      </InfoBox>
-    </Container>
+    <>
+      {courseDetail === undefined ? (
+        <Loading />
+      ) : (
+        <Container>
+          <Link href="/">
+            <a>
+              <ImageBox>
+                <img className="logo" src="/images/logo.svg" />
+              </ImageBox>
+            </a>
+          </Link>
+          <TitleBox>
+            <h3 className="category">{courseDetail.category}</h3>
+            <h1 className="title">{courseDetail.name}</h1>
+          </TitleBox>
+          <InfoBox>
+            <img className="image" src={courseDetail.instructor.profilePath} />
+            <span className="name">{courseDetail.instructor.name}</span>
+          </InfoBox>
+        </Container>
+      )}
+    </>
   );
 }
 

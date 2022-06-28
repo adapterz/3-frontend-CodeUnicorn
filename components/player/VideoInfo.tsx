@@ -7,10 +7,10 @@ const Container = styled.div`
   height: 100%;
 `;
 
-function VideoInfo({ courseDetail, lecture, instructor }) {
+function VideoInfo({ courseDetail, lecture }) {
   return (
     <Container>
-      <Header courseDetail={courseDetail} instructor={instructor} />
+      <Header courseDetail={courseDetail} />
       <Video lecture={lecture} />
     </Container>
   );

@@ -7,6 +7,8 @@ import { AuthReducerType } from "slices";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Cookies } from "react-cookie";
+import axios, { AxiosResponse } from "axios";
+import logout from "@/core/api/logout";
 
 const Container = styled.nav`
   width: 100%;
@@ -87,12 +89,19 @@ function Header() {
     auth: { userId },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
 
-  const onLogOut = () => {
-    cookie.remove("user", {
-      domain: "codeunicorn.kr",
-      path: "/",
-    });
-    signOut();
+  const onLogOut = async () => {
+
+    const response = await logout(cookie.get("SESSION"))
+
+    console.log(response);
+
+    if(response.status === 204) {
+      cookie.remove("SESSION", {
+        domain: "codeunicorn.kr",
+        path: "/",
+      });
+      signOut();
+    }
   };
 
   return (
@@ -103,7 +112,7 @@ function Header() {
             <Logo src="/images/logo.svg"></Logo>
           </a>
         </Link>
-        {cookie.get("user") !== undefined ? (
+        {cookie.get("SESSION") !== undefined ? (
           <IsLoginedNav>
             <Link href="/courses?category=all">
               <a>

@@ -28,7 +28,7 @@ function user() {
 
   return (
     <Container>
-      {cookies.get("user") !== undefined ? (
+      {cookies.get("SESSION") !== undefined ? (
         <>
           <Aside />
           <Profile userId={userId} currentName={userName} image={image} />

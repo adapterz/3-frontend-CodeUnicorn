@@ -7,6 +7,7 @@ import { setMessage, ToastType } from "slices/toast";
 import Auth from "@/components/Auth";
 import axios from "axios";
 import { Cookies } from "react-cookie";
+import { GetStaticPaths, GetStaticProps } from "next";
 
 const Container = styled.div`
   position: absolute;
@@ -18,70 +19,33 @@ const Container = styled.div`
   background-color: white;
 `;
 
-function lecture() {
+function lecture({ courseDetail, curriculum }) {
   const cookie = new Cookies();
   const { query } = useRouter();
-  const [courseDetail, setCourseDetail] = useState({});
-  const [curriculum, setCurriculum] = useState([]);
   const [lecture, setLecture] = useState({});
-  const [instructor, setiInstructor] = useState([]);
   const dispatch = useDispatch();
 
-  if (cookie.get("user") !== undefined) {
-    // 강의 정보를 가져오는 로직
-    useEffect(() => {
-      (async () => {
-        const response = await axios.get(
-          `https://api.codeunicorn.kr/courses/${query.courseId}`,
-        );
-        response.status === 200
-          ? setCourseDetail(response.data.data)
-          : dispatch(
-              setMessage({ message: "강의 정보를 가져오는데 실패했습니다." }),
-            );
-        setiInstructor(response.data.data.instructor);
-      })();
-    }, [query.courseId]);
-
-    // 강의 커리큘럼을 가져오는 로직
-    useEffect(() => {
-      (async () => {
-        const response = await axios.get(
-          `https://api.codeunicorn.kr/courses/${query.courseId}/curriculum`,
-        );
-        if (response.status === 200) {
-          setCurriculum(response.data.data.sections);
-        } else {
-          dispatch(
+  // 강의 상세 정보를 가져오는 로직
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get(
+        `https://api.codeunicorn.kr/courses/${query.courseId}/lectures/${query.lecture}`,
+      );
+      response.status === 200
+        ? setLecture(response.data.data.lecture)
+        : dispatch(
             setMessage({ message: "강의 정보를 가져오는데 실패했습니다." }),
           );
-        }
-      })();
-    }, [query.courseId]);
-
-    // 강의 상세 정보를 가져오는 로직
-    useEffect(() => {
-      (async () => {
-        const response = await axios.get(
-          `https://api.codeunicorn.kr/courses/${query.courseId}/lectures/${query.lecture}`,
-        );
-        response.status === 200
-          ? setLecture(response.data.data.lecture)
-          : dispatch(
-              setMessage({ message: "강의 정보를 가져오는데 실패했습니다." }),
-            );
-      })();
-    }, [query.lecture]);
-  }
+    })();
+  }, [query.lecture]);
 
   return (
     <Container>
-      {cookie.get("user") !== undefined ? (
+      {cookie.get("SESSION") !== undefined ? (
         <Player
           courseDetail={courseDetail}
           curriculum={curriculum}
           lecture={lecture}
-          instructor={instructor}
         />
       ) : (
         <Auth />
@@ -89,5 +53,67 @@ function lecture() {
     </Container>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // 전체 강의 API
+  const {
+    data: { courses },
+  } = await axios.get("https://api.codeunicorn.kr/courses/all");
+
+  // lectureId를 꺼내기 위한 로직
+  // let lectureIds = [];
+
+  // for (let i = 1; i <= courses.length; i++) {
+  //   const {
+  //     data: { data: curriculum },
+  //   } = await axios.get(`https://api.codeunicorn.kr/courses/${i}/curriculum`);
+  //   lectureIds.push(curriculum.sections[0].id);
+  // }
+
+  const paths = courses.map((course, index) => ({
+    params: {
+      courseId: course.id.toString(),
+      // lecture: lectureIds[index].toString(),
+      lecture: "1",
+    },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // 강의 상세 정보 API
+  const {
+    data: { data: courseDetail },
+  } = await axios.get(`https://api.codeunicorn.kr/courses/${params.courseId}`);
+
+  const {
+    data: { data: curriculum },
+  } = await axios.get(
+    `https://api.codeunicorn.kr/courses/${params.courseId}/curriculum`,
+  );
+
+  // const {
+  //   data: {
+  //     data: { lecture },
+  //   },
+  // } = await axios.get(
+  //   `https://api.codeunicorn.kr/courses/${params.courseId}/lectures/${params.lecture}`,
+  // );
+
+  // if (!courseDetail || !curriculum) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
+
+  return {
+    props: { courseDetail, curriculum },
+    revalidate: 86400,
+  };
+};
 
 export default lecture;

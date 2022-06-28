@@ -34,7 +34,6 @@ const CourseList = styled.div`
   width: 100%;
   min-height: 340px;
   display: flex;
-  justify-content: space-between;
 `;
 
 function Custom() {
