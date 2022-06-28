@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MdTimer } from "react-icons/md";
-import { ISection, ILecture } from "@/interface/course";
+import { LectureTypes, SectionTypes } from "@/interface/course";
 
 const Container = styled.div`
   width: 850px;
@@ -79,7 +79,7 @@ function Curriculum({ curriculum }) {
       {curriculum && (
         <Container>
           <h1>커리큘럼</h1>
-          {curriculum.map((section: ISection) => (
+          {curriculum.map((section: SectionTypes) => (
             <Section key={section.name}>
               <SectionInfo>
                 <h2 className="section__name">{section.name}</h2>
@@ -88,7 +88,7 @@ function Curriculum({ curriculum }) {
                 </span>
                 <span className="section__time">{section.totalHours}</span>
               </SectionInfo>
-              {section.lectures.map((lecture: ILecture) => (
+              {section.lectures.map((lecture: LectureTypes) => (
                 <Lecture key={lecture.name}>
                   <h3 className="lecture__name">{lecture.name}</h3>
                   <MdTimer />

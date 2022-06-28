@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { IRecomend } from "@/interface/recomend";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleChevronLeft,

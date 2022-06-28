@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CourseProps, CourseTypes } from "@/interface/course";
+import { CourseTypes } from "@/interface/course";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -63,7 +63,11 @@ const Rating = styled.p`
   padding: 0px 4px; ;
 `;
 
-function Course({ course }: CourseProps) {
+type courseProps = {
+  course: CourseTypes;
+};
+
+function Course({ course }: courseProps) {
   const {
     id,
     name,
