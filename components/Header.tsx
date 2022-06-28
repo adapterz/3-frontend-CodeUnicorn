@@ -7,7 +7,6 @@ import { AuthReducerType } from "slices";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Cookies } from "react-cookie";
-import axios, { AxiosResponse } from "axios";
 import logout from "@/core/api/logout";
 
 const Container = styled.nav`
@@ -90,12 +89,11 @@ function Header() {
   } = useSelector<AuthReducerType, IAuth>((state) => state);
 
   const onLogOut = async () => {
-
-    const response = await logout(cookie.get("SESSION"))
+    const response = await logout(cookie.get("SESSION"));
 
     console.log(response);
 
-    if(response.status === 204) {
+    if (response.status === 204) {
       cookie.remove("SESSION", {
         domain: "codeunicorn.kr",
         path: "/",

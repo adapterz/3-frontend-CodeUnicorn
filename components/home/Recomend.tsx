@@ -85,6 +85,10 @@ const SliderContainer = styled.div`
   display: flex;
   margin-left: 150px;
 
+  @media screen and (min-width: 0px) and (max-width: 400px) {
+    margin-left: 100px;
+  }
+
   @media only screen and (min-width: 1600px) and (max-width: 3500px) {
     min-width: 1200px;
     max-width: 1200px;

@@ -3,15 +3,15 @@ import Curriculum from "@/components/course/Curriculum";
 import Introduction from "@/components/course/Introduction";
 import Recomend from "@/components/course/Recomend";
 import { getLikeCourses } from "@/core/api/likesApi";
+import { CourseTypes, CurriculumTypes } from "@/interface/course";
 import axios from "axios";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { AuthReducerType } from "slices";
 import { IAuth } from "slices/auth";
-import { setMessage } from "slices/toast";
 
 // dumyData
 const courses = [
@@ -39,10 +39,14 @@ const courses = [
   },
 ];
 
-// TODO typeScript 적용 해야함(props)
-function course({ courseDetail, curriculum, recommendCourses }) {
+type courseProps = {
+  courseDetail: CourseTypes;
+  curriculum: CurriculumTypes;
+  recommendCourses: CourseTypes;
+};
+
+function course({ courseDetail, curriculum, recommendCourses }: courseProps) {
   const cookie = new Cookies();
-  const dispatch = useDispatch();
   const [isLike, setIsLike] = useState(false);
   const { query } = useRouter();
 
@@ -75,7 +79,7 @@ function course({ courseDetail, curriculum, recommendCourses }) {
   const onBegin = useCallback(async () => {
     await axios.post(`https://api.codeunicorn.kr/courses/${query.courseId}`, {
       headers: {
-        loginSessionId: cookie.get("SESSIOM"),
+        cookie: cookie.get("SESSION"),
       },
     });
   }, []);
@@ -86,7 +90,7 @@ function course({ courseDetail, curriculum, recommendCourses }) {
       `https://api.codeunicorn.kr/courses/${query.courseId}/likes`,
       {
         headers: {
-          loginSessionId: cookie.get("SESSIOM"),
+          cookie: cookie.get("SESSION"),
         },
       },
     );
@@ -98,7 +102,7 @@ function course({ courseDetail, curriculum, recommendCourses }) {
       `https://api.codeunicorn.kr/courses/${query.courseId}/likes`,
       {
         headers: {
-          loginSessionId: cookie.get("SESSIOM"),
+          cookie: cookie.get("SESSION"),
         },
       },
     );
@@ -142,11 +146,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  // 전체 강의 API
-  const {
-    data: { courses },
-  } = await axios.get("https://api.codeunicorn.kr/courses/all");
-
   // 강의 상세 정보 API
   const {
     data: { data: courseDetail },
@@ -163,10 +162,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const recommendCourses = [];
 
   for (let i = 1; i <= 9; i++) {
-    let randomNum = Math.floor(Math.random() * courses.length) + 1;
     const {
       data: { data },
-    } = await axios.get(`https://api.codeunicorn.kr/courses/${randomNum}`);
+    } = await axios.get(`https://api.codeunicorn.kr/courses/${i}`);
     recommendCourses.push(data);
   }
 

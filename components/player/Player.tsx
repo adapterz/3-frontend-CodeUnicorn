@@ -1,3 +1,4 @@
+import { CourseTypes, CurriculumTypes, LectureTypes } from "@/interface/course";
 import styled from "styled-components";
 import Curriculum from "./Curriculum";
 import VideoInfo from "./VideoInfo";
@@ -8,7 +9,13 @@ const Container = styled.div`
   display: flex;
 `;
 
-function Player({ courseDetail, curriculum, lecture }) {
+type playerProps = {
+  courseDetail: CourseTypes;
+  curriculum: CurriculumTypes;
+  lecture: LectureTypes;
+};
+
+function Player({ courseDetail, curriculum, lecture }: playerProps) {
   return (
     <Container>
       <VideoInfo courseDetail={courseDetail} lecture={lecture} />

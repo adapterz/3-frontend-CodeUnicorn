@@ -1,3 +1,5 @@
+import { LectureTypes } from "@/interface/course";
+import { useEffect } from "react";
 import styled from "styled-components";
 import Loading from "../Loading";
 
@@ -7,11 +9,16 @@ const Container = styled.div`
   display: flex;
 `;
 
-function Video({ lecture }) {
-  console.log(lecture);
+type videoProps = {
+  lecture: LectureTypes;
+};
+
+function Video({ lecture }: videoProps) {
+  useEffect(() => {}, [lecture]);
+
   return (
     <Container>
-      {lecture.videoUrl === undefined ? (
+      {lecture === undefined ? (
         <Loading />
       ) : (
         <iframe

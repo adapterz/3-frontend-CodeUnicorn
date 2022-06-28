@@ -66,11 +66,13 @@ const BtnBox = styled.div`
 const Btn = styled.button`
   color: white;
   font-size: 1rem;
-  padding: 4px 0px;
+  text-align: center;
   width: 220px;
   height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 10px;
-  border: 0;
   margin-bottom: 10px;
 
   &:hover {
@@ -79,11 +81,11 @@ const Btn = styled.button`
 `;
 
 const LikeBtn = styled(Btn)`
-  background-color: #53b175;
+  background-color: #f87b22;
 `;
 
 const CancelBtn = styled(Btn)`
-  background-color: #ff8e3d;
+  background-color: #e71313;
 `;
 
 const LearnBtn = styled(Btn)`
