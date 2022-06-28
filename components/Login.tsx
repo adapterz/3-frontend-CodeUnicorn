@@ -96,7 +96,6 @@ export default function Login() {
           domain: "codeunicorn.kr",
           path: "/",
           httpOnly: true,
-          sameSite: "lax",
           secure: true,
         });
 
