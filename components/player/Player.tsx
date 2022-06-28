@@ -8,14 +8,10 @@ const Container = styled.div`
   display: flex;
 `;
 
-function Player({ courseDetail, curriculum, lecture, instructor }) {
+function Player({ courseDetail, curriculum, lecture }) {
   return (
     <Container>
-      <VideoInfo
-        courseDetail={courseDetail}
-        lecture={lecture}
-        instructor={instructor}
-      />
+      <VideoInfo courseDetail={courseDetail} lecture={lecture} />
       <Curriculum curriculum={curriculum} />
     </Container>
   );

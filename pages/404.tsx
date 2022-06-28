@@ -163,9 +163,6 @@ export default function FourOhFour() {
           <span className="d"></span>
         </figcaption>
       </figure>
-      <Link href="/">
-        <a>Go back home</a>
-      </Link>
     </Container>
   );
 }

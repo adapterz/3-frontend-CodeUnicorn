@@ -16,10 +16,9 @@ import Images from "next/image";
 const Container = styled.div`
   margin: 0px auto;
   width: 100%;
-  min-height: 520px;
-  max-height: 520px;
+  min-height: 550px;
+  max-height: 550px;
   background-color: #193a91;
-  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -86,7 +85,7 @@ const SliderContainer = styled.div`
   display: flex;
   margin-left: 150px;
 
-  @media only screen and (min-width: 1520px) and (max-width: 3500px) {
+  @media only screen and (min-width: 1600px) and (max-width: 3500px) {
     min-width: 1200px;
     max-width: 1200px;
     margin-left: 0px;
@@ -99,7 +98,7 @@ const CourseBox = styled.div`
   max-width: 1500px;
   display: flex;
 
-  @media only screen and (min-width: 1520px) and (max-width: 3500px) {
+  @media only screen and (min-width: 1600px) and (max-width: 3500px) {
     min-width: 1200px;
     max-width: 1200px;
     padding-right: 100px;
@@ -108,14 +107,14 @@ const CourseBox = styled.div`
 
 const ImageBox = styled.div`
   min-width: 850px;
-  min-height: 400px;
   max-width: 850px;
-  max-height: 400px;
+  min-height: 430px;
+  max-height: 430px;
   border-radius: 20px;
 
   img {
     width: 850px;
-    height: 400px;
+    height: 430px;
     border-radius: 20px;
   }
 `;
@@ -123,6 +122,7 @@ const ImageBox = styled.div`
 const InfoBox = styled.div`
   min-width: 300px;
   max-width: 300px;
+  min-height: 100%;
   margin-left: 50px;
 `;
 
@@ -154,19 +154,19 @@ const Rating = styled.p`
 
 const Description = styled.p`
   color: whitesmoke;
-  min-width: 280px;
-  max-width: 280px;
-  min-height: 100px;
-  font-size: 20px;
+  min-width: 300px;
+  max-width: 300px;
+  min-height: 100%;
+  font-size: 18px;
   line-height: 1.4;
 `;
 
-type RecomendProps = {
-  recomendCourses: CourseTypes[];
+type RecommendProps = {
+  recommendCourses: CourseTypes[];
 };
 
-function Recomend({ recomendCourses }: RecomendProps) {
-  const TOTAL_SLIDES = recomendCourses.length - 1;
+function Recomend({ recommendCourses }: RecommendProps) {
+  const TOTAL_SLIDES = recommendCourses.length - 1;
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
 
@@ -197,10 +197,10 @@ function Recomend({ recomendCourses }: RecomendProps) {
         <h1>Code Unicorn 추천 교육</h1>
       </TitleBox>
       <SliderContainer ref={slideRef}>
-        {recomendCourses.length === 0 ? (
+        {recommendCourses.length === 0 ? (
           <Loading />
         ) : (
-          recomendCourses.map((course: CourseTypes) => (
+          recommendCourses.map((course: CourseTypes) => (
             <CourseBox>
               <ImageBox>
                 <Link key={course.id} href={`/courses/${course.id}`}>
@@ -209,7 +209,7 @@ function Recomend({ recomendCourses }: RecomendProps) {
                       src={course.imagePath}
                       alt="course"
                       width={850}
-                      height={400}
+                      height={430}
                     />
                   </a>
                 </Link>

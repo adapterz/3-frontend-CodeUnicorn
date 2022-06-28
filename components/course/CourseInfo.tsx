@@ -147,11 +147,12 @@ type CourseInfoProps = {
   onLike: () => void;
 };
 
+// TODO typeScript 적용 해야함(props)
 function CourseInfo({
   courseDetail,
   instructor,
   initLecture,
-  curriculum,
+  lectureCount,
   onLike,
 }) {
   const { query } = useRouter();
@@ -196,7 +197,7 @@ function CourseInfo({
                 <Info>
                   <MdOutlineAccessTime />
                   <span>
-                    총 {curriculum.length}개 교육({courseDetail.totalHours})
+                    총 {lectureCount}개 교육({courseDetail.totalHours})
                   </span>
                 </Info>
                 <span className="totalUsers">

@@ -24,6 +24,10 @@ export default function MyApp({ Component, pageProps }) {
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>
         <Head>
+          <meta
+            name="naver-site-verification"
+            content="111c529cb0bdc53bd139b4676623e3701ccd8ef0"
+          ></meta>
           <link rel="icon" type="image/png" href="/favicon.svg" />
         </Head>
         <GlobalStyle />

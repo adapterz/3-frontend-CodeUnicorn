@@ -24,7 +24,7 @@ const Courses = () => {
     })();
   }, [category, currentPage]);
 
-  // 자동 페이지 생성을 위한 로직
+  // 자동 페이지 버튼 생성을 위한 로직
   useEffect(() => {
     let pageArr = [];
     for (let i = 1; i <= Math.ceil(totalCourses / 9); i++) {

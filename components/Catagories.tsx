@@ -8,6 +8,7 @@ const categories = [
   { key: "mobile", name: "모바일" },
   { key: "language", name: "프로그래밍 언어" },
   { key: "algorithm", name: "알고리즘" },
+  { key: "database", name: "데이터베이스" },
 ];
 
 const Container = styled.div``;

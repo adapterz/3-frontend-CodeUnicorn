@@ -76,7 +76,7 @@ export default function Login() {
   const cookie = new Cookies();
   const dispatch = useDispatch();
 
-  if (cookie.get("user") === undefined && status === "authenticated") {
+  if (cookie.get("SESSION") === undefined && status === "authenticated") {
     (async () => {
       const response = await loginApi(data.user);
 
@@ -92,9 +92,7 @@ export default function Login() {
 
         const cookies = new Cookies();
 
-        console.log(response.data);
-
-        cookies.set("user", response.data.data.loginSessionId, {
+        cookies.set("SESSION", response.data.data.loginSessionId, {
           maxAge: 86400,
           domain: "codeunicorn.kr",
           path: "/",

@@ -115,44 +115,50 @@ const Lecture = styled.div`
 function Curriculum({ curriculum }) {
   const router = useRouter();
   return (
-    <Container>
-      <Link href={`/courses/${router.query.courseId}`}>
-        <a>
-          <BackBtn>
-            <BsArrowLeftShort />
-            이전화면
-          </BackBtn>
-        </a>
-      </Link>
-      <InnerContainer>
-        {curriculum.length === 0 ? (
-          <LoadingContainer>
-            <Loading />
-          </LoadingContainer>
-        ) : (
-          curriculum.map((section: ISection) => (
-            <Section key={section.id}>
-              <SectionInfo>
-                <h2 className="section__name">{section.name}</h2>
-              </SectionInfo>
-              {section.lectures.map((lecture: ILecture) => (
-                <Link
-                  key={lecture.id}
-                  href={`/courses/${router.query.courseId}/lectures/${lecture.id}`}
-                >
-                  <a>
-                    <Lecture key={lecture.id}>
-                      <h3 className="lecture__name">{lecture.name}</h3>
-                      <span className="play__time">{lecture.playTime}</span>
-                    </Lecture>
-                  </a>
-                </Link>
-              ))}
-            </Section>
-          ))
-        )}
-      </InnerContainer>
-    </Container>
+    <>
+      {curriculum === undefined ? (
+        <Loading />
+      ) : (
+        <Container>
+          <Link href={`/courses/${router.query.courseId}`}>
+            <a>
+              <BackBtn>
+                <BsArrowLeftShort />
+                이전화면
+              </BackBtn>
+            </a>
+          </Link>
+          <InnerContainer>
+            {curriculum.length === 0 ? (
+              <LoadingContainer>
+                <Loading />
+              </LoadingContainer>
+            ) : (
+              curriculum.sections.map((section: ISection) => (
+                <Section key={section.id}>
+                  <SectionInfo>
+                    <h2 className="section__name">{section.name}</h2>
+                  </SectionInfo>
+                  {section.lectures.map((lecture: ILecture) => (
+                    <Link
+                      key={lecture.id}
+                      href={`/courses/${router.query.courseId}/lectures/${lecture.id}`}
+                    >
+                      <a>
+                        <Lecture key={lecture.id}>
+                          <h3 className="lecture__name">{lecture.name}</h3>
+                          <span className="play__time">{lecture.playTime}</span>
+                        </Lecture>
+                      </a>
+                    </Link>
+                  ))}
+                </Section>
+              ))
+            )}
+          </InnerContainer>
+        </Container>
+      )}
+    </>
   );
 }
 
