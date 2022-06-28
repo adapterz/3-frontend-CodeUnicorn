@@ -45,11 +45,10 @@ export const getStaticProps: GetStaticProps = async () => {
   // 추천 강의 API
   const recommendCourses = [];
 
-  for (let i = 1; i <= 5; i++) {
-    let randomNum = Math.floor(Math.random() * courses.length) + 1;
+  for (let i = 9; i <= 14; i++) {
     const {
       data: { data },
-    } = await axios.get(`https://api.codeunicorn.kr/courses/${randomNum}`);
+    } = await axios.get(`https://api.codeunicorn.kr/courses/${i}`);
     recommendCourses.push(data);
   }
 
