@@ -12,6 +12,20 @@ import { setMessage } from "slices/toast";
 function course({ courseDetail, curriculum, recommendCourses }) {
   const dispatch = useDispatch();
 
+  // 모든 강의를 가져오는 로직
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get(
+        "https://api.codeunicorn.kr/courses/all",
+      );
+      setAllCourses(response.data.courses);
+    })();
+  }, []);
+
+  allCourses.length !== 0 &&
+    allCourses.length < Number(router.query.courseId) &&
+    router.push("/404");
+
   const onLike = useCallback(() => {
     dispatch(setMessage({ message: "관심 교육 등록은 준비 중입니다." }));
   }, []);
