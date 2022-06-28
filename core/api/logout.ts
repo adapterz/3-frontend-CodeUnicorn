@@ -1,12 +1,14 @@
 import axios from "axios";
 
-export default async function logout(cookie : string) {
+export default async function logout(cookie: string) {
+  const response = await axios.delete(
+    "https://api.codeunicorn.kr/users/logout",
+    {
+      headers: {
+        cookie: cookie,
+      },
+    },
+  );
 
-    const response = await axios.delete("https://api.codeunicorn.kr/users/logout", {
-      headers : {
-        loginSessionId : cookie,
-      }
-    });
-
-    return response;
+  return response;
 }
