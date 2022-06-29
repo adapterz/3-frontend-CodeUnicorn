@@ -10,7 +10,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 
-  @media screen and (min-width: 0px) and (max-width: 400px) {
+  @media screen and (min-width: 0px) and (max-width: 412px) {
     width: 1400px;
   }
 `;
@@ -75,6 +75,7 @@ function Banner({ newCourse }) {
           <Link href={`/courses/${newCourse.id}`}>
             <a>
               <Images
+                loading="eager"
                 src={newCourse.imagePath}
                 alt="course"
                 width={400}

@@ -6,38 +6,13 @@ import { getLikeCourses } from "@/core/api/likesApi";
 import { CourseTypes, CurriculumTypes } from "@/interface/course";
 import axios from "axios";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import { AuthReducerType } from "slices";
 import { IAuth } from "slices/auth";
-
-// dumyData
-const courses = [
-  {
-    id: 1,
-    category: "백엔드",
-    type: 0,
-    name: "보내는 것의 청춘은 끓는",
-    imagePath:
-      "https://code-unicorn-service.s3.ap-northeast-2.amazonaws.com/8d331970-e6d8-4f0d-a379-8423da3534f4.png",
-    averageRatings: 4.5,
-    ratingsCount: 1000,
-    userCount: 1200,
-  },
-  {
-    id: 2,
-    category: "백엔드",
-    type: 0,
-    name: "보내는 것의 청춘은 끓는",
-    imagePath:
-      "https://code-unicorn-service.s3.ap-northeast-2.amazonaws.com/8d331970-e6d8-4f0d-a379-8423da3534f4.png",
-    averageRatings: 4.5,
-    ratingsCount: 1000,
-    userCount: 1200,
-  },
-];
 
 type courseProps = {
   courseDetail: CourseTypes;
@@ -55,33 +30,28 @@ function course({ courseDetail, curriculum, recommendCourses }: courseProps) {
   } = useSelector<AuthReducerType, IAuth>((state) => state);
 
   // 로그인한 유저의 관심 강의 목록 API
-  // TODO API 연동 예정
-  // (async () => {
-  //   const {
-  //     data: { courses },
-  //   } = await getLikeCourses(userId);
-  //   const result = likeCourses.courses.filter(
-  //     (course) => course.id === Number(query.courseId),
-  //   );
-  // result.length === 0 ? setIsLike(false) : setIsLike(true);
-  // })();
-
-  // API 연동 전 Test 로직
-  const result = courses.filter(
-    (course) => course.id === Number(query.courseId),
-  );
-
   useEffect(() => {
-    result.length === 0 ? setIsLike(false) : setIsLike(true);
-  }, [result]);
+    (async () => {
+      const {
+        data: { courses },
+      } = await getLikeCourses(userId.toString());
+      const result = courses.filter(
+        (course: CourseTypes) => course.id === Number(query.courseId),
+      );
+      result.length === 0 ? setIsLike(false) : setIsLike(true);
+    })();
+  }, [query.courseId]);
 
   // 바로 학습하기 API
   const onBegin = useCallback(async () => {
-    await axios.post(`https://api.codeunicorn.kr/courses/${query.courseId}`, {
-      headers: {
-        cookie: cookie.get("SESSION"),
+    await axios.post(
+      `https://api.codeunicorn.kr/courses/${query.courseId}/apply`,
+      {
+        headers: {
+          cookie: cookie.get("SESSION"),
+        },
       },
-    });
+    );
   }, []);
 
   // 관심 교육 등록 API
@@ -110,6 +80,10 @@ function course({ courseDetail, curriculum, recommendCourses }: courseProps) {
 
   return (
     <>
+      <NextSeo
+        title={`코드유니콘 | ${courseDetail.name} 강의`}
+        description={courseDetail.description}
+      />
       <CourseInfo
         courseDetail={courseDetail}
         instructor={courseDetail.instructor}

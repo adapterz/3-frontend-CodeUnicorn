@@ -84,7 +84,7 @@ const SliderContainer = styled.div`
   display: flex;
   margin-left: 150px;
 
-  @media screen and (min-width: 0px) and (max-width: 400px) {
+  @media screen and (min-width: 0px) and (max-width: 412px) {
     margin-left: 100px;
   }
 
@@ -204,7 +204,7 @@ function Recomend({ recommendCourses }: RecommendProps) {
           <Loading />
         ) : (
           recommendCourses.map((course: CourseTypes) => (
-            <CourseBox>
+            <CourseBox key={course.name}>
               <ImageBox>
                 <Link key={course.id} href={`/courses/${course.id}`}>
                   <a>

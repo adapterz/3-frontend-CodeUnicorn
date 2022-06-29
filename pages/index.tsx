@@ -39,7 +39,7 @@ export const getStaticProps: GetStaticProps = async () => {
       data: { courses: backCourses },
     },
   } = await axios.get(
-    "https://api.codeunicorn.kr/courses?category=backend&page=1",
+    "https://api.codeunicorn.kr/courses?category=backend&sortby=popular&page=1",
   );
 
   // 추천 강의 API

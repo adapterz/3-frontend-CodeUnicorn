@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const getLikeCourses = async (userId) => {
+export const getLikeCourses = async (userId: string) => {
   // 로그인한 유저의 관심 강의 목록 API
-  // const response = await axios.get(
-  //     `https://api.codeunicorn.kr/users/${userId}/like-courses`,
-  //   );
-  //   return response;
+  const response = await axios.get(
+    `https://api.codeunicorn.kr/users/${userId}/like-courses`,
+  );
+  return response;
 };

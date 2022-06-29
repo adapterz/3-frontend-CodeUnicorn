@@ -23,49 +23,54 @@ const SectionInfo = styled.div`
   border-bottom: 1px solid #333333;
 
   .section__name {
-    min-width: 695px;
+    min-width: 650px;
+    font-family: "Roboto";
+    font-weight: 700;
     font-size: 18px;
     padding-bottom: 10px;
-    font-weight: bold;
+    line-height: 21px;
+    padding-left: 18px;
   }
 
   .section__lecture {
-    font-size: 17px;
-    font-weight: bold;
-    padding-bottom: 10px;
-    margin-right: 6px;
+    font-size: 18px;
+    font-family: "Roboto";
+    font-weight: 700;
+    margin-right: 50px;
+    line-height: 21px;
+    text-align: right;
   }
 
   .section__time {
-    padding: 0px 12px;
-    font-size: 17px;
-    font-weight: bold;
-    padding-bottom: 10px;
+    font-family: "Roboto";
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: right;
   }
 `;
 
 const Lecture = styled.div`
   display: flex;
+  align-items: center;
+  padding: 12px 0;
 
   .lecture__name {
-    min-width: 700px;
+    min-width: 652px;
     font-size: 16px;
-    padding: 12px 12px;
     color: #444444;
+    padding-left: 20px;
   }
 
-  svg {
-    min-width: 25px;
-    font-size: 1.5rem;
-    padding-top: 6px;
-    margin-right: 8px;
-    color: black;
-    opacity: 0.7;
+  .timer {
+    margin-right: 50px;
   }
 
   .play__time {
-    min-width: 70px;
-    padding: 12px 12px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: right;
   }
 
   & + & {
@@ -91,7 +96,66 @@ function Curriculum({ curriculum }) {
               {section.lectures.map((lecture: LectureTypes) => (
                 <Lecture key={lecture.name}>
                   <h3 className="lecture__name">{lecture.name}</h3>
-                  <MdTimer />
+                  <svg
+                    className="timer"
+                    width="23"
+                    height="25"
+                    viewBox="0 0 25 27"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12.5756 22.9431C17.1465 22.9431 20.852 19.3457 20.852 14.9081C20.852 10.4705 17.1465 6.87305 12.5756 6.87305C8.00475 6.87305 4.29932 10.4705 4.29932 14.9081C4.29932 19.3457 8.00475 22.9431 12.5756 22.9431Z"
+                      stroke="#333333"
+                      stroke-miterlimit="10"
+                    />
+                    <path
+                      d="M12.5753 25.9996C18.885 25.9996 24 21.0338 24 14.908C24 8.78229 18.885 3.81641 12.5753 3.81641C6.26564 3.81641 1.15063 8.78229 1.15063 14.908C1.15063 21.0338 6.26564 25.9996 12.5753 25.9996Z"
+                      stroke="#333333"
+                      stroke-miterlimit="10"
+                    />
+                    <path
+                      d="M10.6813 1H14.4687"
+                      stroke="#333333"
+                      stroke-miterlimit="10"
+                    />
+                    <path
+                      d="M12.5753 3.81628V1"
+                      stroke="#333333"
+                      stroke-miterlimit="10"
+                    />
+                    <path
+                      d="M7.07014 5.18773L5.22284 3.39428C4.97373 3.15243 4.56671 3.15243 4.3176 3.39428L1.18684 6.43377C0.937721 6.67562 0.937721 7.07077 1.18684 7.31262L2.91305 8.98851C3.94365 7.40584 5.37541 6.09403 7.07014 5.18773Z"
+                      stroke="#333333"
+                      stroke-miterlimit="10"
+                    />
+                    <path
+                      d="M12.5753 6.87305V8.46866"
+                      stroke="#333333"
+                      stroke-miterlimit="10"
+                    />
+                    <path
+                      d="M4.2998 14.9082H5.94333"
+                      stroke="#333333"
+                      stroke-miterlimit="10"
+                    />
+                    <path
+                      d="M12.5753 22.9433V21.3477"
+                      stroke="#333333"
+                      stroke-miterlimit="10"
+                    />
+                    <path
+                      d="M20.8521 14.9082H19.2086"
+                      stroke="#333333"
+                      stroke-miterlimit="10"
+                    />
+                    <path
+                      d="M12.5753 11.5693V14.9087H14.469"
+                      stroke="#333333"
+                      stroke-miterlimit="10"
+                    />
+                  </svg>
+
                   <span className="play__time">{lecture.playTime}</span>
                 </Lecture>
               ))}

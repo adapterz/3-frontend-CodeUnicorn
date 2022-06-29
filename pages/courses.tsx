@@ -17,7 +17,7 @@ const Courses = () => {
       const {
         data: { data },
       } = await axios.get(
-        `https://api.codeunicorn.kr/courses?category=${category}&page=${currentPage}`,
+        `https://api.codeunicorn.kr/courses?category=${category}&sortby=popular&page=${currentPage}`,
       );
       setCourses(data.courses);
       setTotalCourses(data.courseCount);
@@ -56,9 +56,9 @@ const Courses = () => {
   return (
     <>
       <NextSeo
-        title="전체 강의"
-        description="프론트엔드, 백엔드, 게임 개발 등 다양한 카테고리의 전체 강의"
-      ></NextSeo>
+        title="코드유니콘 | 인기순 전체 강의"
+        description="프론트엔드, 백엔드, 게임 개발 등 다양한 카테고리의 인기 전체 강의"
+      />
       <CoursesTemplate
         courses={courses}
         totalCourses={totalCourses}

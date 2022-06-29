@@ -13,7 +13,7 @@ const Container = styled.div`
   margin: 0px auto;
   margin-bottom: 50px;
 
-  @media screen and (min-width: 0px) and (max-width: 400px) {
+  @media screen and (min-width: 0px) and (max-width: 412px) {
     width: 1200px;
     margin: 0px auto;
   }
@@ -55,7 +55,7 @@ function Custom() {
       const {
         data: { data },
       } = await axios.get(
-        `https://api.codeunicorn.kr/courses?category=${category}&page=1`,
+        `https://api.codeunicorn.kr/courses?category=${category}&sortby=popular&page=1`,
       );
       setCategoryCourses(data.courses.splice(0, 4));
     })();

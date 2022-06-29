@@ -9,13 +9,13 @@ const Container = styled.div`
   figure {
     font-size: 6px;
     position: absolute;
-    top: 60%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 64em;
 
-    @media screen and (min-width: 0px) and (max-width: 400px) {
-      left: 180%;
+    @media screen and (min-width: 0px) and (max-width: 412px) {
+      left: 170%;
       top: 65%;
     }
   }

@@ -7,6 +7,7 @@ import { IAuth } from "slices/auth";
 import { useRouter } from "next/router";
 import Auth from "@/components/Auth";
 import { Cookies } from "react-cookie";
+import { NextSeo } from "next-seo";
 
 const Container = styled.div`
   width: 850px;
@@ -28,6 +29,10 @@ function user() {
 
   return (
     <Container>
+      <NextSeo
+        title={`코드유니콘 | 마이페이지`}
+        description="프로필 설정, 현재 수강 중인 교육 목록, 관심 교육 목록을 확인할 수 있습니다."
+      />
       {cookies.get("SESSION") !== undefined ? (
         <>
           <Aside />
