@@ -1,9 +1,13 @@
 import styled from "styled-components";
-import { ISection, ILecture } from "@/interface/course";
 import { BsArrowLeftShort } from "react-icons/bs";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Loading from "../Loading";
+import {
+  CurriculumTypes,
+  LectureTypes,
+  SectionTypes,
+} from "@/interface/course";
 
 const Container = styled.div`
   width: 50%;
@@ -108,11 +112,11 @@ const Lecture = styled.div`
   }
 `;
 
-// type CurriculumProps = {
-//   CurriculumTypes:
-// };
+type CurriculumProps = {
+  curriculum: CurriculumTypes;
+};
 
-function Curriculum({ curriculum }) {
+function Curriculum({ curriculum }: CurriculumProps) {
   const router = useRouter();
   return (
     <>
@@ -134,12 +138,12 @@ function Curriculum({ curriculum }) {
                 <Loading />
               </LoadingContainer>
             ) : (
-              curriculum.sections.map((section: ISection) => (
+              curriculum.sections.map((section: SectionTypes) => (
                 <Section key={section.id}>
                   <SectionInfo>
                     <h2 className="section__name">{section.name}</h2>
                   </SectionInfo>
-                  {section.lectures.map((lecture: ILecture) => (
+                  {section.lectures.map((lecture: LectureTypes) => (
                     <Link
                       key={lecture.id}
                       href={`/courses/${router.query.courseId}/lectures/${lecture.id}`}

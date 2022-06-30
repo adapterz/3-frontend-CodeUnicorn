@@ -1,3 +1,4 @@
+import { CourseTypes, LectureTypes } from "@/interface/course";
 import styled from "styled-components";
 import Header from "./Header";
 import Video from "./Video";
@@ -7,7 +8,12 @@ const Container = styled.div`
   height: 100%;
 `;
 
-function VideoInfo({ courseDetail, lecture }) {
+type videoInfoProps = {
+  courseDetail: CourseTypes;
+  lecture: LectureTypes;
+};
+
+function VideoInfo({ courseDetail, lecture }: videoInfoProps) {
   return (
     <Container>
       <Header courseDetail={courseDetail} />

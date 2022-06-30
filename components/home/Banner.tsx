@@ -9,6 +9,10 @@ const Container = styled.div`
   background-color: #2b3d55;
   display: flex;
   justify-content: center;
+
+  @media screen and (min-width: 0px) and (max-width: 400px) {
+    width: 1400px;
+  }
 `;
 
 const InnerContainer = styled.div`

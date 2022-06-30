@@ -1,13 +1,10 @@
 import Player from "@/components/player/Player";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { setMessage, ToastType } from "slices/toast";
 import Auth from "@/components/Auth";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { CourseTypes } from "@/interface/course";
 
 const Container = styled.div`
   position: absolute;
@@ -17,27 +14,14 @@ const Container = styled.div`
   overflow: hidden;
   z-index: 1;
   background-color: white;
+
+  @media screen and (min-width: 0px) and (max-width: 400px) {
+    width: 1400px;
+  }
 `;
 
-function lecture({ courseDetail, curriculum }) {
+function lecture({ courseDetail, curriculum, lecture }) {
   const cookie = new Cookies();
-  const { query } = useRouter();
-  const [lecture, setLecture] = useState({});
-  const dispatch = useDispatch();
-
-  // 강의 상세 정보를 가져오는 로직
-  useEffect(() => {
-    (async () => {
-      const response = await axios.get(
-        `https://api.codeunicorn.kr/courses/${query.courseId}/lectures/${query.lecture}`,
-      );
-      response.status === 200
-        ? setLecture(response.data.data.lecture)
-        : dispatch(
-            setMessage({ message: "강의 정보를 가져오는데 실패했습니다." }),
-          );
-    })();
-  }, [query.lecture]);
 
   return (
     <Container>
@@ -61,26 +45,25 @@ export const getStaticPaths: GetStaticPaths = async () => {
   } = await axios.get("https://api.codeunicorn.kr/courses/all");
 
   // lectureId를 꺼내기 위한 로직
-  // let lectureIds = [];
+  let lectureIds = [];
 
-  // for (let i = 1; i <= courses.length; i++) {
-  //   const {
-  //     data: { data: curriculum },
-  //   } = await axios.get(`https://api.codeunicorn.kr/courses/${i}/curriculum`);
-  //   lectureIds.push(curriculum.sections[0].id);
-  // }
+  for (let i = 1; i <= courses.length; i++) {
+    const {
+      data: { data: curriculum },
+    } = await axios.get(`https://api.codeunicorn.kr/courses/${i}/curriculum`);
+    lectureIds.push(curriculum.sections[0].lectures[0].id);
+  }
 
-  const paths = courses.map((course, index) => ({
+  const paths = courses.map((course: CourseTypes, index) => ({
     params: {
       courseId: course.id.toString(),
-      // lecture: lectureIds[index].toString(),
-      lecture: "1",
+      lecture: lectureIds[index].toString(),
     },
   }));
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
@@ -96,22 +79,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     `https://api.codeunicorn.kr/courses/${params.courseId}/curriculum`,
   );
 
-  // const {
-  //   data: {
-  //     data: { lecture },
-  //   },
-  // } = await axios.get(
-  //   `https://api.codeunicorn.kr/courses/${params.courseId}/lectures/${params.lecture}`,
-  // );
+  const {
+    data: {
+      data: { lecture },
+    },
+  } = await axios.get(
+    `https://api.codeunicorn.kr/courses/${params.courseId}/lectures/${params.lecture}`,
+  );
 
-  // if (!courseDetail || !curriculum) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
+  if (!courseDetail || !curriculum || !lecture) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
-    props: { courseDetail, curriculum },
+    props: { courseDetail, curriculum, lecture },
     revalidate: 86400,
   };
 };

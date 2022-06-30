@@ -1,19 +1,23 @@
-import Link from "next/link";
 import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  height: 1500px;
+  height: 1000px;
   z-index: 9999;
   background-color: #1d2020;
 
   figure {
     font-size: 6px;
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 64em;
+
+    @media screen and (min-width: 0px) and (max-width: 400px) {
+      left: 180%;
+      top: 65%;
+    }
   }
 
   figcaption {

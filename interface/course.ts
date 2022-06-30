@@ -1,9 +1,5 @@
 import { InstructorTypes } from "./Instructor";
 
-export type CourseProps = {
-  course: CourseTypes;
-};
-
 export type CourseTypes = {
   id: number;
   name: string;
@@ -16,34 +12,24 @@ export type CourseTypes = {
   instructor?: InstructorTypes;
 };
 
-export interface ISection {
+export type CurriculumTypes = {
+  courseId: number;
+  sections: SectionTypes[];
+  length?: number;
+};
+
+export type SectionTypes = {
   id: number;
   name: string;
   totalHours: string;
   lectureCount: number;
-  lectures: [ILecture];
-}
+  lectures: LectureTypes[];
+};
 
-export interface ILecture {
+export type LectureTypes = {
   id: number;
   name: string;
   desc: string;
   videoUrl: string;
   playTime: string;
-}
-
-export interface ISection {
-  id: number;
-  name: string;
-  totalHours: string;
-  lectureCount: number;
-  lectures: [ILecture];
-}
-
-export interface ILecture {
-  id: number;
-  name: string;
-  desc: string;
-  videoUrl: string;
-  playTime: string;
-}
+};

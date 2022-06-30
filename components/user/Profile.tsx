@@ -143,7 +143,7 @@ const Profile = ({ userId, currentName, image }) => {
 
     const response = await axios.post("/api/upload", formArr, {
       headers: {
-        cookies: cookie.get("user"),
+        cookies: cookie.get("SESSION"),
       },
     });
 

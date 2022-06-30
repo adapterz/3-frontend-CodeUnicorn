@@ -4,6 +4,7 @@ import { MdPerson, MdPlayArrow, MdOutlineAccessTime } from "react-icons/md";
 import { CourseTypes } from "@/interface/course";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const Container = styled.div`
   width: 850px;
@@ -16,25 +17,25 @@ const Container = styled.div`
 const TopBox = styled.div`
   display: flex;
   align-items: center;
-
-  .image {
-    border-radius: 20px;
-    width: 500px;
-    height: 300px;
-  }
 `;
 
 const ImageBox = styled.div`
   position: relative;
   cursor: pointer;
   opacity: 0.9;
-  img {
-    z-index: 1;
-    border: 1px solid gray;
+  border: 1px solid gray;
+  border-radius: 20px;
+  min-width: 500px;
+  max-width: 500px;
+  min-height: 301px;
+  max-height: 301px;
 
-    &:hover {
-      opacity: 1;
-    }
+  span {
+    border-radius: 20px;
+  }
+
+  &:hover {
+    opacity: 1;
   }
 
   svg {
@@ -65,11 +66,13 @@ const BtnBox = styled.div`
 const Btn = styled.button`
   color: white;
   font-size: 1rem;
-  padding: 4px 0px;
+  text-align: center;
   width: 220px;
   height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 10px;
-  border: 0;
   margin-bottom: 10px;
 
   &:hover {
@@ -78,7 +81,11 @@ const Btn = styled.button`
 `;
 
 const LikeBtn = styled(Btn)`
-  background-color: #ff8e3d;
+  background-color: #f87b22;
+`;
+
+const CancelBtn = styled(Btn)`
+  background-color: #e71313;
 `;
 
 const LearnBtn = styled(Btn)`
@@ -153,7 +160,10 @@ function CourseInfo({
   instructor,
   initLecture,
   lectureCount,
+  onBegin,
+  isLike,
   onLike,
+  onCancle,
 }) {
   const { query } = useRouter();
   return (
@@ -165,18 +175,26 @@ function CourseInfo({
               <a>
                 <ImageBox>
                   <MdPlayArrow />
-                  <img className="image" src={courseDetail.imagePath} />
+                  <Image
+                    src={courseDetail.imagePath}
+                    width={500}
+                    height={300}
+                  />
                 </ImageBox>
               </a>
             </Link>
             <RightBox>
               <BtnBox>
-                <LikeBtn onClick={onLike}>관심 교육 등록</LikeBtn>
+                {isLike ? (
+                  <CancelBtn onClick={onCancle}>관심 교육 취소</CancelBtn>
+                ) : (
+                  <LikeBtn onClick={onLike}>관심 교육 등록</LikeBtn>
+                )}
                 <Link
                   href={`/courses/${query.courseId}/lectures/${initLecture}`}
                 >
                   <a>
-                    <LearnBtn>바로 학습하기</LearnBtn>
+                    <LearnBtn onClick={onBegin}>바로 학습하기</LearnBtn>
                   </a>
                 </Link>
               </BtnBox>
