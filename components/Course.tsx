@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CourseProps, CourseTypes } from "@/interface/course";
+import { CourseTypes } from "@/interface/course";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -63,7 +63,13 @@ const Rating = styled.p`
   padding: 0px 4px; ;
 `;
 
-function Course({ course }: CourseProps) {
+type courseProps = {
+  course: CourseTypes;
+  width: number;
+  height: number;
+};
+
+function Course({ course, width, height }: courseProps) {
   const {
     id,
     name,
@@ -77,7 +83,7 @@ function Course({ course }: CourseProps) {
     <Container>
       <Link key={course.id} href={`/courses/${id}`}>
         <a>
-          <Images src={imagePath} alt="course" width={280} height={200} />
+          <Images src={imagePath} alt="course" width={width} height={height} />
         </a>
       </Link>
       <Category>{category}</Category>

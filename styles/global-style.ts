@@ -5,7 +5,7 @@ export const GlobalStyle = createGlobalStyle`
     ${reset}
 
     #__next {
-        @media screen and (min-width: 0px) and (max-width: 400px) {
+        @media screen and (min-width: 0px) and (max-width: 412px) {
         width: 1400px;
         }
     }

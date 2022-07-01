@@ -17,6 +17,7 @@ import Head from "next/head";
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS
 import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
+import { structuredData } from "config/structData";
 
 const store = createStore(rootReducer, composeWithDevTools());
 const persistor = persistStore(store);
@@ -26,21 +27,33 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Head>
-            <meta
-              name="naver-site-verification"
-              content="111c529cb0bdc53bd139b4676623e3701ccd8ef0"
-            ></meta>
-            <link rel="icon" type="image/png" href="/favicon.svg" />
-          </Head>
-          <GlobalStyle />
-          <DefaultSeo {...DEFAULT_SEO} />
-          <Toast />
-          <Header />
-          <Component {...pageProps} />
-          <Footer />
-        </PersistGate>
+        <Head>
+          <meta
+            name="naver-site-verification"
+            content="111c529cb0bdc53bd139b4676623e3701ccd8ef0"
+          ></meta>
+          <link rel="icon" type="image/png" href="/favicon.svg" />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(structuredData),
+            }}
+          />
+        </Head>
+        <GlobalStyle />
+        <DefaultSeo {...DEFAULT_SEO} />
+        <noscript id="google-tag-manager">
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WW7HMLH"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
+        <Toast />
+        <Header />
+        <Component {...pageProps} />
+        <Footer />
       </Provider>
     </SessionProvider>
   );

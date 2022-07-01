@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { IRecomend } from "@/interface/recomend";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleChevronLeft,
@@ -23,6 +22,7 @@ const Container = styled.div`
   flex-direction: column;
   overflow: hidden;
   position: relative;
+  margin-bottom: 50px;
 
   .spinner-border {
     margin-top: 10rem;
@@ -68,25 +68,36 @@ const Container = styled.div`
 `;
 
 const TitleBox = styled.div`
-  width: 1200px;
+  width: 1500px;
   margin: 0px auto;
+  margin-left: 120px;
+
+  @media screen and (min-width: 1600px) and (max-width: 3500px) {
+    width: 100%;
+    margin-left: 0px;
+    text-align: center;
+  }
 
   h1 {
     color: whitesmoke;
     font-size: 28px;
     font-weight: bold;
     margin: 25px 0px;
+
+    @media screen and (min-width: 1600px) and (max-width: 3500px) {
+      margin-right: 900px;
+    }
   }
 `;
 
 const SliderContainer = styled.div`
-  min-width: 1500px;
-  max-width: 1500px;
+  min-width: 100%;
+  max-width: 100%;
   display: flex;
-  margin-left: 150px;
+  margin-left: 120px;
 
-  @media screen and (min-width: 0px) and (max-width: 400px) {
-    margin-left: 100px;
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    margin-left: 120px;
   }
 
   @media only screen and (min-width: 1600px) and (max-width: 3500px) {
@@ -110,24 +121,24 @@ const CourseBox = styled.div`
 `;
 
 const ImageBox = styled.div`
-  min-width: 850px;
-  max-width: 850px;
-  min-height: 430px;
-  max-height: 430px;
+  min-width: 640px;
+  max-width: 640px;
+  min-height: 400px;
+  max-height: 400px;
   border-radius: 20px;
 
   img {
-    width: 850px;
-    height: 430px;
+    width: 640px;
+    height: 400px;
     border-radius: 20px;
   }
 `;
 
 const InfoBox = styled.div`
-  min-width: 300px;
-  max-width: 300px;
+  min-width: 400px;
+  max-width: 400px;
   min-height: 100%;
-  margin-left: 50px;
+  margin-left: 70px;
 `;
 
 const Catagory = styled.h4`
@@ -158,11 +169,12 @@ const Rating = styled.p`
 
 const Description = styled.p`
   color: whitesmoke;
-  min-width: 300px;
-  max-width: 300px;
+  min-width: 450px;
+  max-width: 450px;
   min-height: 100%;
   font-size: 18px;
   line-height: 1.4;
+  word-break: keep-all;
 `;
 
 type RecommendProps = {
@@ -205,15 +217,15 @@ function Recomend({ recommendCourses }: RecommendProps) {
           <Loading />
         ) : (
           recommendCourses.map((course: CourseTypes) => (
-            <CourseBox>
+            <CourseBox key={course.name}>
               <ImageBox>
                 <Link key={course.id} href={`/courses/${course.id}`}>
                   <a>
                     <Images
                       src={course.imagePath}
                       alt="course"
-                      width={850}
-                      height={430}
+                      width={640}
+                      height={400}
                     />
                   </a>
                 </Link>

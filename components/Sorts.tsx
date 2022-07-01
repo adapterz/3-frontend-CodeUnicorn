@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import styled, { css } from "styled-components";
 import { ISort } from "@/interface/sort";
+import { useRouter } from "next/router";
 
 const sorts = [{ name: "인기순" }, { name: "최신순" }];
 
@@ -33,9 +34,15 @@ const Sort = styled.div<ISort>`
 `;
 
 function Sorts() {
+  const router = useRouter();
   const [sort, setSort] = useState("인기순");
   const onSelect = useCallback((sort: string) => {
     setSort(sort);
+    router.push(
+      `/courses?category=${router.query.category}&sortby=${
+        sort === "인기순" ? "popular" : "new"
+      }`,
+    );
   }, []);
   return (
     <Container>

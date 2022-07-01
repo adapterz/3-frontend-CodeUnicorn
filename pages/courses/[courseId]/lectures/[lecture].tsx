@@ -5,6 +5,7 @@ import axios from "axios";
 import { Cookies } from "react-cookie";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { CourseTypes } from "@/interface/course";
+import { NextSeo } from "next-seo";
 
 const Container = styled.div`
   position: absolute;
@@ -15,7 +16,7 @@ const Container = styled.div`
   z-index: 1;
   background-color: white;
 
-  @media screen and (min-width: 0px) and (max-width: 400px) {
+  @media screen and (min-width: 0px) and (max-width: 412px) {
     width: 1400px;
   }
 `;
@@ -25,6 +26,10 @@ function lecture({ courseDetail, curriculum, lecture }) {
 
   return (
     <Container>
+      <NextSeo
+        title={`코드유니콘 | 강의 시청 페이지`}
+        description="다양한 강의를 무료로 학습하면서 많은 지식을 쌓을 수 있습니다."
+      ></NextSeo>
       {cookie.get("SESSION") !== undefined ? (
         <Player
           courseDetail={courseDetail}

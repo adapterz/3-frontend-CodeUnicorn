@@ -28,7 +28,7 @@ const ImageBox = styled.div`
   margin-right: 20px;
   img {
     width: 160px;
-    height: 150px;
+    height: 160px;
   }
   .name {
     min-height: 20px;
