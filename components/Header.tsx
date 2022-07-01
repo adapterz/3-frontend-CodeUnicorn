@@ -112,7 +112,7 @@ function Header() {
         </Link>
         {cookie.get("SESSION") !== undefined ? (
           <IsLoginedNav>
-            <Link href="/courses?category=all">
+            <Link href="/courses?category=all&sortby=popular">
               <a>
                 <Menu className="isLogined-lecture">전체 강의</Menu>
               </a>
@@ -124,7 +124,7 @@ function Header() {
                 </a>
               </Link>
             ) : (
-              <Link href={`/users/${userId}`}>
+              <Link href={`/users/${userId}?option=mypage`}>
                 <a>
                   <HiUserCircle />
                 </a>
@@ -134,7 +134,7 @@ function Header() {
           </IsLoginedNav>
         ) : (
           <Nav>
-            <Link href="/courses?category=all">
+            <Link href="/courses?category=all&sortby=popular">
               <a>
                 <Menu>전체 강의</Menu>
               </a>

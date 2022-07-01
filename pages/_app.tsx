@@ -21,7 +21,6 @@ const store = createStore(rootReducer, composeWithDevTools());
 
 export default function MyApp({ Component, pageProps }) {
   axios.defaults.withCredentials = true;
-
   return (
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>
@@ -40,6 +39,14 @@ export default function MyApp({ Component, pageProps }) {
         </Head>
         <GlobalStyle />
         <DefaultSeo {...DEFAULT_SEO} />
+        <noscript id="google-tag-manager">
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WW7HMLH"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
         <Toast />
         <Header />
         <Component {...pageProps} />

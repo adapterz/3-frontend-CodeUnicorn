@@ -17,12 +17,12 @@ const Courses = () => {
       const {
         data: { data },
       } = await axios.get(
-        `https://api.codeunicorn.kr/courses?category=${category}&sortby=popular&page=${currentPage}`,
+        `https://api.codeunicorn.kr/courses?category=${category}&sortby=${router.query.sortby}&page=${currentPage}`,
       );
       setCourses(data.courses);
       setTotalCourses(data.courseCount);
     })();
-  }, [category, currentPage]);
+  }, [category, router.query.sortby, currentPage]);
 
   // 자동 페이지 버튼 생성을 위한 로직
   useEffect(() => {
@@ -35,7 +35,7 @@ const Courses = () => {
 
   function onSelect(data: string | number) {
     if (typeof data === "string") {
-      router.push(`/courses?category=${data}`);
+      router.push(`/courses?category=${data}&sortby=${router.query.sortby}`);
       setCategory(data);
       setCurrentPage(1);
     } else {

@@ -25,7 +25,7 @@ const Container = styled.div<IContainer>`
     color: #4e4e4e;
     opacity: 0.5;
     left: -25px;
-    top: 125px;
+    top: 135px;
     position: absolute;
     cursor: pointer;
     z-index: 2;
@@ -38,7 +38,7 @@ const Container = styled.div<IContainer>`
     color: #4e4e4e;
     opacity: 0.5;
     right: -57px;
-    top: 125px;
+    top: 135px;
     position: absolute;
     cursor: pointer;
     z-index: 2;
@@ -88,7 +88,7 @@ function Slider({ courses, width }) {
           <Loading />
         ) : (
           courses.map((course: CourseTypes) => (
-            <Course key={course.id} course={course} />
+            <Course key={course.id} course={course} width={280} height={200} />
           ))
         )}
       </SliderContainer>

@@ -86,7 +86,6 @@ function Recomend({ recommendCourses }) {
 
   useEffect(() => {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
-    // slideRef.current.style.transform = `translateX(-${currentSlide}0%`;
     slideRef.current.style.transform = `translateX(-${currentSlide}00%`;
   }, [currentSlide]);
 

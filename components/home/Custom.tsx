@@ -16,6 +16,7 @@ const Container = styled.div`
   @media screen and (min-width: 0px) and (max-width: 412px) {
     width: 1200px;
     margin: 0px auto;
+    margin-bottom: 50px;
   }
 `;
 
@@ -72,7 +73,7 @@ function Custom() {
       ) : (
         <CourseList>
           {categoryCourses.map((coures: CourseTypes) => (
-            <Course key={coures.id} course={coures} />
+            <Course key={coures.id} course={coures} width={280} height={200} />
           ))}
         </CourseList>
       )}

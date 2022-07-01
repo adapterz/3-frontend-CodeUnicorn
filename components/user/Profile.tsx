@@ -7,11 +7,17 @@ import { setMessage } from "slices/toast";
 import styled from "styled-components";
 import NameBox from "@/components/user/NameBox";
 
-const Container = styled.div`
-  margin-top: 3rem;
-  margin-left: 4rem;
+type ContainerType = {
+  display: string;
+};
+
+const Container = styled.div<ContainerType>`
+  min-width: 800px;
+  margin-top: 60px;
+  margin-left: 78px;
   margin-bottom: 100px;
-  width: 100%;
+  min-height: 850px;
+  display: ${(props) => props.display};
 `;
 
 const Title = styled.h1`
@@ -108,7 +114,7 @@ const RemoveBtn = styled.button`
   color: gray;
 `;
 
-const Profile = ({ userId, currentName, image }) => {
+const Profile = ({ userId, currentName, image, active }) => {
   const [currentImage, setCurrentImage] = useState(
     image || "/images/profile.png",
   );
@@ -168,7 +174,7 @@ const Profile = ({ userId, currentName, image }) => {
   };
 
   return (
-    <Container>
+    <Container display={active ? "block" : "none"}>
       <Title>내정보</Title>
       <InfoBox>
         <ImageBox htmlFor="input-file">

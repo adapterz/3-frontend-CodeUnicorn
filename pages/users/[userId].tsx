@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import Aside from "@/components/user/Aside";
 import Profile from "@/components/user/Profile";
-import { useSelector } from "react-redux";
-import { AuthReducerType } from "slices";
-import { IAuth } from "slices/auth";
 import { useRouter } from "next/router";
 import Auth from "@/components/Auth";
 import { Cookies } from "react-cookie";
 import { NextSeo } from "next-seo";
+import MyCourses from "@/components/user/MyCourses";
+import { GetStaticPaths, GetStaticProps } from "next";
+import axios from "axios";
 
 const Container = styled.div`
   width: 850px;
@@ -15,17 +15,9 @@ const Container = styled.div`
   display: flex;
 `;
 
-function user() {
+function user({ user, applyCourses, likeCourses }) {
   const cookies = new Cookies();
   const router = useRouter();
-  const {
-    auth: { userId, userName, image },
-  } = useSelector<AuthReducerType, IAuth>((state) => state);
-
-  // userId에 해당하지 않는 페이지 접근제한
-  router.query.userId !== undefined &&
-    Number(router.query.userId) !== userId &&
-    router.push("/404");
 
   return (
     <Container>
@@ -36,7 +28,17 @@ function user() {
       {cookies.get("SESSION") !== undefined ? (
         <>
           <Aside />
-          <Profile userId={userId} currentName={userName} image={image} />
+          <Profile
+            userId={user.id}
+            currentName={user.nickname}
+            image={user.profilePath}
+            active={router.query.option === "my-page" ? true : false}
+          />
+          <MyCourses
+            likeCourses={likeCourses}
+            applyCourses={applyCourses}
+            active={router.query.option === "my-courses" ? true : false}
+          />
         </>
       ) : (
         <Auth />
@@ -44,5 +46,52 @@ function user() {
     </Container>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data: users } = await axios.get(
+    "https://api.codeunicorn.kr/users/all",
+  );
+
+  const paths = users.map((user) => ({
+    params: {
+      userId: user.id.toString(),
+    },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // 유저 정보 API
+  const {
+    data: { data: user },
+  } = await axios.get(`https://api.codeunicorn.kr/users/${params.userId}`);
+
+  // 수강 중인 강의 API
+  const { data: applyCourses } = await axios.get(
+    `https://api.codeunicorn.kr/users/${params.userId}/apply-courses`,
+  );
+
+  // 관심 등록한 강의 API
+  const {
+    data: { courses: likeCourses },
+  } = await axios.get(
+    `https://api.codeunicorn.kr/users/${params.userId}/like-courses`,
+  );
+
+  if (!user || !applyCourses || !likeCourses) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { user, applyCourses, likeCourses },
+    revalidate: 3600,
+  };
+};
 
 export default user;
