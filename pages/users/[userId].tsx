@@ -8,6 +8,8 @@ import { NextSeo } from "next-seo";
 import MyCourses from "@/components/user/MyCourses";
 import { GetStaticPaths, GetStaticProps } from "next";
 import axios from "axios";
+import { UserTypes } from "@/interface/user";
+import { useEffect, useState } from "react";
 
 const Container = styled.div`
   width: 850px;
@@ -15,9 +17,29 @@ const Container = styled.div`
   display: flex;
 `;
 
-function user({ user, applyCourses, likeCourses }) {
+function user({ user }) {
+  const [applyCourses, setApplyCourses] = useState([]);
+  const [likeCourses, setLikeCourses] = useState([]);
   const cookies = new Cookies();
   const router = useRouter();
+
+  useEffect(() => {
+    (async () => {
+      const { data: applyCourses } = await axios.get(
+        `https://api.codeunicorn.kr/users/${router.query.userId}/apply-courses`,
+      );
+      setApplyCourses(applyCourses);
+    })();
+
+    (async () => {
+      const {
+        data: { courses: likeCourses },
+      } = await axios.get(
+        `https://api.codeunicorn.kr/users/${router.query.userId}/like-courses`,
+      );
+      setLikeCourses(likeCourses);
+    })();
+  }, [router.query.userId]);
 
   return (
     <Container>
@@ -52,7 +74,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     "https://api.codeunicorn.kr/users/all",
   );
 
-  const paths = users.map((user) => ({
+  const paths = users.map((user: UserTypes) => ({
     params: {
       userId: user.id.toString(),
     },
@@ -70,26 +92,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     data: { data: user },
   } = await axios.get(`https://api.codeunicorn.kr/users/${params.userId}`);
 
-  // 수강 중인 강의 API
-  const { data: applyCourses } = await axios.get(
-    `https://api.codeunicorn.kr/users/${params.userId}/apply-courses`,
-  );
-
-  // 관심 등록한 강의 API
-  const {
-    data: { courses: likeCourses },
-  } = await axios.get(
-    `https://api.codeunicorn.kr/users/${params.userId}/like-courses`,
-  );
-
-  if (!user || !applyCourses || !likeCourses) {
+  if (!user) {
     return {
       notFound: true,
     };
   }
 
   return {
-    props: { user, applyCourses, likeCourses },
+    props: { user },
     revalidate: 3600,
   };
 };
