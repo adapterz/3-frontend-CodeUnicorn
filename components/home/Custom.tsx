@@ -72,7 +72,7 @@ function Custom() {
       ) : (
         <CourseList>
           {categoryCourses.map((coures: CourseTypes) => (
-            <Course key={coures.id} course={coures} />
+            <Course key={coures.id} course={coures} width={280} height={200} />
           ))}
         </CourseList>
       )}

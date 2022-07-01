@@ -65,9 +65,11 @@ const Rating = styled.p`
 
 type courseProps = {
   course: CourseTypes;
+  width: number;
+  height: number;
 };
 
-function Course({ course }: courseProps) {
+function Course({ course, width, height }: courseProps) {
   const {
     id,
     name,
@@ -81,7 +83,7 @@ function Course({ course }: courseProps) {
     <Container>
       <Link key={course.id} href={`/courses/${id}`}>
         <a>
-          <Images src={imagePath} alt="course" width={280} height={200} />
+          <Images src={imagePath} alt="course" width={width} height={height} />
         </a>
       </Link>
       <Category>{category}</Category>

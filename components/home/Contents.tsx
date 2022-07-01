@@ -65,7 +65,12 @@ function Contents({ courses, backCourses }: ContentsProps) {
               .filter((course: CourseTypes) => course.category === "프론트엔드")
               .slice(0, 4)
               .map((course: CourseTypes) => (
-                <Course key={course.id} course={course} />
+                <Course
+                  key={course.id}
+                  course={course}
+                  width={280}
+                  height={200}
+                />
               ))
           )}
         </CourseList>
