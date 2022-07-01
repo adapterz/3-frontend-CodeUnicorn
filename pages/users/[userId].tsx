@@ -19,6 +19,11 @@ function user({ user, applyCourses, likeCourses }) {
   const cookies = new Cookies();
   const router = useRouter();
 
+  // userId에 해당하지 않는 페이지 접근제한
+  router.query.userId !== undefined &&
+    Number(router.query.userId) !== userId &&
+    router.push("/404");
+
   return (
     <Container>
       <NextSeo

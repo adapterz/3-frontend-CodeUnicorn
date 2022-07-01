@@ -5,6 +5,8 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import Footer from "@/components/Footer";
 import { createStore } from "redux";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
 import rootReducer from "../slices";
@@ -18,6 +20,7 @@ import axios from "axios";
 import { structuredData } from "config/structData";
 
 const store = createStore(rootReducer, composeWithDevTools());
+const persistor = persistStore(store);
 
 export default function MyApp({ Component, pageProps }) {
   axios.defaults.withCredentials = true;
