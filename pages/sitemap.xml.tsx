@@ -1,12 +1,26 @@
-import fs from "fs";
-import { categories } from "@/components/Catagories";
-import axios from "axios";
+// import fs from "fs";
+// import { categories } from "@/components/Catagories";
+// import axios from "axios";
+import { GetServerSideProps } from "next";
 
 const DOMAIN = "codeunicorn.kr";
 
 const SiteMap = () => {};
 
-export const getServerSideProps = async ({ res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  const fs = require("fs");
+  const axios = require("axios");
+
+  const categories = [
+    { key: "all", name: "전체" },
+    { key: "frontend", name: "프론트엔드" },
+    { key: "backend", name: "백엔드" },
+    { key: "mobile", name: "모바일" },
+    { key: "language", name: "프로그래밍 언어" },
+    { key: "algorithm", name: "알고리즘" },
+    { key: "database", name: "데이터베이스" },
+  ];
+
   const {
     data: { courseCount },
   } = await axios.get("https://api.codeunicorn.kr/courses/all");
