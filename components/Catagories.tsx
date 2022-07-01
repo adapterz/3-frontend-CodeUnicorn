@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { ICategory } from "@/interface/category";
 
-const categories = [
+export const categories = [
   { key: "all", name: "전체" },
   { key: "frontend", name: "프론트엔드" },
   { key: "backend", name: "백엔드" },

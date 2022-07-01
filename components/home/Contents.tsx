@@ -52,7 +52,7 @@ function Contents({ courses, backCourses }: ContentsProps) {
     <Container>
       <Section>
         <h1>프론트엔드 강의</h1>
-        <Link href="/courses?category=frontend">
+        <Link href="/courses?category=frontend&sortby=popular">
           <a>
             <span className="show__more">더보기 &gt;</span>
           </a>

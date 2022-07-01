@@ -16,8 +16,8 @@ const Container = styled.div`
 `;
 
 const InnerContainer = styled.div`
-  width: 835px;
-  margin: auto;
+  width: 830px;
+  margin: 0px auto;
   display: flex;
   align-items: center;
   justify-content: space-between;

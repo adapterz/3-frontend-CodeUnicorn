@@ -27,6 +27,8 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "formidable": "^2.0.1",
+    "fs": "^0.0.1-security",
+    "globby": "^13.1.2",
     "immer": "^9.0.14",
     "next": "12.1.6",
     "next-auth": "^4.3.4",
