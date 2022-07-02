@@ -103,7 +103,12 @@ function Recomend({ recommendCourses }) {
             <Loading />
           ) : (
             recommendCourses.map((course: CourseTypes) => (
-              <Course key={course.id} course={course} />
+              <Course
+                key={course.id}
+                course={course}
+                width={280}
+                height={200}
+              />
             ))
           )}
         </SliderContainer>

@@ -119,7 +119,6 @@ const Profile = ({ userId, currentName, image, active }) => {
     image || "/images/profile.png",
   );
   const [currentFile, setCurrentFile] = useState();
-  const [formData, setFormData] = useState<any>();
   const dispatch = useDispatch();
 
   // 이미지 파일 추가시 미리보기
@@ -145,7 +144,6 @@ const Profile = ({ userId, currentName, image, active }) => {
     formArr.append("userId", userId);
     formArr.append("image", currentFile);
     formArr.append("nickname", newNameName.value);
-    setFormData(formArr);
 
     const response = await axios.post("/api/upload", formArr, {
       headers: {

@@ -1,12 +1,14 @@
-import fs from "fs";
 import { categories } from "@/components/Catagories";
 import axios from "axios";
+import { GetServerSideProps } from "next";
 
 const DOMAIN = "codeunicorn.kr";
 
 const SiteMap = () => {};
 
-export const getServerSideProps = async ({ res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  const fs = require("fs");
+
   const {
     data: { courseCount },
   } = await axios.get("https://api.codeunicorn.kr/courses/all");

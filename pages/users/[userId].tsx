@@ -8,6 +8,11 @@ import { NextSeo } from "next-seo";
 import MyCourses from "@/components/user/MyCourses";
 import { GetStaticPaths, GetStaticProps } from "next";
 import axios from "axios";
+import { UserTypes } from "@/interface/user";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { IAuth } from "slices/auth";
+import { AuthReducerType } from "slices";
 
 const Container = styled.div`
   width: 850px;
@@ -15,14 +20,42 @@ const Container = styled.div`
   display: flex;
 `;
 
-function user({ user, applyCourses, likeCourses }) {
+function user() {
+  const [applyCourses, setApplyCourses] = useState([]);
+  const [likeCourses, setLikeCourses] = useState([]);
   const cookies = new Cookies();
+  const { userId, userName, image } = useSelector<AuthReducerType, IAuth>(
+    (state) => state,
+  );
   const router = useRouter();
 
-  // userId에 해당하지 않는 페이지 접근제한
-  router.query.userId !== undefined &&
-    Number(router.query.userId) !== userId &&
-    router.push("/404");
+  useEffect(() => {
+    (async () => {
+      const { data: applyCourses } = await axios.get(
+        `https://api.codeunicorn.kr/users/${router.query.userId}/apply-courses`,
+        {
+          headers: {
+            cookie: cookies.get("SESSION"),
+          },
+        },
+      );
+      setApplyCourses(applyCourses);
+    })();
+
+    (async () => {
+      const {
+        data: { courses: likeCourses },
+      } = await axios.get(
+        `https://api.codeunicorn.kr/users/${router.query.userId}/like-courses`,
+        {
+          headers: {
+            cookie: cookies.get("SESSION"),
+          },
+        },
+      );
+      setLikeCourses(likeCourses);
+    })();
+  }, [router.query.userId]);
 
   return (
     <Container>
@@ -34,9 +67,9 @@ function user({ user, applyCourses, likeCourses }) {
         <>
           <Aside />
           <Profile
-            userId={user.id}
-            currentName={user.nickname}
-            image={user.profilePath}
+            userId={userId}
+            currentName={userName}
+            image={image}
             active={router.query.option === "my-page" ? true : false}
           />
           <MyCourses

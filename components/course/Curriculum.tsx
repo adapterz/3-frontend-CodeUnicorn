@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { MdTimer } from "react-icons/md";
 import { LectureTypes, SectionTypes } from "@/interface/course";
 
 const Container = styled.div`

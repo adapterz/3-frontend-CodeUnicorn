@@ -3,6 +3,14 @@
 const nextConfig = {
   reactStrictMode: true,
   baseUrl: ".",
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.node = {
+        fs: "empty",
+      };
+    }
+    return config;
+  },
   paths: {
     "@/components/*": ["components/*"],
     "@/core/*": ["core/*"],

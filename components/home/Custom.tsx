@@ -57,7 +57,6 @@ function Custom() {
         data: { data },
       } = await axios.get(
         `https://api.codeunicorn.kr/courses?category=${category}&sortby=popular&page=1`,
-
       );
       setCategoryCourses(data.courses.splice(0, 4));
     })();
