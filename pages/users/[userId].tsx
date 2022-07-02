@@ -10,6 +10,9 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import axios from "axios";
 import { UserTypes } from "@/interface/user";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { IAuth } from "slices/auth";
+import { AuthReducerType } from "slices";
 
 const Container = styled.div`
   width: 850px;
@@ -17,16 +20,24 @@ const Container = styled.div`
   display: flex;
 `;
 
-function user({ user }) {
+function user() {
   const [applyCourses, setApplyCourses] = useState([]);
   const [likeCourses, setLikeCourses] = useState([]);
   const cookies = new Cookies();
+  const { userId, userName, image } = useSelector<AuthReducerType, IAuth>(
+    (state) => state,
+  );
   const router = useRouter();
 
   useEffect(() => {
     (async () => {
       const { data: applyCourses } = await axios.get(
         `https://api.codeunicorn.kr/users/${router.query.userId}/apply-courses`,
+        {
+          headers: {
+            cookie: cookies.get("SESSION"),
+          },
+        },
       );
       setApplyCourses(applyCourses);
     })();
@@ -36,6 +47,11 @@ function user({ user }) {
         data: { courses: likeCourses },
       } = await axios.get(
         `https://api.codeunicorn.kr/users/${router.query.userId}/like-courses`,
+        {
+          headers: {
+            cookie: cookies.get("SESSION"),
+          },
+        },
       );
       setLikeCourses(likeCourses);
     })();
@@ -51,9 +67,9 @@ function user({ user }) {
         <>
           <Aside />
           <Profile
-            userId={user.id}
-            currentName={user.nickname}
-            image={user.profilePath}
+            userId={userId}
+            currentName={userName}
+            image={image}
             active={router.query.option === "my-page" ? true : false}
           />
           <MyCourses
@@ -68,40 +84,5 @@ function user({ user }) {
     </Container>
   );
 }
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: users } = await axios.get(
-    "https://api.codeunicorn.kr/users/all",
-  );
-
-  const paths = users.map((user: UserTypes) => ({
-    params: {
-      userId: user.id.toString(),
-    },
-  }));
-
-  return {
-    paths,
-    fallback: true,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  // 유저 정보 API
-  const {
-    data: { data: user },
-  } = await axios.get(`https://api.codeunicorn.kr/users/${params.userId}`);
-
-  if (!user) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: { user },
-    revalidate: 3600,
-  };
-};
 
 export default user;

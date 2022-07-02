@@ -11,7 +11,6 @@
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": ".",
@@ -21,7 +20,8 @@
       "@/pages/*": ["pages/*"],
       "@/util/*": ["util/*"],
       "@/interface/*": ["interface/*"]
-    }
+    },
+    "resolveJsonModule": true
   },
   "include": [
     "next-env.d.ts",

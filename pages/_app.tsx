@@ -16,11 +16,13 @@ config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS
 import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
 import { structuredData } from "config/structData";
+import Persist from "@/components/Persist";
 
 const store = createStore(rootReducer, composeWithDevTools());
 
 export default function MyApp({ Component, pageProps }) {
   axios.defaults.withCredentials = true;
+
   return (
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>
@@ -49,6 +51,7 @@ export default function MyApp({ Component, pageProps }) {
         </noscript>
         <Toast />
         <Header />
+        <Persist />
         <Component {...pageProps} />
         <Footer />
       </Provider>

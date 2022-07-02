@@ -91,8 +91,6 @@ function Header() {
   const onLogOut = async () => {
     const response = await logout(cookie.get("SESSION"));
 
-    console.log(response);
-
     if (response.status === 204) {
       cookie.remove("SESSION", {
         domain: "codeunicorn.kr",
