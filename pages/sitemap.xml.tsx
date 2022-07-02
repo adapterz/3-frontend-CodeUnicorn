@@ -12,24 +12,26 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     data: { courseCount },
   } = await axios.get("https://api.codeunicorn.kr/courses/all");
 
-  const staticPages = fs
-    .readdirSync("pages")
-    .filter((staticPage) => {
-      return ![
-        "_app.tsx",
-        "_document.js",
-        "sitemap.xml.tsx",
-        "404.tsx",
-        "privacy.tsx",
-        "terms-of-service.tsx",
-        "courses.tsx",
-        "api",
-        "users",
-      ].includes(staticPage);
-    })
-    .map((staticPagePath) => {
-      return `${DOMAIN}/${staticPagePath}`;
-    });
+  const staticPages = [];
+
+  // const staticPages = fs
+  //   .readdirSync("pages")
+  //   .filter((staticPage) => {
+  //     return ![
+  //       "_app.tsx",
+  //       "_document.js",
+  //       "sitemap.xml.tsx",
+  //       "404.tsx",
+  //       "privacy.tsx",
+  //       "terms-of-service.tsx",
+  //       "courses.tsx",
+  //       "api",
+  //       "users",
+  //     ].includes(staticPage);
+  //   })
+  //   .map((staticPagePath) => {
+  //     return `${DOMAIN}/${staticPagePath}`;
+  //   });
 
   categories.map((category) =>
     staticPages.push(
