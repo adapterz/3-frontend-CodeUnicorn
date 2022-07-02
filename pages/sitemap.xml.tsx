@@ -9,9 +9,9 @@ const SiteMap = () => {};
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const fs = require("fs");
 
-  const {
-    data: { courseCount },
-  } = await axios.get("https://api.codeunicorn.kr/courses/all");
+  // const {
+  //   data: { courseCount },
+  // } = await axios.get("https://api.codeunicorn.kr/courses/all");
 
   const staticPages = fs
     .readdirSync("pages")
@@ -38,9 +38,9 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     ),
   );
 
-  for (let i = 1; i < courseCount; i++) {
-    staticPages.push(`${DOMAIN}/courses/${i}`);
-  }
+  // for (let i = 1; i < courseCount; i++) {
+  //   staticPages.push(`${DOMAIN}/courses/${i}`);
+  // }
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
