@@ -1,36 +1,27 @@
 import { categories } from "@/components/Catagories";
 import axios from "axios";
 import { GetServerSideProps } from "next";
+import { getServerSideSitemap } from "next-sitemap";
 
 const DOMAIN = "codeunicorn.kr";
 
-const SiteMap = () => {};
-
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const fs = require("fs");
-
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const {
     data: { courseCount },
   } = await axios.get("https://api.codeunicorn.kr/courses/all");
 
-  const staticPages = fs
-    .readdirSync("pages")
-    .filter((staticPage) => {
-      return ![
-        "_app.tsx",
-        "_document.js",
-        "sitemap.xml.tsx",
-        "404.tsx",
-        "privacy.tsx",
-        "terms-of-service.tsx",
-        "courses.tsx",
-        "api",
-        "users",
-      ].includes(staticPage);
-    })
-    .map((staticPagePath) => {
-      return `${DOMAIN}/${staticPagePath}`;
-    });
+  const defaultSitemap = [
+    "codeunicorn.kr",
+    "codeunicorn.kr/courses",
+    "codeunicorn.kr/join",
+    "codeunicorn.kr/login",
+  ];
+
+  const staticPages = [];
+
+  defaultSitemap.map((sitemap) => {
+    staticPages.push(sitemap);
+  });
 
   categories.map((category) =>
     staticPages.push(
@@ -42,29 +33,14 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     staticPages.push(`${DOMAIN}/courses/${i}`);
   }
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    ${staticPages
-      .map((url) => {
-        return `
-          <url>
-            <loc>${url.replace(".tsx", "")}</loc>
-            <lastmod>${new Date().toISOString()}</lastmod>
-            <changefreq>monthly</changefreq>
-            <priority>1.0</priority>
-          </url>
-        `;
-      })
-      .join("")}
-  </urlset>
-  `;
+  const fields = staticPages.map((page) => ({
+    loc: `${page.replace(".tsx", "")}`,
+    lastmod: new Date().toISOString(),
+    changefreq: "weekly",
+    priority: "1.0",
+  }));
 
-  res.write(sitemap);
-  res.end();
-
-  return {
-    props: {},
-  };
+  return getServerSideSitemap(ctx, fields as any);
 };
 
-export default SiteMap;
+export default () => {};

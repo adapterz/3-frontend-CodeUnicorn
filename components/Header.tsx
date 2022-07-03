@@ -96,6 +96,7 @@ function Header() {
         domain: "codeunicorn.kr",
         path: "/",
       });
+      localStorage.removeItem("user");
       signOut();
     }
   };
@@ -122,7 +123,7 @@ function Header() {
                 </a>
               </Link>
             ) : (
-              <Link href={`/users/${userId}?option=mypage`}>
+              <Link href={`/users/${userId}?option=my-page`}>
                 <a>
                   <HiUserCircle />
                 </a>

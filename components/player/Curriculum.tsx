@@ -43,11 +43,6 @@ const BackBtn = styled.button`
   }
 `;
 
-const InnerContainer = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
 const LoadingContainer = styled.div`
   display: flex;
   justify-content: center;
