@@ -168,6 +168,7 @@ const Profile = ({ userId, currentName, image, active }: ProfileProps) => {
     const cookie = new Cookies();
     const formArr = new FormData();
 
+    formArr.append("userId", String(userId));
     formArr.append("image", newImage);
     formArr.append("nickname", newName.value);
 

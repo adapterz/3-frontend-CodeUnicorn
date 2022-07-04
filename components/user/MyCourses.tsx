@@ -54,7 +54,7 @@ const MyCourses = ({ likeCourses, applyCourses, active }: MyCoursesProps) => {
       <WatchingBox>
         <Title>내가 보고있는 교육</Title>
         <CoursesBox>
-          {likeCourses.map((course: CourseTypes) => (
+          {applyCourses.map((course: CourseTypes) => (
             <Course
               key={course.name}
               course={course}
@@ -67,7 +67,7 @@ const MyCourses = ({ likeCourses, applyCourses, active }: MyCoursesProps) => {
       <LikesBox>
         <Title>관심있는 교육</Title>
         <CoursesBox>
-          {applyCourses.map((course: CourseTypes) => (
+          {likeCourses.map((course: CourseTypes) => (
             <Course
               key={course.name}
               course={course}

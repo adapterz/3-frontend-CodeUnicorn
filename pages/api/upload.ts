@@ -21,7 +21,6 @@ export const upload = async (req, res) => {
 
   const formData = new FormData();
 
-  // TODO 들어오는 값이 없어서 문제라면 빈 값 넣어주기
   if (fileData[0].nickname !== undefined) {
     formData.append("nickname", fileData[0].nickname);
   }
@@ -44,7 +43,7 @@ export const upload = async (req, res) => {
     },
   );
 
-  console.log(response.statusText);
+  console.log(response.status);
 
   if (response.status === 200) {
     return res.send(response.data);
