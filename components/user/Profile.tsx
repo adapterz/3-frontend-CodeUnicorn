@@ -128,7 +128,7 @@ type ProfileProps = {
 
 const Profile = ({ userId, currentName, image, active }: ProfileProps) => {
   const [currentImage, setCurrentImage] = useState(image);
-  const [newName, setNewName] = useState(currentName);
+  const [newName, setNewName] = useState("");
   const [newImage, setNewImage] = useState();
   const [cursor, setCursor] = useState("pointer");
   const dispatch = useDispatch();
@@ -148,9 +148,6 @@ const Profile = ({ userId, currentName, image, active }: ProfileProps) => {
       ? setCursor("not-allowed")
       : setCursor("pointer");
   }, [newName, newImage]);
-
-  console.log("name = " + newName);
-  console.log("image = " + newImage);
 
   // 이미지 파일 추가시 미리보기
   const addFile = useCallback(({ target }) => {
