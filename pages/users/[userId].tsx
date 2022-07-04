@@ -61,19 +61,7 @@ function user() {
         title={`코드유니콘 | 마이페이지`}
         description="프로필 설정, 현재 수강 중인 교육 목록, 관심 교육 목록을 확인할 수 있습니다."
       />
-      <Aside />
-      <Profile
-        userId={userId}
-        currentName={userName}
-        image={image}
-        active={router.query.option === "my-page" ? true : false}
-      />
-      <MyCourses
-        likeCourses={likeCourses}
-        applyCourses={applyCourses}
-        active={router.query.option === "my-courses" ? true : false}
-      />
-      {/* {cookies.get("SESSION") !== undefined ? (
+      {cookies.get("SESSION") !== undefined ? (
         <>
           <Aside />
           <Profile
@@ -90,7 +78,7 @@ function user() {
         </>
       ) : (
         <Auth />
-      )} */}
+      )}
     </Container>
   );
 }

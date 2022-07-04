@@ -11,8 +11,6 @@ function Persist() {
   const dispatch = useDispatch();
   const cookie = new Cookies();
 
-  console.log(userId);
-
   useEffect(() => {
     if (cookie.get("SESSION") === true && userId === 0) {
       const userInfo = JSON.parse(localStorage.getItem("user"));
