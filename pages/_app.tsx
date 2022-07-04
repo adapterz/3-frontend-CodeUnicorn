@@ -40,18 +40,10 @@ export default function MyApp({ Component, pageProps }) {
           />
         </Head>
         <GlobalStyle />
+        <Persist />
         <DefaultSeo {...DEFAULT_SEO} />
-        <noscript id="google-tag-manager">
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-WW7HMLH"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
-        </noscript>
         <Toast />
         <Header />
-        <Persist />
         <Component {...pageProps} />
         <Footer />
       </Provider>
