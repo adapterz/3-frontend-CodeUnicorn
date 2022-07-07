@@ -5,9 +5,13 @@ import { AuthReducerType } from "slices";
 import { IAuth, loginUser } from "slices/auth";
 
 function Persist() {
-  const { userId } = useSelector<AuthReducerType, IAuth>((state) => state);
+  const {
+    auth: { userId },
+  } = useSelector<AuthReducerType, IAuth>((state) => state);
   const dispatch = useDispatch();
   const cookie = new Cookies();
+
+  console.log(userId);
 
   useEffect(() => {
     if (cookie.get("SESSION") === true && userId === 0) {

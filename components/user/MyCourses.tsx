@@ -42,7 +42,13 @@ const CoursesBox = styled.div`
   display: flex;
 `;
 
-const MyCourses = ({ likeCourses, applyCourses, active }) => {
+type MyCoursesProps = {
+  likeCourses: CourseTypes[];
+  applyCourses: CourseTypes[];
+  active: boolean;
+};
+
+const MyCourses = ({ likeCourses, applyCourses, active }: MyCoursesProps) => {
   return (
     <Container display={active ? "block" : "none"}>
       <WatchingBox>
