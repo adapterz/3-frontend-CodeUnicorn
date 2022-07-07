@@ -13,12 +13,25 @@ type playerProps = {
   courseDetail: CourseTypes;
   curriculum: CurriculumTypes;
   lecture: LectureTypes;
+  videoUrl: string;
+  sourcesType: string;
 };
 
-function Player({ courseDetail, curriculum, lecture }: playerProps) {
+function Player({
+  courseDetail,
+  curriculum,
+  lecture,
+  videoUrl,
+  sourcesType,
+}: playerProps) {
   return (
     <Container>
-      <VideoInfo courseDetail={courseDetail} lecture={lecture} />
+      <VideoInfo
+        courseDetail={courseDetail}
+        lecture={lecture}
+        videoUrl={videoUrl}
+        sourcesType={sourcesType}
+      />
       <Curriculum curriculum={curriculum} />
     </Container>
   );

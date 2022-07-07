@@ -15,7 +15,7 @@ const Container = styled.div<ContainerType>`
   display: ${(props) => props.display};
 
   .Course__Container-sc-6ii2hv-0 {
-    width: 280px;
+    width: 230px;
   }
 `;
 
@@ -39,7 +39,10 @@ const Title = styled.h1`
 const CoursesBox = styled.div`
   min-width: 800px;
   min-height: 300px;
+  margin-top: 20px;
   display: flex;
+  flex-wrap: wrap;
+  gap: 25px 55px;
 `;
 
 type MyCoursesProps = {
@@ -58,8 +61,8 @@ const MyCourses = ({ likeCourses, applyCourses, active }: MyCoursesProps) => {
             <Course
               key={course.name}
               course={course}
-              width={240}
-              height={160}
+              width={230}
+              height={150}
             />
           ))}
         </CoursesBox>
@@ -71,8 +74,8 @@ const MyCourses = ({ likeCourses, applyCourses, active }: MyCoursesProps) => {
             <Course
               key={course.name}
               course={course}
-              width={240}
-              height={160}
+              width={230}
+              height={150}
             />
           ))}
         </CoursesBox>

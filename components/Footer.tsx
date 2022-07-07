@@ -11,6 +11,11 @@ const Container = styled.footer`
   align-items: center;
   min-height: 300px;
   background-color: #f4f4f4;
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    min-width: 100%;
+    width: 100%;
+  }
 `;
 
 const Notice = styled.div`

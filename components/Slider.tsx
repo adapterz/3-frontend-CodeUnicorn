@@ -15,33 +15,34 @@ interface IContainer {
 
 const Container = styled.div<IContainer>`
   max-width: ${(props) => props.width};
-  margin: auto;
+  margin: 0px auto;
   overflow: hidden;
-  min-height: 340px;
   display: flex;
+  margin-bottom: 32px;
 
   .left__arrow {
     font-size: 50px;
     color: #4e4e4e;
     opacity: 0.5;
     left: -25px;
-    top: 135px;
+    top: 120px;
     position: absolute;
     cursor: pointer;
-    z-index: 2;
+    z-index: 9999;
     &:hover {
       opacity: 0.8;
     }
   }
+
   .right__arrow {
     font-size: 50px;
     color: #4e4e4e;
     opacity: 0.5;
-    right: -57px;
-    top: 135px;
+    top: 120px;
+    right: -25px;
     position: absolute;
     cursor: pointer;
-    z-index: 2;
+    z-index: 9999;
     &:hover {
       opacity: 0.8;
     }
@@ -49,12 +50,11 @@ const Container = styled.div<IContainer>`
 `;
 
 const SliderContainer = styled.div`
-  margin: 0 auto;
   display: flex;
-
-  .spinner-border {
-    margin-top: 6rem;
-  }
+  gap: 40px;
+  height: 300px;
+  position: relative;
+  padding-right: 40px;
 `;
 
 function Slider({ courses, width }) {

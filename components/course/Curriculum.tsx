@@ -2,13 +2,18 @@ import styled from "styled-components";
 import { LectureTypes, SectionTypes } from "@/interface/course";
 
 const Container = styled.div`
-  width: 850px;
+  width: 1040px;
   margin: 0px auto;
 
   h1 {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 1.5rem;
+  }
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    width: 100%;
+    text-align: center;
   }
 `;
 
@@ -22,26 +27,33 @@ const SectionInfo = styled.div`
   border-bottom: 1px solid #333333;
 
   .section__name {
-    min-width: 650px;
-    font-family: "Roboto";
+    min-width: 850px;
     font-weight: 700;
     font-size: 18px;
     padding-bottom: 10px;
     line-height: 21px;
     padding-left: 18px;
+
+    @media screen and (min-width: 0px) and (max-width: 412px) {
+      font-size: 16px;
+      min-width: 220px;
+      padding-left: 0px;
+    }
   }
 
   .section__lecture {
     font-size: 18px;
-    font-family: "Roboto";
     font-weight: 700;
     margin-right: 50px;
     line-height: 21px;
     text-align: right;
+
+    @media screen and (min-width: 0px) and (max-width: 412px) {
+      margin-right: 55px;
+    }
   }
 
   .section__time {
-    font-family: "Roboto";
     font-weight: 700;
     font-size: 18px;
     line-height: 21px;
@@ -55,14 +67,24 @@ const Lecture = styled.div`
   padding: 12px 0;
 
   .lecture__name {
-    min-width: 652px;
+    min-width: 852px;
     font-size: 16px;
     color: #444444;
     padding-left: 20px;
+
+    @media screen and (min-width: 0px) and (max-width: 412px) {
+      font-size: 14px;
+      min-width: 224px;
+      padding-left: 0px;
+    }
   }
 
   .timer {
     margin-right: 50px;
+
+    @media screen and (min-width: 0px) and (max-width: 412px) {
+      margin-right: 55px;
+    }
   }
 
   .play__time {

@@ -4,10 +4,9 @@ import { reset } from "styled-reset";
 export const GlobalStyle = createGlobalStyle`
     ${reset}
 
-    #__next {
-        @media screen and (min-width: 0px) and (max-width: 412px) {
-        width: 1400px;
-        }
+    body {
+        font-family: 'Roboto';
+        font-style: normal;
     }
 
     button {

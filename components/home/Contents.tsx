@@ -6,40 +6,66 @@ import { CourseTypes } from "@/interface/course";
 import Loading from "../Loading";
 
 const Container = styled.main`
+  width: 100%;
   margin: 0px auto;
-  width: 1200px;
-  margin-bottom: 50px;
+  margin-top: 73px;
 `;
 
 const Section = styled.section`
+  width: 1040px;
+  min-height: 320px;
+  margin: 0px auto;
+  margin-bottom: 32px;
   position: relative;
-  margin-top: 80px;
-  min-height: 410px;
 
   h1 {
     font-size: 28px;
-    font-weight: bold;
     margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 33px;
   }
 
   .show__more {
     color: #4e4e4e;
-    font-size: 20px;
     position: absolute;
-    top: 4px;
-    right: 1.125rem;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    top: 12px;
+    right: 4px;
+
+    @media screen and (min-width: 0px) and (max-width: 412px) {
+      display: none;
+    }
   }
 
-  .right__arrow {
-    right: -5px !important;
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid gray;
+    padding-bottom: 30px;
+
+    &:nth-child(2) {
+      display: none;
+    }
+
+    .Course__Rating-sc-6ii2hv-5 {
+      display: none;
+    }
   }
 `;
 
 const CourseList = styled.div`
   width: 100%;
-  min-height: 340px;
   display: flex;
   justify-content: space-between;
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    width: 412px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px 0px;
+  }
 `;
 
 type ContentsProps = {
@@ -68,8 +94,8 @@ function Contents({ courses, backCourses }: ContentsProps) {
                 <Course
                   key={course.id}
                   course={course}
-                  width={280}
-                  height={200}
+                  width={230}
+                  height={150}
                 />
               ))
           )}
@@ -77,7 +103,7 @@ function Contents({ courses, backCourses }: ContentsProps) {
       </Section>
       <Section>
         <h1>백엔드 강의</h1>
-        <Slider courses={backCourses} width="1200px" />
+        <Slider courses={backCourses} width="1040px" />
       </Section>
     </Container>
   );

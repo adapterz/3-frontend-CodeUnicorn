@@ -14,6 +14,10 @@ const Container = styled.div`
   margin: 0px auto;
   position: relative;
   padding-left: 40px;
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    display: none;
+  }
 `;
 
 const InnerContainer = styled.div`

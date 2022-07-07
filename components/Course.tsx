@@ -1,26 +1,17 @@
 import styled from "styled-components";
 import { CourseTypes } from "@/interface/course";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { AiFillHeart } from "react-icons/ai";
 import Images from "next/image";
 
 const Container = styled.div`
-  width: 300px;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
   margin-top: 10px;
 
-  .star {
-    font-size: 18px;
-    color: #ffeb34;
-    margin-right: 4px;
-  }
-
   a {
     img {
-      width: 280px;
-      height: 200px;
       border-radius: 20px;
       border: 1px solid gray !important;
       &:hover {
@@ -28,39 +19,58 @@ const Container = styled.div`
       }
     }
   }
+
+  .heart {
+    font-size: 14px;
+    margin-right: 5px;
+    color: #e9361b;
+  }
+`;
+
+type ImageLinkProps = {
+  width: number;
+  height: number;
+};
+
+const ImageLink = styled.a<ImageLinkProps>`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  cursor: pointer;
 `;
 
 const Category = styled.span`
-  font-size: 18px;
+  font-size: 14px;
+  line-height: 16px;
   margin-top: 20px;
   font-weight: 400;
-  color: #585656;
-  padding: 0px 4px;
+  color: #333333;
 `;
 
 const Title = styled.h2`
-  margin-top: 6px;
-  font-size: 20px;
-  color: black;
-  font-weight: 600;
-  width: 280px;
-  padding: 0px 4px;
-  line-height: 1.4;
+  margin-top: 5px;
+  color: #333333;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  width: 230px;
 `;
 
 const TotalUser = styled.p`
   font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
   color: #333333;
-  opacity: 0.6;
   margin-top: 10px;
-  padding: 0px 4px;
 `;
 
 const Rating = styled.p`
-  font-size: 16px;
-  color: #a09e9e;
+  color: #495057;
   margin-top: 6px;
-  padding: 0px 4px; ;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
 `;
 
 type courseProps = {
@@ -70,21 +80,20 @@ type courseProps = {
 };
 
 function Course({ course, width, height }: courseProps) {
-  const {
-    id,
-    name,
-    category,
-    imagePath,
-    userCount,
-    averageRatings,
-    ratingsCount,
-  }: CourseTypes = course;
+  const { id, name, category, imagePath, userCount, likeCount }: CourseTypes =
+    course;
   return (
     <Container>
       <Link key={course.id} href={`/courses/${id}`}>
-        <a>
-          <Images src={imagePath} alt="course" width={width} height={height} />
-        </a>
+        <ImageLink width={width} height={height}>
+          <Images
+            layout="responsive"
+            src={imagePath}
+            alt="course"
+            width={width}
+            height={height}
+          />
+        </ImageLink>
       </Link>
       <Category>{category}</Category>
       <Link key={course.name} href={`/courses/${id}`}>
@@ -94,8 +103,8 @@ function Course({ course, width, height }: courseProps) {
       </Link>
       <TotalUser>{userCount}명이 같이 듣고 있습니다.</TotalUser>
       <Rating>
-        <FontAwesomeIcon className="star" icon={faStar} />
-        {averageRatings} ({ratingsCount})
+        <AiFillHeart className="heart" />
+        {likeCount}
       </Rating>
     </Container>
   );
