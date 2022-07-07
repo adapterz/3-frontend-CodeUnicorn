@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { loginUser } from "slices/auth";
@@ -51,7 +51,11 @@ const ImageBox = styled.label`
   }
 `;
 
-const SaveBtn = styled.button`
+type SaveBtnProps = {
+  cursor: string;
+};
+
+const SaveBtn = styled.button<SaveBtnProps>`
   margin: 40px 0px;
   margin-bottom: 80px;
   width: 100%;
@@ -60,6 +64,7 @@ const SaveBtn = styled.button`
   border-radius: 12px;
   color: white;
   font-size: 16px;
+  cursor: ${(props) => props.cursor} !important;
 
   &:hover {
     opacity: 0.8;
@@ -114,36 +119,57 @@ const RemoveBtn = styled.button`
   color: gray;
 `;
 
-const Profile = ({ userId, currentName, image, active }) => {
-  const [currentImage, setCurrentImage] = useState(
-    image || "/images/profile.png",
-  );
-  const [currentFile, setCurrentFile] = useState();
+type ProfileProps = {
+  userId: number;
+  currentName: string;
+  image: string;
+  active: boolean;
+};
+
+const Profile = ({ userId, currentName, image, active }: ProfileProps) => {
+  const [currentImage, setCurrentImage] = useState(image);
+  const [newName, setNewName] = useState(currentName);
+  const [newImage, setNewImage] = useState();
+  const [cursor, setCursor] = useState("pointer");
   const dispatch = useDispatch();
+
+  const onChange = ({ currentTarget }: React.FormEvent<HTMLInputElement>) => {
+    setNewName(currentTarget.value);
+  };
+
+  // 초기 이미지 세팅
+  useEffect(() => {
+    setCurrentImage(image);
+  }, [image]);
+
+  // 닉네임 or 이미지 둘다 없으면 버튼 클릭 제한
+  useEffect(() => {
+    newName === "" && newImage === undefined
+      ? setCursor("not-allowed")
+      : setCursor("pointer");
+  }, [newName, newImage]);
 
   // 이미지 파일 추가시 미리보기
   const addFile = useCallback(({ target }) => {
     let reader = new FileReader();
     reader.onload = () => {
       setCurrentImage(reader.result as string);
-      setCurrentFile(target.files[0]);
+      setNewImage(target.files[0]);
     };
     reader.readAsDataURL(target.files[0]);
   }, []);
 
-  // 유저 정보 저장
+  // 유저 정보 저장 클릭 이벤트
   const onSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newNameName = document.getElementById(
-      "input-name",
-    ) as HTMLInputElement;
+    const newName = document.getElementById("input-name") as HTMLInputElement;
 
     const cookie = new Cookies();
     const formArr = new FormData();
-    formArr.append("userId", userId);
-    formArr.append("image", currentFile);
-    formArr.append("nickname", newNameName.value);
+
+    formArr.append("image", newImage);
+    formArr.append("nickname", newName.value);
 
     const response = await axios.post("/api/upload", formArr, {
       headers: {
@@ -192,8 +218,8 @@ const Profile = ({ userId, currentName, image, active }) => {
             />
           </form>
         </ImageBox>
-        <NameBox currentName={currentName} />
-        <SaveBtn type="submit" form="info-form">
+        <NameBox currentName={currentName} onChange={onChange} />
+        <SaveBtn type="submit" form="info-form" cursor={cursor}>
           저장
         </SaveBtn>
       </InfoBox>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -23,15 +23,10 @@ const Input = styled.input`
 
 type nameBoxProps = {
   currentName: string;
+  onChange: ({ currentTarget }: FormEvent<HTMLInputElement>) => void;
 };
 
-function NameBox({ currentName }: nameBoxProps) {
-  const [newName, setNewName] = useState(currentName);
-
-  const onChange = ({ currentTarget }: React.FormEvent<HTMLInputElement>) => {
-    setNewName(currentTarget.value);
-  };
-
+function NameBox({ currentName, onChange }: nameBoxProps) {
   return (
     <Container>
       <Title>닉네임</Title>
