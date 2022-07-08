@@ -10,6 +10,8 @@ function Persist() {
 
   console.log(userId);
 
+  console.log(userId);
+
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("user"));
 
