@@ -34,7 +34,17 @@ export default function MyApp({ Component, pageProps }) {
             name="naver-site-verification"
             content="111c529cb0bdc53bd139b4676623e3701ccd8ef0"
           ></meta>
+          <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+          ></meta>
           <link rel="icon" type="image/png" href="/favicon.svg" />
+          <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+          <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet"
+          ></link>
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
@@ -43,18 +53,10 @@ export default function MyApp({ Component, pageProps }) {
           />
         </Head>
         <GlobalStyle />
+        <Persist />
         <DefaultSeo {...DEFAULT_SEO} />
-        <noscript id="google-tag-manager">
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-WW7HMLH"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
-        </noscript>
         <Toast />
         <Header />
-        <Persist />
         <Component {...pageProps} />
         <Footer />
       </Provider>

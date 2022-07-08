@@ -14,13 +14,17 @@ const Courses = () => {
 
   useEffect(() => {
     (async () => {
-      const {
-        data: { data },
-      } = await axios.get(
+      const response = await axios.get(
         `https://api.codeunicorn.kr/courses?category=${category}&sortby=${router.query.sortby}&page=${currentPage}`,
+        { validateStatus: false as any },
       );
-      setCourses(data.courses);
-      setTotalCourses(data.courseCount);
+      if (response.status === 200) {
+        setCourses(response.data.data.courses);
+        setTotalCourses(response.data.data.courseCount);
+      } else {
+        setCourses([]);
+        setTotalCourses(0);
+      }
     })();
   }, [category, router.query.sortby, currentPage]);
 

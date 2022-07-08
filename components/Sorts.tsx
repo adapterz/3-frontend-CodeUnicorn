@@ -7,25 +7,25 @@ const sorts = [{ name: "인기순" }, { name: "최신순" }];
 
 const Container = styled.div`
   display: flex;
-  margin-right: 10px;
 `;
 
 const Title = styled.h2`
+  margin-right: 15px;
+  font-weight: 700;
   font-size: 18px;
-  font-weight: bold;
-  margin-right: 0.6rem;
+  line-height: 21px;
 `;
 
 const Sort = styled.div<ISort>`
-  font-size: 15px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
   cursor: pointer;
   color: #c4c4c4;
-  margin-right: 0.6rem;
-  padding-top: 1.4px;
+  margin-right: 10px;
   ${(props) =>
     props.active &&
     css`
-      font-weight: 600;
       color: #333333;
     `}
   &:nth-child(3) {

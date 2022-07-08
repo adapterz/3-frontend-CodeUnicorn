@@ -90,7 +90,7 @@ export default function Login() {
           } as IAuth),
         );
 
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("user", JSON.stringify(response.data.data));
 
         const cookies = new Cookies();
 
