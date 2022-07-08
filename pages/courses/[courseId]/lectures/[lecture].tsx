@@ -38,26 +38,7 @@ function lecture({ courseDetail, curriculum, lecture }) {
         title={`코드유니콘 | 강의 시청 페이지`}
         description="다양한 강의를 무료로 학습하면서 많은 지식을 쌓을 수 있습니다."
       ></NextSeo>
-
-      {lecture === undefined ? (
-        <Loading />
-      ) : (
-        <Player
-          courseDetail={courseDetail}
-          curriculum={curriculum}
-          lecture={lecture}
-          videoUrl={
-            browserType.name === "safari" ? lecture.hlsUrl : lecture.dashUrl
-          }
-          sourcesType={
-            browserType.name === "safari"
-              ? "application/x-mpegURL"
-              : "application/dash+xml"
-          }
-        />
-      )}
-
-      {/* {cookie.get("SESSION") !== undefined && lecture === undefined ? (
+      {cookie.get("SESSION") !== undefined && lecture === undefined ? (
         <Player
           courseDetail={courseDetail}
           curriculum={curriculum}
@@ -73,7 +54,7 @@ function lecture({ courseDetail, curriculum, lecture }) {
         />
       ) : (
         <Auth />
-      )} */}
+      )}
     </Container>
   );
 }
