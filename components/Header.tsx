@@ -8,6 +8,9 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Cookies } from "react-cookie";
 import logout from "@/core/api/logout";
+import SearchBar from "./SearchBar";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Container = styled.nav`
   width: 100%;
@@ -16,12 +19,12 @@ const Container = styled.nav`
 `;
 
 const InnerContainer = styled.div`
-  width: 1400px;
+  max-width: 1040px;
   height: 100%;
-  margin: 0px auto;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  margin: 0px auto;
 `;
 
 const Logo = styled.img`
@@ -29,7 +32,11 @@ const Logo = styled.img`
   height: 100px;
 `;
 
-const Nav = styled.nav``;
+const Nav = styled.nav`
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    margin-right: 10px;
+  }
+`;
 
 const Menu = styled.span`
   font-size: 18px;
@@ -83,10 +90,21 @@ const IsLoginedNav = styled.nav`
 
 function Header() {
   const router = useRouter();
+  const [courses, setCourses] = useState();
   const cookie = new Cookies();
   const {
     auth: { userId },
   } = useSelector<AuthReducerType, IAuth>((state) => state);
+
+  // 전체 강의 API
+  useEffect(() => {
+    (async () => {
+      const {
+        data: { courses },
+      } = await axios.get(`https://api.codeunicorn.kr/courses/all`);
+      setCourses(courses);
+    })();
+  }, []);
 
   const onLogOut = async () => {
     const response = await logout(cookie.get("SESSION"));
@@ -109,6 +127,7 @@ function Header() {
             <Logo src="/images/logo.svg"></Logo>
           </a>
         </Link>
+        <SearchBar courses={courses} />
         {cookie.get("SESSION") !== undefined ? (
           <IsLoginedNav>
             <Link href="/courses?category=all&sortby=popular">

@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleChevronLeft,
   faCircleChevronRight,
-  faStar,
   faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
+import { AiFillHeart } from "react-icons/ai";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { CourseTypes } from "@/interface/course";
@@ -24,14 +24,14 @@ const Container = styled.div`
   position: relative;
   margin-bottom: 50px;
 
-  .spinner-border {
-    margin-top: 10rem;
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    display: none;
   }
 
-  .star {
+  .heart {
     font-size: 18px;
-    color: #ffff4a;
-    margin-right: 4px;
+    margin-right: 6px;
+    color: #e9361b;
   }
 
   .userIcon {
@@ -68,17 +68,15 @@ const Container = styled.div`
 `;
 
 const TitleBox = styled.div`
-  width: 1500px;
+  width: 1040px;
   margin: 0px auto;
-  margin-left: 120px;
 
-  @media screen and (min-width: 1600px) and (max-width: 3500px) {
+  @media screen and (min-width: 0px) and (max-width: 412px) {
     width: 100%;
-    margin-left: 0px;
-    text-align: center;
   }
 
   h1 {
+    width: 300px;
     color: whitesmoke;
     font-size: 28px;
     font-weight: bold;
@@ -91,32 +89,18 @@ const TitleBox = styled.div`
 `;
 
 const SliderContainer = styled.div`
-  min-width: 100%;
-  max-width: 100%;
+  padding-left: 200px;
   display: flex;
-  margin-left: 120px;
-
-  @media screen and (min-width: 0px) and (max-width: 412px) {
-    margin-left: 120px;
-  }
-
-  @media only screen and (min-width: 1600px) and (max-width: 3500px) {
-    min-width: 1200px;
-    max-width: 1200px;
-    margin-left: 0px;
-    margin: 0px auto;
-  }
+  width: 1440px;
+  margin: 0px auto;
 `;
 
 const CourseBox = styled.div`
-  min-width: 1500px;
-  max-width: 1500px;
+  min-width: 1440px;
   display: flex;
 
-  @media only screen and (min-width: 1600px) and (max-width: 3500px) {
-    min-width: 1200px;
-    max-width: 1200px;
-    padding-right: 100px;
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    width: 100%;
   }
 `;
 
@@ -135,23 +119,25 @@ const ImageBox = styled.div`
 `;
 
 const InfoBox = styled.div`
-  min-width: 400px;
-  max-width: 400px;
+  min-width: 320px;
+  max-width: 320px;
   min-height: 100%;
-  margin-left: 70px;
+  margin-left: 50px;
 `;
 
 const Catagory = styled.h4`
   color: whitesmoke;
+  font-weight: 400;
   font-size: 18px;
+  line-height: 21px;
   margin-bottom: 10px;
 `;
 
 const Title = styled.h2`
-  width: 86%;
   color: whitesmoke;
-  font-size: 24px;
-  font-weight: 500;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 33px;
   margin-bottom: 10px;
 `;
 
@@ -163,17 +149,19 @@ const Instructor = styled.h3`
 `;
 
 const Rating = styled.p`
+  display: flex;
+  align-items: center;
   color: whitesmoke;
   margin-bottom: 30px;
 `;
 
 const Description = styled.p`
   color: whitesmoke;
-  min-width: 450px;
-  max-width: 450px;
-  min-height: 100%;
+  min-width: 320px;
+  max-width: 320px;
+  font-weight: 400;
   font-size: 18px;
-  line-height: 1.4;
+  line-height: 150%;
   word-break: keep-all;
 `;
 
@@ -240,8 +228,8 @@ function Recomend({ recommendCourses }: RecommendProps) {
                       {course.instructor.name}
                     </Instructor>
                     <Rating>
-                      <FontAwesomeIcon className="star" icon={faStar} />
-                      {course.averageRatings} ({course.ratingsCount})
+                      <AiFillHeart className="heart" />
+                      {course.likeCount}
                     </Rating>
                     <Description>{course.description}</Description>
                   </InfoBox>

@@ -9,7 +9,10 @@ export type CourseTypes = {
   userCount: number;
   averageRatings: number;
   ratingsCount: number;
+  totalHours?: number;
+  likeCount?: number;
   instructor?: InstructorTypes;
+  length?: number;
 };
 
 export type CurriculumTypes = {
@@ -30,6 +33,7 @@ export type LectureTypes = {
   id: number;
   name: string;
   desc: string;
-  videoUrl: string;
+  dashUrl: string;
+  hlsUrl: string;
   playTime: string;
 };

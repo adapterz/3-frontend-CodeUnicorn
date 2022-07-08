@@ -36,7 +36,7 @@ function course({ courseDetail, curriculum, recommendCourses }: courseProps) {
     (async () => {
       const {
         data: { courses },
-      } = await getLikeCourses(userId.toString());
+      } = await getLikeCourses(String(userId));
       const result = courses.filter(
         (course: CourseTypes) => course.id === Number(query.courseId),
       );

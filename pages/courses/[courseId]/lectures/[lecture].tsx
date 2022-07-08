@@ -6,6 +6,8 @@ import { Cookies } from "react-cookie";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { CourseTypes } from "@/interface/course";
 import { NextSeo } from "next-seo";
+import browser from "browser-detect";
+import { useEffect } from "react";
 
 const Container = styled.div`
   position: absolute;
@@ -23,6 +25,9 @@ const Container = styled.div`
 
 function lecture({ courseDetail, curriculum, lecture }) {
   const cookie = new Cookies();
+  const browserType = browser();
+
+  useEffect(() => {}, [lecture]);
 
   return (
     <Container>
@@ -35,6 +40,14 @@ function lecture({ courseDetail, curriculum, lecture }) {
           courseDetail={courseDetail}
           curriculum={curriculum}
           lecture={lecture}
+          videoUrl={
+            browserType.name === "safari" ? lecture.hlsUrl : lecture.dashUrl
+          }
+          sourcesType={
+            browserType.name === "safari"
+              ? "application/x-mpegURL"
+              : "application/dash+xml"
+          }
         />
       ) : (
         <Auth />

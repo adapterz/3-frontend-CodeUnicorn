@@ -12,23 +12,25 @@ const Container = styled.div`
   margin: 30px auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
 const CourseList = styled.div`
-  width: 850px;
+  width: 1040px;
   display: flex;
   margin: 0px auto;
   flex-wrap: wrap;
-  gap: 20px 2%;
+  gap: 52px 36px;
+  margin-bottom: 76px;
 
-  div {
-    width: 270px;
-    margin-bottom: 40px;
-  }
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    width: 100%;
+    justify-content: center;
+    gap: 25px 0px;
+    text-align: center;
 
-  h2 {
-    width: 270px;
+    .Course__Rating-sc-6ii2hv-5 {
+      display: none;
+    }
   }
 `;
 
@@ -51,7 +53,7 @@ function CoursesTemplate({
       ) : (
         <CourseList>
           {courses.map((course: CourseTypes) => (
-            <Course key={course.id} course={course} width={280} height={200} />
+            <Course key={course.id} course={course} width={320} height={200} />
           ))}
         </CourseList>
       )}

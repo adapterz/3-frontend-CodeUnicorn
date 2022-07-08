@@ -3,7 +3,7 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import { getServerSideSitemap } from "next-sitemap";
 
-const DOMAIN = "codeunicorn.kr";
+const DOMAIN = "https://codeunicorn.kr";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const {
@@ -11,10 +11,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   } = await axios.get("https://api.codeunicorn.kr/courses/all");
 
   const defaultSitemap = [
-    "codeunicorn.kr",
-    "codeunicorn.kr/courses",
-    "codeunicorn.kr/join",
-    "codeunicorn.kr/login",
+    "https://codeunicorn.kr",
+    "https://codeunicorn.kr/courses",
+    "https://codeunicorn.kr/join",
+    "https://codeunicorn.kr/login",
   ];
 
   const staticPages = [];

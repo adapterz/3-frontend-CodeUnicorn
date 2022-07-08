@@ -11,13 +11,20 @@ const Container = styled.div`
 type videoInfoProps = {
   courseDetail: CourseTypes;
   lecture: LectureTypes;
+  videoUrl: string;
+  sourcesType: string;
 };
 
-function VideoInfo({ courseDetail, lecture }: videoInfoProps) {
+function VideoInfo({
+  courseDetail,
+  lecture,
+  videoUrl,
+  sourcesType,
+}: videoInfoProps) {
   return (
     <Container>
       <Header courseDetail={courseDetail} />
-      <Video lecture={lecture} />
+      <Video lecture={lecture} videoUrl={videoUrl} sourcesType={sourcesType} />
     </Container>
   );
 }

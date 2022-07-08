@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import Loading from "../Loading";
 import Images from "next/image";
+import { CourseTypes } from "@/interface/course";
 
 const Container = styled.div`
   width: 100%;
@@ -11,16 +12,26 @@ const Container = styled.div`
   justify-content: center;
 
   @media screen and (min-width: 0px) and (max-width: 412px) {
-    width: 1400px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid gray;
   }
 `;
 
 const InnerContainer = styled.div`
-  width: 830px;
-  margin: 0px auto;
+  width: 1040px;
+  height: 500px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0px auto;
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px 0px;
+  }
 
   img {
     border-radius: 20px;
@@ -28,36 +39,45 @@ const InnerContainer = styled.div`
 `;
 
 const BannerInfoBox = styled.div`
-  min-width: 320px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   padding-left: 10px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Title = styled.h1`
-  width: 320px;
-  font-size: 24px;
+  width: 370px;
+  font-size: 32px;
+  line-height: 38px;
   color: white;
-  font-weight: bold;
+  font-weight: 700;
   line-height: 120%;
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    margin-top: 10px;
+  }
 `;
 
 const Description = styled.p`
+  min-width: 415px;
   margin-top: 10px;
-  width: 320px;
+  width: 280px;
   color: #8d8a8a;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 140%;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    margin: 0px auto;
+    min-width: 320px;
+    margin-top: 10px;
+  }
 `;
 
-// type BannerProps = {
-//   newCourse: CourseTypes;
-// };
+type BannerProps = {
+  newCourse: CourseTypes;
+};
 
-function Banner({ newCourse }) {
+function Banner({ newCourse }: BannerProps) {
   return (
     <Container>
       {newCourse.length === 0 ? (
@@ -76,6 +96,7 @@ function Banner({ newCourse }) {
             <a>
               <Images
                 loading="eager"
+                layout="responsive"
                 src={newCourse.imagePath}
                 alt="course"
                 width={400}
