@@ -8,6 +8,7 @@ import { CourseTypes } from "@/interface/course";
 import { NextSeo } from "next-seo";
 import browser from "browser-detect";
 import { useEffect } from "react";
+import Loading from "@/components/Loading";
 
 const Container = styled.div`
   position: absolute;
@@ -27,7 +28,9 @@ function lecture({ courseDetail, curriculum, lecture }) {
   const cookie = new Cookies();
   const browserType = browser();
 
-  useEffect(() => {}, [lecture]);
+  useEffect(() => {
+    console.log(lecture);
+  }, [lecture]);
 
   return (
     <Container>
@@ -35,6 +38,24 @@ function lecture({ courseDetail, curriculum, lecture }) {
         title={`코드유니콘 | 강의 시청 페이지`}
         description="다양한 강의를 무료로 학습하면서 많은 지식을 쌓을 수 있습니다."
       ></NextSeo>
+      {lecture === undefined ? (
+        <Loading />
+      ) : (
+        <Player
+          courseDetail={courseDetail}
+          curriculum={curriculum}
+          lecture={lecture}
+          videoUrl={
+            browserType.name === "safari" ? lecture.hlsUrl : lecture.dashUrl
+          }
+          sourcesType={
+            browserType.name === "safari"
+              ? "application/x-mpegURL"
+              : "application/dash+xml"
+          }
+        />
+      )}
+
       {cookie.get("SESSION") !== undefined ? (
         <Player
           courseDetail={courseDetail}

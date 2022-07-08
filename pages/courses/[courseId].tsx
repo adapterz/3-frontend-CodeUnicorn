@@ -66,9 +66,12 @@ function course({ courseDetail, curriculum, recommendCourses }: courseProps) {
         },
       },
     );
-    response.status === 204
-      ? dispatch(setMessage({ message: "관심 교육으로 등록되었습니다. " }))
-      : dispatch(setMessage({ message: "관심 교육 등록에 실패했습니다. " }));
+    if (response.status === 204) {
+      setIsLike(true);
+      dispatch(setMessage({ message: "관심 교육으로 등록되었습니다. " }));
+    } else {
+      dispatch(setMessage({ message: "관심 교육 등록에 실패했습니다. " }));
+    }
   }, []);
 
   // 관심 교육 취소 API
@@ -81,9 +84,12 @@ function course({ courseDetail, curriculum, recommendCourses }: courseProps) {
         },
       },
     );
-    response.status === 204
-      ? dispatch(setMessage({ message: "관심 교육 등록 해제되었습니다. " }))
-      : dispatch(setMessage({ message: "관심 교육 취소에 실패했습니다. " }));
+    if (response.status === 204) {
+      setIsLike(false);
+      dispatch(setMessage({ message: "관심 교육 등록 해제되었습니다. " }));
+    } else {
+      dispatch(setMessage({ message: "관심 교육 취소에 실패했습니다. " }));
+    }
   }, []);
 
   return (

@@ -3,14 +3,6 @@
 const nextConfig = {
   reactStrictMode: true,
   baseUrl: ".",
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.node = {
-        fs: "empty",
-      };
-    }
-    return config;
-  },
   paths: {
     "@/components/*": ["components/*"],
     "@/core/*": ["core/*"],
@@ -23,6 +15,8 @@ const nextConfig = {
 module.exports = {
   images: {
     domains: ["code-unicorn-service.s3.ap-northeast-2.amazonaws.com"],
+    formats: ["image/avif", "image/webp"],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   nextConfig,
   env: {

@@ -7,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
     body {
         font-family: 'Roboto';
         font-style: normal;
+        overflow-x: hidden;
     }
 
     button {
