@@ -38,6 +38,7 @@ function lecture({ courseDetail, curriculum, lecture }) {
         title={`코드유니콘 | 강의 시청 페이지`}
         description="다양한 강의를 무료로 학습하면서 많은 지식을 쌓을 수 있습니다."
       ></NextSeo>
+
       {lecture === undefined ? (
         <Loading />
       ) : (
@@ -56,7 +57,7 @@ function lecture({ courseDetail, curriculum, lecture }) {
         />
       )}
 
-      {cookie.get("SESSION") !== undefined ? (
+      {/* {cookie.get("SESSION") !== undefined && lecture === undefined ? (
         <Player
           courseDetail={courseDetail}
           curriculum={curriculum}
@@ -72,7 +73,7 @@ function lecture({ courseDetail, curriculum, lecture }) {
         />
       ) : (
         <Auth />
-      )}
+      )} */}
     </Container>
   );
 }
