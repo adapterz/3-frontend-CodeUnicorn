@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { AuthReducerType } from "slices";
 import { IAuth, loginUser } from "slices/auth";
 
 function Persist() {
