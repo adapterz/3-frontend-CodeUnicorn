@@ -180,6 +180,7 @@ function Recomend({ recommendCourses }: RecommendProps) {
       : setCurrentSlide(currentSlide + 1);
   };
   const backSlide = () => {
+    console.log(currentSlide);
     currentSlide === 0
       ? setCurrentSlide(TOTAL_SLIDES)
       : setCurrentSlide(currentSlide - 1);
