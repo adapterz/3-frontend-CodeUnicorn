@@ -8,7 +8,7 @@ import { CourseTypes } from "@/interface/course";
 import { NextSeo } from "next-seo";
 import browser from "browser-detect";
 import { useEffect } from "react";
-import Loading from "@/components/Loading";
+import Link from "next/link";
 
 const Container = styled.div`
   position: absolute;
@@ -28,9 +28,7 @@ function lecture({ courseDetail, curriculum, lecture }) {
   const cookie = new Cookies();
   const browserType = browser();
 
-  useEffect(() => {
-    console.log(lecture);
-  }, [lecture]);
+  useEffect(() => {}, [lecture]);
 
   return (
     <Container>
@@ -75,7 +73,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     lectureIds.push(curriculum.sections[0].lectures[0].id);
   }
 
-  const paths = courses.map((course: CourseTypes, index) => ({
+  const paths = courses.map((course: CourseTypes, index: number) => ({
     params: {
       courseId: course.id.toString(),
       lecture: lectureIds[index].toString(),
