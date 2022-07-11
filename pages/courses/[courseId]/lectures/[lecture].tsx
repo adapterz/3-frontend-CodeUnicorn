@@ -26,6 +26,7 @@ const Container = styled.div`
 function lecture({ courseDetail, curriculum, lecture }) {
   const cookie = new Cookies();
   const browserType = browser();
+
   const [videoUrl, setVideoUrl] = useState("");
   const [sourcesType, setSourcesType] = useState("");
 
