@@ -96,11 +96,11 @@ function Banner({ newCourse }: BannerProps) {
             <a>
               <Images
                 loading="eager"
-                layout="responsive"
+                priority={true}
                 src={newCourse.imagePath}
                 alt="course"
-                width={400}
-                height={300}
+                width={550}
+                height={360}
               />
             </a>
           </Link>

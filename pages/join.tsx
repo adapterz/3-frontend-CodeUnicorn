@@ -26,8 +26,8 @@ const LoginLayout = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 280px;
-  height: 240px;
+  width: 320px;
+  height: 280px;
 `;
 
 const Title = styled.span`

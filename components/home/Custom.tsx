@@ -20,6 +20,7 @@ const Container = styled.div`
 
 const InnerContainer = styled.div`
   width: 1040px;
+  min-height: 440px;
   margin: 0px auto;
 `;
 
@@ -99,8 +100,8 @@ function Custom() {
               <Course
                 key={coures.id}
                 course={coures}
-                width={280}
-                height={200}
+                width={230}
+                height={150}
               />
             ))}
           </CourseList>

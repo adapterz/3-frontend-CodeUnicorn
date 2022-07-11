@@ -14,7 +14,7 @@ import axios from "axios";
 
 const Container = styled.nav`
   width: 100%;
-  height: 70px;
+  height: 90px;
   border-bottom: 1px solid gray;
 `;
 
@@ -108,7 +108,7 @@ function Header() {
 
   const onLogOut = async () => {
     const response = await logout(cookie.get("SESSION"));
-    
+
     if (response.status === 204) {
       cookie.remove("SESSION", {
         domain: "codeunicorn.kr",
