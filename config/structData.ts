@@ -6,7 +6,7 @@ export const structuredData = {
       "@type": "ListItem",
       position: 1,
       item: {
-        "@id": "https:/codeunicorn.kr/courses",
+        "@id": "https://codeunicorn.kr/courses?category=all&sortby=popular",
         name: "코드유니콘 | 전체 강의 - 인기순 온라인 강의",
       },
     },

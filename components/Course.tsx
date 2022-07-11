@@ -86,13 +86,7 @@ function Course({ course, width, height }: courseProps) {
     <Container>
       <Link key={course.id} href={`/courses/${id}`}>
         <ImageLink width={width} height={height}>
-          <Images
-            layout="responsive"
-            src={imagePath}
-            alt="course"
-            width={width}
-            height={height}
-          />
+          <Images src={imagePath} alt="course" width={width} height={height} />
         </ImageLink>
       </Link>
       <Category>{category}</Category>

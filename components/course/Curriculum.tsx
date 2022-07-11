@@ -176,7 +176,6 @@ function Curriculum({ curriculum }) {
                       stroke-miterlimit="10"
                     />
                   </svg>
-
                   <span className="play__time">{lecture.playTime}</span>
                 </Lecture>
               ))}

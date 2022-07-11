@@ -38,9 +38,7 @@ const ImageBox = styled.div`
   opacity: 0.9;
   border: 1px solid gray;
   border-radius: 20px;
-  min-width: 670px;
-  max-width: 670px;
-  min-height: 415px;
+  max-width: 669px;
   max-height: 415px;
 
   span {
@@ -61,6 +59,10 @@ const ImageBox = styled.div`
     margin: 128px 256px;
     opacity: 0.8;
     z-index: 2;
+
+    @media screen and (min-width: 0px) and (max-width: 412px) {
+      margin: 10% 30%;
+    }
   }
   &:hover {
     opacity: 1;
@@ -216,18 +218,18 @@ function CourseInfo({
       {courseDetail && (
         <>
           <TopBox>
-            <Link href={`/courses/${query.courseId}/lectures/${initLecture}`}>
-              <a>
-                <ImageBox>
+            <ImageBox>
+              <Link href={`/courses/${query.courseId}/lectures/${initLecture}`}>
+                <a>
                   <MdPlayArrow />
                   <Image
                     src={courseDetail.imagePath}
                     width={670}
                     height={415}
                   />
-                </ImageBox>
-              </a>
-            </Link>
+                </a>
+              </Link>
+            </ImageBox>
             <RightBox>
               <BtnBox>
                 {isLike ? (

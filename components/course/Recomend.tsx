@@ -18,10 +18,39 @@ const Container = styled.div`
   @media screen and (min-width: 0px) and (max-width: 412px) {
     display: none;
   }
+
+  .left__arrow {
+    font-size: 50px;
+    color: #4e4e4e;
+    opacity: 0.5;
+    left: 70px;
+    top: 120px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 9999;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .right__arrow {
+    font-size: 50px;
+    color: #4e4e4e;
+    opacity: 0.5;
+    right: 55px;
+    top: 120px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 9999;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 `;
 
 const InnerContainer = styled.div`
-  width: 900px;
+  width: 1040px;
   margin: 0px auto;
   margin-top: 4rem;
   margin-bottom: 3rem;
@@ -29,34 +58,6 @@ const InnerContainer = styled.div`
   min-height: 340px;
   display: flex;
   flex-direction: column;
-
-  .left__arrow {
-    font-size: 50px;
-    color: #4e4e4e;
-    opacity: 0.5;
-    left: 148px;
-    top: 120px;
-    position: absolute;
-    cursor: pointer;
-    z-index: 9999;
-
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-  .right__arrow {
-    font-size: 50px;
-    color: #4e4e4e;
-    opacity: 0.5;
-    right: 125px;
-    top: 120px;
-    position: absolute;
-    cursor: pointer;
-    z-index: 9999;
-    &:hover {
-      opacity: 0.8;
-    }
-  }
 `;
 
 const Title = styled.h1`
@@ -66,11 +67,12 @@ const Title = styled.h1`
 `;
 
 const SliderContainer = styled.div`
-  width: 900px;
+  /* width: 900px; */
+  width: 1040px;
   display: flex;
 
   a {
-    width: 300px;
+    width: 348px;
   }
 `;
 
@@ -95,13 +97,13 @@ function Recomend({ recommendCourses }) {
 
   return (
     <Container>
+      <FontAwesomeIcon
+        icon={faCircleChevronLeft}
+        onClick={backSlide}
+        className="left__arrow"
+      />
       <InnerContainer>
         <Title>추천 교육</Title>
-        <FontAwesomeIcon
-          icon={faCircleChevronLeft}
-          onClick={backSlide}
-          className="left__arrow"
-        />
         <SliderContainer ref={slideRef}>
           {recommendCourses.length === 0 ? (
             <Loading />
@@ -110,18 +112,18 @@ function Recomend({ recommendCourses }) {
               <Course
                 key={course.id}
                 course={course}
-                width={280}
+                width={320}
                 height={200}
               />
             ))
           )}
         </SliderContainer>
-        <FontAwesomeIcon
-          icon={faCircleChevronRight}
-          onClick={nextSlide}
-          className="right__arrow"
-        />
       </InnerContainer>
+      <FontAwesomeIcon
+        icon={faCircleChevronRight}
+        onClick={nextSlide}
+        className="right__arrow"
+      />
     </Container>
   );
 }
