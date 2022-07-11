@@ -1,17 +1,19 @@
 import CoursesTemplate from "@/components/courses/CoursesTemplate";
 import axios from "axios";
+import { GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const Courses = () => {
+const Courses = ({ courses }) => {
   const router = useRouter();
   const [category, setCategory] = useState(router.query.category || "all");
   const [currentPage, setCurrentPage] = useState(1);
   const [maxPage, setMaxPage] = useState([]);
-  const [courses, setCourses] = useState([]);
-  const [totalCourses, setTotalCourses] = useState(null);
+  const [coursesByCategory, setCoursesByCategory] = useState(courses.courses);
+  const [totalCourses, setTotalCourses] = useState(courses.courseCount);
 
+  // 카테고리별 강의 조회 API
   useEffect(() => {
     (async () => {
       const response = await axios.get(
@@ -19,10 +21,27 @@ const Courses = () => {
         { validateStatus: false as any },
       );
       if (response.status === 200) {
-        setCourses(response.data.data.courses);
+        setCoursesByCategory(response.data.data.courses);
         setTotalCourses(response.data.data.courseCount);
       } else {
-        setCourses([]);
+        setCoursesByCategory([]);
+        setTotalCourses(0);
+      }
+    })();
+  }, [category, router.query.sortby, currentPage]);
+
+  // 카테고리별 강의 조회 API
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get(
+        `https://api.codeunicorn.kr/courses?category=${category}&sortby=${router.query.sortby}&page=${currentPage}`,
+        { validateStatus: false as any },
+      );
+      if (response.status === 200) {
+        setCoursesByCategory(response.data.data.courses);
+        setTotalCourses(response.data.data.courseCount);
+      } else {
+        setCoursesByCategory([]);
         setTotalCourses(0);
       }
     })();
@@ -35,7 +54,7 @@ const Courses = () => {
       pageArr.push(i);
     }
     setMaxPage(pageArr);
-  }, [courses]);
+  }, [coursesByCategory]);
 
   function onSelect(data: string | number) {
     if (typeof data === "string") {
@@ -64,7 +83,7 @@ const Courses = () => {
         description="프론트엔드, 백엔드, 게임 개발 등 다양한 카테고리의 인기 전체 강의"
       />
       <CoursesTemplate
-        courses={courses}
+        courses={coursesByCategory}
         totalCourses={totalCourses}
         category={category}
         currentPage={currentPage}
@@ -75,6 +94,19 @@ const Courses = () => {
       />
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const {
+    data: { data: courses },
+  } = await axios.get(
+    `https://api.codeunicorn.kr/courses?category=all&sortby=popular&page=1`,
+  );
+
+  return {
+    props: { courses },
+    revalidate: 86400,
+  };
 };
 
 export default Courses;

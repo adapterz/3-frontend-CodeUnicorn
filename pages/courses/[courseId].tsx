@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AuthReducerType } from "slices";
 import { IAuth } from "slices/auth";
 import { setMessage } from "slices/toast";
+import videojs from "video.js";
 
 type courseProps = {
   courseDetail: CourseTypes;
@@ -33,6 +34,10 @@ function course({ courseDetail, curriculum, recommendCourses }: courseProps) {
 
   // 로그인한 유저의 관심 강의 목록 API
   useEffect(() => {
+    // 새로고침시 플레이어가 보여질 수 있도록 video.js 초기화
+    const video = videojs("player");
+    video.dispose();
+
     (async () => {
       const {
         data: { courses },

@@ -31,12 +31,13 @@ const Catagory = styled.button<ICategory>`
   font-size: 18px;
   line-height: 21px;
   text-align: center;
-  padding: 6px 20px;
+  padding: 0px 20px;
   border: 1px solid gray;
   border-radius: 20px;
   margin-right: 10px;
   color: black;
   background-color: white;
+  height: 29px;
 
   ${(props) =>
     props.active &&

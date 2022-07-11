@@ -38,6 +38,8 @@ const ImageBox = styled.div`
   opacity: 0.9;
   border: 1px solid gray;
   border-radius: 20px;
+  max-width: 669px;
+  max-height: 415px;
 
   span {
     border-radius: 20px;

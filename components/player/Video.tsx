@@ -1,7 +1,6 @@
 import { LectureTypes } from "@/interface/course";
 import { useEffect } from "react";
 import styled from "styled-components";
-import Loading from "../Loading";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 
@@ -30,7 +29,7 @@ type videoProps = {
 
 function Video({ lecture, videoUrl, sourcesType }: videoProps) {
   useEffect(() => {
-    videojs("player", {
+    const player = videojs("player", {
       sources: [
         {
           src: `${videoUrl}`,
@@ -51,15 +50,13 @@ function Video({ lecture, videoUrl, sourcesType }: videoProps) {
         qualitySelector: true, //품질 선택 창
       },
     });
-  }, [lecture, videoUrl, sourcesType]);
+
+    player.src({ type: sourcesType, src: videoUrl });
+  }, [lecture, videoUrl]);
 
   return (
     <Container>
-      {lecture === undefined ? (
-        <Loading />
-      ) : (
-        <video id="player" className="video-js vjs-big-play-centeredh"></video>
-      )}
+      <video id="player" className="video-js vjs-big-play-centeredh"></video>
     </Container>
   );
 }

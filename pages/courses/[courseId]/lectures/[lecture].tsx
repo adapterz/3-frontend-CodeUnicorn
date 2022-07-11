@@ -7,8 +7,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { CourseTypes } from "@/interface/course";
 import { NextSeo } from "next-seo";
 import browser from "browser-detect";
-import { useEffect } from "react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const Container = styled.div`
   position: absolute;
@@ -27,8 +26,20 @@ const Container = styled.div`
 function lecture({ courseDetail, curriculum, lecture }) {
   const cookie = new Cookies();
   const browserType = browser();
+  const [videoUrl, setVideoUrl] = useState("");
+  const [sourcesType, setSourcesType] = useState("");
 
-  useEffect(() => {}, [lecture]);
+  useEffect(() => {
+    if (lecture.dashUrl !== undefined || lecture.hlsUrl !== undefined) {
+      if (browserType.name === "safari") {
+        setVideoUrl(lecture.hlsUrl);
+        setSourcesType("application/x-mpegURL");
+      } else {
+        setVideoUrl(lecture.dashUrl);
+        setSourcesType("application/dash+xml");
+      }
+    }
+  }, [lecture]);
 
   return (
     <Container>
@@ -41,14 +52,8 @@ function lecture({ courseDetail, curriculum, lecture }) {
           courseDetail={courseDetail}
           curriculum={curriculum}
           lecture={lecture}
-          videoUrl={
-            browserType.name === "safari" ? lecture.hlsUrl : lecture.dashUrl
-          }
-          sourcesType={
-            browserType.name === "safari"
-              ? "application/x-mpegURL"
-              : "application/dash+xml"
-          }
+          videoUrl={videoUrl}
+          sourcesType={sourcesType}
         />
       ) : (
         <Auth />

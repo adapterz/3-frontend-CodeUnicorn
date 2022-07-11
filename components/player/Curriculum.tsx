@@ -78,9 +78,14 @@ const SectionInfo = styled.div`
   }
 `;
 
-const Lecture = styled.div`
+type LectureProps = {
+  bgColor: string;
+};
+
+const Lecture = styled.div<LectureProps>`
   display: flex;
   transition: all 0.4s ease-in-out;
+  background-color: ${(props) => props.bgColor};
 
   .lecture__name {
     min-width: 360px;
@@ -148,7 +153,13 @@ function Curriculum({ curriculum }: CurriculumProps) {
                       href={`/courses/${router.query.courseId}/lectures/${lecture.id}`}
                     >
                       <a>
-                        <Lecture key={lecture.id}>
+                        <Lecture
+                          bgColor={
+                            Number(router.query.lecture) === lecture.id &&
+                            "lightgray"
+                          }
+                          key={lecture.id}
+                        >
                           <h3 className="lecture__name">{lecture.name}</h3>
                           <span className="play__time">{lecture.playTime}</span>
                         </Lecture>
