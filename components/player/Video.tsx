@@ -50,7 +50,6 @@ function Video({ lecture, videoUrl, sourcesType }: videoProps) {
         qualitySelector: true, //품질 선택 창
       },
     });
-
     player.src({ type: sourcesType, src: videoUrl });
   }, [lecture, videoUrl]);
 
