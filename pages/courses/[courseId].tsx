@@ -35,8 +35,10 @@ function course({ courseDetail, curriculum, recommendCourses }: courseProps) {
   // 로그인한 유저의 관심 강의 목록 API
   useEffect(() => {
     // 새로고침시 플레이어가 보여질 수 있도록 video.js 초기화
-    const video = videojs("player");
-    video.dispose();
+    if (cookie.get("play-video") !== undefined) {
+      videojs("player").dispose();
+      cookie.remove("play-video");
+    }
 
     (async () => {
       const {
