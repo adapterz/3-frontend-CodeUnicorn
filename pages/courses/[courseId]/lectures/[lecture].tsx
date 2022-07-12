@@ -25,13 +25,13 @@ const Container = styled.div`
 
 function lecture({ courseDetail, curriculum, lecture }) {
   const cookie = new Cookies();
-  cookie.set("play-video", lecture.id);
   const browserType = browser();
   const [videoUrl, setVideoUrl] = useState("");
   const [sourcesType, setSourcesType] = useState("");
 
   useEffect(() => {
     if (lecture.dashUrl !== undefined || lecture.hlsUrl !== undefined) {
+      cookie.set("play-video", lecture.id);
       if (browserType.name === "safari") {
         setVideoUrl(lecture.hlsUrl);
         setSourcesType("application/x-mpegURL");
