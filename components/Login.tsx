@@ -7,6 +7,7 @@ import { IAuth, loginUser } from "slices/auth";
 import { setMessage, ToastType } from "slices/toast";
 import { Cookies } from "react-cookie";
 import Link from "next/link";
+import { NextSeo } from "next-seo";
 
 const Container = styled.div`
   display: flex;
@@ -112,6 +113,10 @@ export default function Login() {
 
   return (
     <Container>
+      <NextSeo
+        title="코드유니콘 | 로그인"
+        description="코드유니콘 로그인 후 프론트엔드, 백엔드, 게임 개발 등 다양한 강의를 무료로 수강하세요."
+      ></NextSeo>
       <Logo src="/images/logo.svg"></Logo>
       <NaverBtn onClick={() => signIn("naver")}>
         <NaverLogo src="/images/naver.png" />
