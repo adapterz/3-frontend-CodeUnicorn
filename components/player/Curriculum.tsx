@@ -18,6 +18,22 @@ const Container = styled.div`
   align-items: center;
   overflow-y: scroll;
   position: relative;
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    width: 100%;
+    height: 500px;
+    margin-top: 70px;
+    position: static;
+    overflow-x: hidden;
+  }
+`;
+
+const InnerContainer = styled.div`
+  height: 100%;
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    width: 100%;
+  }
 `;
 
 const InnerContainer = styled.div`
@@ -36,6 +52,10 @@ const BackBtn = styled.button`
   right: 1.125rem;
   display: flex;
   align-items: center;
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    display: none;
+  }
 
   svg {
     font-size: 1.5rem;
@@ -92,6 +112,10 @@ const Lecture = styled.div<LectureProps>`
     font-size: 16px;
     padding: 12px 12px;
     color: #444444;
+
+    @media screen and (min-width: 0px) and (max-width: 412px) {
+      min-width: 260px;
+    }
   }
 
   svg {

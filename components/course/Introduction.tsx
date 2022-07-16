@@ -10,7 +10,7 @@ const Container = styled.div`
     text-align: center;
   }
 
-  h1 {
+  h2 {
     font-weight: 700;
     font-size: 24px;
     line-height: 28px;
@@ -83,7 +83,7 @@ function Introduction({ courseDetail, instructor }) {
     <>
       {courseDetail && (
         <Container>
-          <h1>리더소개</h1>
+          <h2>리더소개</h2>
           <InfoBox>
             <ImageBox>
               <img src={instructor.profilePath}></img>
@@ -91,7 +91,7 @@ function Introduction({ courseDetail, instructor }) {
             </ImageBox>
             <Info>{instructor.introduction}</Info>
           </InfoBox>
-          <h1>교육소개</h1>
+          <h2>교육소개</h2>
           <Info>{courseDetail.description}</Info>
           <h1 className="copyright">수업 저작권</h1>
           <img src="/images/copyright.jpeg" />

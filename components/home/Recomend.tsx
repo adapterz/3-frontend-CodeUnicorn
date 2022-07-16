@@ -209,8 +209,9 @@ function Recomend({ recommendCourses }: RecommendProps) {
                 <Link key={course.id} href={`/courses/${course.id}`}>
                   <a>
                     <Images
+                      title={course.name}
                       src={course.imagePath}
-                      alt="course"
+                      alt={course.name}
                       width={640}
                       height={400}
                     />

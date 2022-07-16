@@ -35,6 +35,7 @@ const Section = styled.section`
     right: 4px;
 
     @media screen and (min-width: 0px) and (max-width: 412px) {
+      width: 100%;
       display: none;
     }
   }
@@ -61,7 +62,7 @@ const CourseList = styled.div`
   justify-content: space-between;
 
   @media screen and (min-width: 0px) and (max-width: 412px) {
-    width: 412px;
+    width: 100%;
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px 0px;

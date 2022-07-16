@@ -5,7 +5,7 @@ const Container = styled.div`
   width: 1040px;
   margin: 0px auto;
 
-  h1 {
+  h2 {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 1.5rem;
@@ -36,7 +36,7 @@ const SectionInfo = styled.div`
 
     @media screen and (min-width: 0px) and (max-width: 412px) {
       font-size: 16px;
-      min-width: 220px;
+      min-width: 190px;
       padding-left: 0px;
     }
   }
@@ -49,6 +49,7 @@ const SectionInfo = styled.div`
     text-align: right;
 
     @media screen and (min-width: 0px) and (max-width: 412px) {
+      font-size: 16px;
       margin-right: 55px;
     }
   }
@@ -74,7 +75,7 @@ const Lecture = styled.div`
 
     @media screen and (min-width: 0px) and (max-width: 412px) {
       font-size: 14px;
-      min-width: 224px;
+      min-width: 190px;
       padding-left: 0px;
     }
   }
@@ -104,11 +105,11 @@ function Curriculum({ curriculum }) {
     <>
       {curriculum && (
         <Container>
-          <h1>커리큘럼</h1>
+          <h2>커리큘럼</h2>
           {curriculum.map((section: SectionTypes) => (
             <Section key={section.name}>
               <SectionInfo>
-                <h2 className="section__name">{section.name}</h2>
+                <h3 className="section__name">{section.name}</h3>
                 <span className="section__lecture">
                   {section.lectureCount}강
                 </span>
