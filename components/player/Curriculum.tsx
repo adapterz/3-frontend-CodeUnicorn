@@ -36,6 +36,10 @@ const InnerContainer = styled.div`
   }
 `;
 
+const InnerContainer = styled.div`
+  height: 100%;
+`;
+
 const BackBtn = styled.button`
   padding: 6px;
   min-width: 100px;

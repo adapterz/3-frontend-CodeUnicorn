@@ -29,6 +29,12 @@ const InnerContainer = styled.div`
   }
 `;
 
+const InnerContainer = styled.div`
+  width: 1040px;
+  min-height: 440px;
+  margin: 0px auto;
+`;
+
 const Title = styled.h1`
   font-size: 28px;
   font-weight: bold;

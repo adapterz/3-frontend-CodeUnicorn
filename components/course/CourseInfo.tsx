@@ -250,7 +250,7 @@ function CourseInfo({
                 </Link>
               </BtnBox>
               <InfoBox>
-                <h3>교육정보</h3>
+                <h3>교육정보.</h3>
                 <Info>
                   <AiFillHeart className="heart" />
                   <span>
