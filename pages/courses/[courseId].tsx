@@ -35,8 +35,10 @@ function course({ courseDetail, curriculum, recommendCourses }: courseProps) {
   // 로그인한 유저의 관심 강의 목록 API
   useEffect(() => {
     // 새로고침시 플레이어가 보여질 수 있도록 video.js 초기화
-    const video = videojs("player");
-    video.dispose();
+    if (cookie.get("play-video") !== undefined) {
+      videojs("player").dispose();
+      cookie.remove("play-video");
+    }
 
     (async () => {
       const {
@@ -102,6 +104,22 @@ function course({ courseDetail, curriculum, recommendCourses }: courseProps) {
       <NextSeo
         title={`코드유니콘 | ${courseDetail.name} 강의`}
         description={courseDetail.description}
+        openGraph={{
+          type: "website",
+          locale: "ko_KR",
+          url: `https://codeunicorn.kr/courses/${query.courseId}`,
+          title: `코드유니콘 | ${courseDetail.name} 강의`,
+          description: courseDetail.description,
+          site_name: "코드유니콘",
+          images: [
+            {
+              url: courseDetail.imagePath,
+              width: 285,
+              height: 160,
+              alt: "로고 이미지",
+            },
+          ],
+        }}
       />
       <CourseInfo
         courseDetail={courseDetail}

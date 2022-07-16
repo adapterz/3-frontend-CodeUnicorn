@@ -8,6 +8,10 @@ const Container = styled.header`
   display: flex;
   align-items: center;
   background-color: #333333;
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    min-height: 110px;
+  }
 `;
 
 const ImageBox = styled.div`
@@ -64,7 +68,12 @@ function Header({ courseDetail }) {
           <Link href="/">
             <a>
               <ImageBox>
-                <img className="logo" src="/images/logo.svg" />
+                <img
+                  className="logo"
+                  title="코드유니콘"
+                  alt="코드유니콘"
+                  src="/images/logo.svg"
+                />
               </ImageBox>
             </a>
           </Link>

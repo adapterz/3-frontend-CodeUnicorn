@@ -9,6 +9,10 @@ const Container = styled.div`
   height: 88%;
   display: flex;
 
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    height: 220px;
+  }
+
   .video-js {
     display: flex;
     justify-content: center;
@@ -50,6 +54,7 @@ function Video({ lecture, videoUrl, sourcesType }: videoProps) {
         qualitySelector: true, //품질 선택 창
       },
     });
+
     player.src({ type: sourcesType, src: videoUrl });
   }, [lecture, videoUrl]);
 

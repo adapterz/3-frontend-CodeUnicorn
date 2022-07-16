@@ -6,6 +6,10 @@ import Video from "./Video";
 const Container = styled.div`
   width: 100%;
   height: 100%;
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    height: 220px;
+  }
 `;
 
 type videoInfoProps = {

@@ -19,19 +19,19 @@ const Container = styled.div`
   background-color: white;
 
   @media screen and (min-width: 0px) and (max-width: 412px) {
-    width: 1400px;
+    width: 100%;
   }
 `;
 
 function lecture({ courseDetail, curriculum, lecture }) {
   const cookie = new Cookies();
   const browserType = browser();
-
   const [videoUrl, setVideoUrl] = useState("");
   const [sourcesType, setSourcesType] = useState("");
 
   useEffect(() => {
     if (lecture.dashUrl !== undefined || lecture.hlsUrl !== undefined) {
+      cookie.set("play-video", lecture.id);
       if (browserType.name === "safari") {
         setVideoUrl(lecture.hlsUrl);
         setSourcesType("application/x-mpegURL");

@@ -16,7 +16,7 @@ const Container = styled.div`
   margin: 0px auto;
 
   @media screen and (min-width: 0px) and (max-width: 412px) {
-    width: 412px;
+    width: 100%;
     margin: 0px;
     display: flex;
     flex-wrap: wrap;

@@ -60,7 +60,7 @@ const InnerContainer = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
