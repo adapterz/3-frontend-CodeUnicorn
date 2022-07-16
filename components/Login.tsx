@@ -117,7 +117,7 @@ export default function Login() {
         title="코드유니콘 | 로그인"
         description="코드유니콘 로그인 후 프론트엔드, 백엔드, 게임 개발 등 다양한 강의를 무료로 수강하세요."
       ></NextSeo>
-      <Logo src="/images/logo.svg"></Logo>
+      <Logo title="코드유니콘" alt="코드유니콘" src="/images/logo.svg"></Logo>
       <NaverBtn onClick={() => signIn("naver")}>
         <NaverLogo src="/images/naver.png" />
         <Title color={"white"}>네이버 로그인</Title>

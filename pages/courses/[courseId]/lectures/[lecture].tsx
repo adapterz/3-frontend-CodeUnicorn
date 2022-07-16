@@ -19,7 +19,7 @@ const Container = styled.div`
   background-color: white;
 
   @media screen and (min-width: 0px) and (max-width: 412px) {
-    width: 1400px;
+    width: 100%;
   }
 `;
 

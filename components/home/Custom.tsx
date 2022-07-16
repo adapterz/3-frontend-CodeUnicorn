@@ -22,6 +22,11 @@ const InnerContainer = styled.div`
   width: 1040px;
   min-height: 440px;
   margin: 0px auto;
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    width: 100%;
+    text-align: center;
+  }
 `;
 
 const Title = styled.h1`
@@ -30,7 +35,6 @@ const Title = styled.h1`
   margin-bottom: 20px;
 
   @media screen and (min-width: 0px) and (max-width: 412px) {
-    width: 412px;
     text-align: center;
   }
 `;
@@ -53,7 +57,7 @@ const CourseList = styled.div`
   gap: 40px;
 
   @media screen and (min-width: 0px) and (max-width: 412px) {
-    width: 412px;
+    width: 100%;
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px 0px;

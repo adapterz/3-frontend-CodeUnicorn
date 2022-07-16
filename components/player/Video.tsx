@@ -9,6 +9,10 @@ const Container = styled.div`
   height: 88%;
   display: flex;
 
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    height: 220px;
+  }
+
   .video-js {
     display: flex;
     justify-content: center;

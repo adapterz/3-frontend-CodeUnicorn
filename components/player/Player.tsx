@@ -7,6 +7,11 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    width: 100%;
+    flex-direction: column;
+  }
 `;
 
 type playerProps = {

@@ -44,7 +44,7 @@ const BannerInfoBox = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
   width: 370px;
   font-size: 32px;
   line-height: 38px;
@@ -98,7 +98,8 @@ function Banner({ newCourse }: BannerProps) {
                 loading="eager"
                 priority={true}
                 src={newCourse.imagePath}
-                alt="course"
+                title={newCourse.name}
+                alt={newCourse.name}
                 width={550}
                 height={360}
               />

@@ -104,6 +104,22 @@ function course({ courseDetail, curriculum, recommendCourses }: courseProps) {
       <NextSeo
         title={`코드유니콘 | ${courseDetail.name} 강의`}
         description={courseDetail.description}
+        openGraph={{
+          type: "website",
+          locale: "ko_KR",
+          url: `https://codeunicorn.kr/courses/${query.courseId}`,
+          title: `코드유니콘 | ${courseDetail.name} 강의`,
+          description: courseDetail.description,
+          site_name: "코드유니콘",
+          images: [
+            {
+              url: courseDetail.imagePath,
+              width: 285,
+              height: 160,
+              alt: "로고 이미지",
+            },
+          ],
+        }}
       />
       <CourseInfo
         courseDetail={courseDetail}

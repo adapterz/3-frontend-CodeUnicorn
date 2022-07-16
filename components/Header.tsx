@@ -124,7 +124,7 @@ function Header() {
       <InnerContainer>
         <Link href="/">
           <a>
-            <Logo src="/images/logo.svg"></Logo>
+            <Logo title="코드유니콘" alt="코드유니콘" src="/images/logo.svg"></Logo>
           </a>
         </Link>
         <SearchBar courses={courses} />

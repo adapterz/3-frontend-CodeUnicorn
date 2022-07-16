@@ -12,7 +12,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const defaultSitemap = [
     "https://codeunicorn.kr",
-    "https://codeunicorn.kr/courses",
     "https://codeunicorn.kr/join",
     "https://codeunicorn.kr/login",
   ];

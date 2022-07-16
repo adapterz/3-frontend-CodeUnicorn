@@ -41,6 +41,10 @@ const ImageBox = styled.div`
   max-width: 669px;
   max-height: 415px;
 
+  @media screen and (min-width: 0px) and (max-width: 412px) {
+    height: 242px;
+  }
+
   span {
     border-radius: 20px;
   }
@@ -246,7 +250,7 @@ function CourseInfo({
                 </Link>
               </BtnBox>
               <InfoBox>
-                <h3>교육정보.</h3>
+                <h3>교육정보</h3>
                 <Info>
                   <AiFillHeart className="heart" />
                   <span>
